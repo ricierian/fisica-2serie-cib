@@ -1,0 +1,2067 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Física 2ª Série CIB</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#23395B">
+<meta name="description" content="Listas interativas de Física da 2ª série do Colégio Israelita Brasileiro, com dica e resolução passo a passo.">
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Física 2ª">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+:root{
+--bg:#EDF0F3; --surface:#FFFFFF; --ink:#141B22; --muted:#55616D; --line:#D2D9E0;
+--sign:#1D4E89; --sign-ink:#FFFFFF; --lane:#F2B705; --road:#2A3037; --road-ink:#F3F5F7;
+--ok:#1B7A45; --ok-bg:#E2F2E8; --bad:#B23A25; --bad-bg:#FAE8E3;
+--tip-bg:#FFF5D6; --tip-ink:#5E4500; --mark-ok:#2FA463; --mark-bad:#D9553B;
+--eq-bg:#F3F5F8;
+--f-display:'Barlow Condensed','Arial Narrow',sans-serif;
+--f-body:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',sans-serif;
+--f-mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+:root:not([data-theme="light"]){
+--bg:#0F141A; --surface:#17202A; --ink:#E6ECF2; --muted:#98A5B2; --line:#2A3542;
+--sign:#2C63A8; --sign-ink:#FFFFFF; --lane:#F2C230; --road:#0A0E12; --road-ink:#F3F5F7;
+--ok:#5CCB8D; --ok-bg:#15301F; --bad:#F28C74; --bad-bg:#3A1C16;
+--tip-bg:#2D2610; --tip-ink:#F2D27A; --mark-ok:#2FA463; --mark-bad:#D9553B;
+--eq-bg:#111922; color-scheme:dark;
+}
+}
+:root[data-theme="dark"]{
+--bg:#0F141A; --surface:#17202A; --ink:#E6ECF2; --muted:#98A5B2; --line:#2A3542;
+--sign:#2C63A8; --sign-ink:#FFFFFF; --lane:#F2C230; --road:#0A0E12; --road-ink:#F3F5F7;
+--ok:#5CCB8D; --ok-bg:#15301F; --bad:#F28C74; --bad-bg:#3A1C16;
+--tip-bg:#2D2610; --tip-ink:#F2D27A; --mark-ok:#2FA463; --mark-bad:#D9553B;
+--eq-bg:#111922; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.55}
+.wrap{max-width:720px;margin:0 auto;padding-block:20px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,summary:focus-visible{outline:3px solid var(--lane);outline-offset:2px}
+.plate{background:var(--sign);color:var(--sign-ink);border-radius:12px;padding:6px}
+.plate-inner{border:2px solid var(--sign-ink);border-radius:8px;padding:14px 18px 16px;display:flex;flex-direction:column;gap:2px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.9}
+.plate h1{font-family:var(--f-display);font-weight:700;font-size:clamp(38px,9vw,52px);line-height:1;margin:6px 0 0;letter-spacing:.01em;text-wrap:balance}
+.plate p{margin:4px 0 0;font-size:17px;opacity:.95}
+.road{background:var(--road);color:var(--road-ink);border-radius:10px;padding:10px 10px 12px;position:relative;overflow:hidden}
+.road-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;opacity:.85;margin-bottom:6px}
+.lane{position:relative;height:26px}
+.lane::before{content:"";position:absolute;left:0;right:0;top:50%;height:3px;transform:translateY(-50%);background:repeating-linear-gradient(90deg,var(--lane) 0 14px,transparent 14px 26px);opacity:.9}
+.car{position:absolute;top:50%;transform:translate(-50%,-50%);transition:left .5s ease;width:34px;height:20px}
+.marks{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;margin-top:6px}
+.mk{height:32px;border-radius:5px;border:1.5px solid rgba(243,245,247,.35);background:transparent;color:var(--road-ink);font-family:var(--f-mono);font-size:13px;font-weight:600;padding:0;min-width:0}
+.mk.ok{background:var(--mark-ok);border-color:var(--mark-ok)}
+.mk.bad{background:var(--mark-bad);border-color:var(--mark-bad)}
+.mk.cur{outline:2.5px solid var(--lane);outline-offset:1px}
+.tools{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.tools summary{padding:14px 18px;font-weight:700;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.tools summary::-webkit-details-marker{display:none}
+.tools summary .chev{font-family:var(--f-mono);color:var(--muted);transition:transform .2s}
+.tools[open] summary .chev{transform:rotate(90deg)}
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:10px;padding:0 18px 18px}
+.tool{background:var(--eq-bg);border-radius:8px;padding:12px 14px;min-width:0}
+.tool h4{margin:0 0 6px;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.tool div{font-size:16px;line-height:1.9}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.qnum{font-family:var(--f-display);font-size:26px;font-weight:700;line-height:1}
+.qnum span{color:var(--muted);font-weight:600}
+.src{font-family:var(--f-mono);font-size:12.5px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.stmt{margin:0;font-size:18px;line-height:1.6}
+.opts{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:11px 14px;transition:border-color .15s,background .15s}
+.opt:hover:not(:disabled){border-color:var(--sign)}
+.opt:disabled{cursor:default}
+.letter{flex:none;width:30px;height:30px;border-radius:6px;display:grid;place-items:center;font-family:var(--f-mono);font-weight:600;font-size:14px;background:var(--eq-bg);color:var(--ink)}
+.opt.is-correct{border-color:var(--ok);background:var(--ok-bg)}
+.opt.is-correct .letter{background:var(--ok);color:var(--surface)}
+.opt.is-wrong{border-color:var(--bad);background:var(--bad-bg)}
+.opt.is-wrong .letter{background:var(--bad);color:var(--surface)}
+.opt.is-dim{opacity:.55}
+.opt .tag{margin-left:auto;font-size:13px;font-weight:700;white-space:nowrap}
+.opt.is-correct .tag{color:var(--ok)}
+.opt.is-wrong .tag{color:var(--bad)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{border-radius:9px;padding:11px 18px;font-weight:700;border:1.5px solid var(--line);background:var(--surface)}
+.btn:hover{border-color:var(--sign)}
+.btn.primary{background:var(--sign);color:var(--sign-ink);border-color:var(--sign)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.ghost{border-color:transparent;background:transparent;color:var(--muted);padding-inline:8px;text-decoration:underline;text-underline-offset:3px}
+.spacer{flex:1}
+.tip{background:var(--tip-bg);color:var(--tip-ink);border-radius:10px;padding:12px 16px;font-size:16px}
+.tip b{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:2px}
+.feedback{border-radius:10px;padding:12px 16px;font-weight:700;display:flex;gap:10px;align-items:center}
+.feedback.good{background:var(--ok-bg);color:var(--ok)}
+.feedback.bad{background:var(--bad-bg);color:var(--bad)}
+.feedback .ico{font-family:var(--f-mono);font-size:18px}
+.sol{border-top:2px dashed var(--line);padding-top:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.sol h3{font-family:var(--f-display);font-size:28px;margin:0;line-height:1}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;counter-reset:st}
+.step{display:grid;grid-template-columns:30px 1fr;gap:12px;counter-increment:st;min-width:0}
+.step::before{content:counter(st);width:30px;height:30px;border-radius:50%;background:var(--sign);color:var(--sign-ink);display:grid;place-items:center;font-family:var(--f-mono);font-weight:600;font-size:14px}
+.step-body{min-width:0}
+.step-label{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:4px 0 4px}
+.step-body p{margin:0 0 8px}
+.step-body p:last-child{margin-bottom:0}
+.step-body ul{margin:0;padding-left:20px}
+.eq{background:var(--eq-bg);border-radius:8px;padding:10px 14px;margin:8px 0;overflow-x:auto;white-space:nowrap;font-size:17px;line-height:2.3;font-variant-numeric:tabular-nums}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;line-height:1.25;margin:0 .15em}
+.frac>span:first-child{border-bottom:1.5px solid currentColor;padding:0 .3em 1px}
+.frac>span:last-child{padding:2px .3em 0}
+.hl{background:var(--tip-bg);color:var(--tip-ink);padding:0 .25em;border-radius:3px;font-weight:700}
+.answer{display:flex;align-items:center;gap:12px;background:var(--ok-bg);color:var(--ok);border-radius:10px;padding:12px 16px;font-weight:700}
+.answer .letter{background:var(--ok);color:var(--surface)}
+.alt{border:1.5px solid var(--line);border-radius:10px;padding:12px 16px;font-size:16px}
+.alt b.lbl,.warn b.lbl{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:4px}
+.alt b.lbl{color:var(--sign)}
+.warn{background:var(--bad-bg);border-radius:10px;padding:12px 16px;font-size:16px}
+.warn b.lbl{color:var(--bad)}
+.tblwrap{overflow-x:auto;margin:8px 0}
+table{border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:15px;min-width:100%}
+th,td{border:1px solid var(--line);padding:6px 10px;text-align:center;white-space:nowrap}
+th{background:var(--eq-bg);font-weight:700}
+td.meet{background:var(--ok-bg);color:var(--ok);font-weight:700}
+.intro p{margin:0}
+.intro ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.score{font-family:var(--f-display);font-size:72px;line-height:.9;font-weight:700}
+.score span{color:var(--muted);font-size:40px}
+.reslist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,150px),1fr));gap:8px}
+.res{display:flex;align-items:center;gap:8px;width:100%;border:1.5px solid var(--line);border-radius:9px;padding:9px 12px;background:var(--surface);text-align:left}
+.res:hover{border-color:var(--sign)}
+.res .st{margin-left:auto;font-family:var(--f-mono);font-weight:600;font-size:13px}
+.res.ok .st{color:var(--ok)} .res.bad .st{color:var(--bad)} .res.none .st{color:var(--muted)}
+.small{font-size:14px;color:var(--muted)}
+@media (max-width:480px){
+body{font-size:16px}
+.card{padding:18px 16px}
+.stmt{font-size:17px}
+.mk{font-size:11.5px;height:30px}
+.marks{gap:3px}
+}
+@media (prefers-reduced-motion: reduce){ .car,.tools summary .chev{transition:none} }
+.crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-family:var(--f-mono);font-size:12.5px;letter-spacing:.04em;color:var(--muted)}
+.crumbs button{background:none;border:0;padding:4px 2px;color:var(--sign);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.crumbs .sep{opacity:.6}
+.crumbs .here{color:var(--ink);font-weight:600}
+.sect-label{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0}
+.cards{display:flex;flex-direction:column;gap:12px}
+.tile{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;width:100%;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;transition:border-color .15s,transform .15s}
+.tile:hover{border-color:var(--sign)}
+.tile:active{transform:scale(.99)}
+.tile .ico{width:52px;height:52px;border-radius:10px;background:var(--sign);color:var(--sign-ink);display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:24px;border:2px solid var(--sign-ink);outline:3px solid var(--sign)}
+.tile .ico.lane{background:var(--road);color:var(--lane);outline-color:var(--road);border-color:var(--lane);font-family:var(--f-mono);font-size:16px}
+.tile .tt{display:block;margin:0;font-family:var(--f-display);font-size:24px;line-height:1.05}
+.tile .ds{display:block;margin:4px 0 0;font-size:15px;color:var(--muted);line-height:1.4}
+.tile .go{font-family:var(--f-mono);font-weight:600;color:var(--sign);font-size:20px}
+.tile .meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{font-family:var(--f-mono);font-size:11.5px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.chip.ok{border-color:var(--ok);color:var(--ok)}
+.note{font-size:14.5px;color:var(--muted);margin:0}
+@media (max-width:480px){.tile{grid-template-columns:44px 1fr auto;padding:14px}.tile .ico{width:44px;height:44px;font-size:20px}.tile .tt{display:block;font-size:21px}}
+:root{--lvi-bg:#E1EAF6;--lvi-ink:#1D4E89;--lva-bg:#2A3037;--lva-ink:#F2B705;--plot2:#B4540A;--lvb-line:#F2B705;--lvi-line:#8DB6EA;--lva-line:#F3F5F7}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--lvi-bg:#1A2B44;--lvi-ink:#9CC0EE;--lva-bg:#0A0E12;--lva-ink:#F2C230;--plot2:#F2A65A}}
+:root[data-theme="dark"]{--lvi-bg:#1A2B44;--lvi-ink:#9CC0EE;--lva-bg:#0A0E12;--lva-ink:#F2C230;--plot2:#F2A65A}
+.lvl{font-family:var(--f-mono);font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:999px;letter-spacing:.02em}
+.lvl-b{background:var(--tip-bg);color:var(--tip-ink)}
+.lvl-i{background:var(--lvi-bg);color:var(--lvi-ink)}
+.lvl-a{background:var(--lva-bg);color:var(--lva-ink);box-shadow:inset 0 0 0 1px var(--lva-ink)}
+.lvrow{display:grid;gap:4px;margin-top:6px}
+.lvrow span{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;text-align:center;padding-top:4px;border-top:2px solid;color:var(--road-ink);opacity:.85;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lv-b{border-color:var(--lvb-line)}.lv-i{border-color:var(--lvi-line)}.lv-a{border-color:var(--lva-line)}
+.stmt{display:flex;flex-direction:column;gap:12px}
+.fig{margin:4px 0 0;background:var(--eq-bg);border-radius:10px;padding:10px 8px 6px;max-width:400px;width:100%}
+.plot{display:block;width:100%;height:auto}
+.plot .pt{font-family:var(--f-mono);font-size:11px;fill:var(--muted)}
+.plot .pt-strong{fill:var(--ink);font-weight:600}
+.plot .pt-lab{font-size:14px;font-weight:600}
+.plot .pt-car{fill:#FFFFFF;font-size:12px;font-weight:600}
+.step-body .fig{margin:8px 0}
+.fld{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:15px}
+.fld input,.fld select{font:inherit;font-weight:400;font-size:17px;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);width:100%}
+.fld input:focus,.fld select:focus{outline:3px solid var(--lane);outline-offset:1px;border-color:var(--sign)}
+#loginErro{color:var(--bad);min-height:1em;margin:0}
+.fld-dica{font-weight:400;color:var(--muted);font-size:13.5px}
+.emailbox{display:flex;flex-direction:column;border:1.5px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
+.emailbox:focus-within{outline:3px solid var(--lane);outline-offset:1px;border-color:var(--sign)}
+.fld .emailbox input{border:0;border-radius:0;outline:none}
+.fld .emailbox input:focus{outline:none}
+.emailbox .dom{font-size:14px;font-weight:700;color:var(--muted);background:var(--eq-bg);padding:9px 14px;border-top:1px solid var(--line);overflow-wrap:anywhere}
+.note b{overflow-wrap:anywhere}
+/* ===== 2ª série CIB: identidade por tema ===== */
+:root{--sign:#23395B;--ray:#B85C00}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sign:#3A5A8C;--ray:#FFC24A}}
+:root[data-theme="dark"]{--sign:#3A5A8C;--ray:#FFC24A}
+.th-ondas, :root.th-ondas{--sign:#0B6477;--lane:#FF9466;--road:#0B2830;--road-ink:#EAF5F7;--lvb-line:#FF9466}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]).th-ondas, :root:not([data-theme="light"]) .th-ondas{--sign:#137C91;--lane:#FFA27A;--road:#06191E}}
+:root[data-theme="dark"].th-ondas, :root[data-theme="dark"] .th-ondas{--sign:#137C91;--lane:#FFA27A;--road:#06191E}
+.th-optica, :root.th-optica{--sign:#4A3A8C;--lane:#FFCF4D;--road:#171230;--road-ink:#F1EEFA;--lvb-line:#FFCF4D}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]).th-optica, :root:not([data-theme="light"]) .th-optica{--sign:#5D4BAE;--lane:#FFD666;--road:#0D0A1E}}
+:root[data-theme="dark"].th-optica, :root[data-theme="dark"] .th-optica{--sign:#5D4BAE;--lane:#FFD666;--road:#0D0A1E}
+.plate{position:relative;overflow:hidden}
+.plate-inner{position:relative;z-index:1}
+.plate-deco{position:absolute;right:10px;bottom:8px;width:min(44%,220px);color:var(--sign-ink);opacity:.32;pointer-events:none}
+.plate-deco svg{display:block;width:100%;height:auto}
+.th-optica .plate-deco{opacity:.55}
+/* Trilhas de progresso: onda numa corda e raio de luz */
+.lane2{position:relative;height:30px;margin:0 6px 0 22px;--p:0}
+.lane2 svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.lane2 .ln-base line{stroke:var(--road-ink);stroke-width:2;opacity:.3;vector-effect:non-scaling-stroke}
+.ln-raio .ln-base line{stroke-dasharray:4 6}
+.lane2 .ln-fill{clip-path:inset(0 100% 0 0);transition:clip-path .6s ease}
+.ln-onda .ln-fill path{fill:none;stroke:var(--lane);stroke-width:3;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.ln-raio .ln-fill line{stroke:var(--lane);stroke-width:4;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 3px var(--lane))}
+.ln-head{position:absolute;top:50%;left:calc(var(--p) * 1%);transition:left .6s ease}
+.ln-onda .ln-head{width:12px;height:12px;border-radius:50%;background:var(--lane);transform:translate(-50%,-50%);box-shadow:0 0 0 4px rgba(255,255,255,.12)}
+.ln-raio .ln-head{width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;border-left:12px solid var(--lane);transform:translate(-30%,-50%)}
+.ln-src{position:absolute;left:-18px;top:50%;transform:translateY(-50%)}
+.ln-onda .ln-src{width:4px;height:24px;border-radius:2px;background:var(--road-ink);opacity:.7}
+.ln-raio .ln-src{width:12px;height:12px;border-radius:50%;background:var(--lane);box-shadow:0 0 8px 2px var(--lane)}
+@media (prefers-reduced-motion: reduce){.lane2 .ln-fill,.ln-head{transition:none}}
+/* Revisão do professor */
+.mod{border:1.5px dashed var(--muted);border-radius:10px;padding:10px 14px;font-size:15px;color:var(--muted)}
+.mod b{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:2px;color:var(--ink)}
+.tbl-txt td,.tbl-txt th{white-space:normal}
+.tbl-txt table{min-width:0;width:100%}
+.tbl-esq td:last-child{text-align:left}
+.tbl-esq td{vertical-align:top}
+@media (max-width:480px){.tbl-txt table{font-size:13.5px}.tbl-txt td,.tbl-txt th{padding:6px 7px}}
+:root.th-ondas .plate-inner, :root.th-optica .plate-inner, .th-ondas .plate .plate-inner, .th-optica .plate .plate-inner{padding-bottom:50px}
+.plate-deco{width:150px;bottom:12px;right:14px}
+/* Telas grandes (projetor): um pouco mais largo e maior */
+@media (min-width:1100px){.wrap{max-width:880px}body{font-size:19px}.stmt{font-size:20px}.fig{max-width:520px}}
+
+.install{border-color:var(--sign)}
+.install p{margin:0}
+@media (display-mode: standalone){.wrap{padding-top:max(20px,env(safe-area-inset-top,0px))}}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="plate"><div class="plate-deco" id="deco" aria-hidden="true"></div><div class="plate-inner"><div class="eyebrow" id="eyebrow"></div><h1 id="ptitle"></h1><p id="psub"></p></div></header>
+<nav class="crumbs" id="crumbs" aria-label="Você está em" hidden></nav>
+<main id="view" style="display:flex;flex-direction:column;gap:18px"></main>
+</div>
+<script>
+/* ===== Ajudantes usados em todas as listas ===== */
+const f = (n, d) => `<span class="frac"><span>${n}</span><span>${d}</span></span>`;
+const L = ['A','B','C','D','E'];
+const nf = v => String(v).replace('.', ',');
+let _uid = 0;
+
+/* Figura SVG genérica (segue o tema claro/escuro). vb = "0 0 L A" */
+const fig = (vb, aria, inner, w) => `<figure class="fig"${w ? ` style="max-width:${w}px"` : ''}><svg viewBox="${vb}" class="plot" role="img" aria-label="${aria}">${inner}</svg></figure>`;
+/* Ponta de seta: devolve [defs, url] com id único */
+function seta(cor){ const id = 'sa' + (++_uid); return [`<defs><marker id="${id}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="${cor}"/></marker></defs>`, `url(#${id})`]; }
+
+/* Pontos de uma senoide: y = A·sen(2π(x − x0)/λ + fase) */
+function sen(A, lam, xa, xb, fase, n){ n = n || 120; fase = fase || 0; const p = []; for (let k = 0; k <= n; k++){ const x = xa + (xb - xa) * k / n; p.push([+x.toFixed(4), +(A * Math.sin(2 * Math.PI * x / lam + fase)).toFixed(4)]); } return p; }
+
+/* Gráfico cartesiano. o = {aria, xmin, xmax, ymin, ymax, xt, yt, xl, yl, L:[{p, c, dash, w, lab, lp}], pts, ann:[[x,y,txt,anchor,cor]], dims:[[x1,y1,x2,y2,txt,dx,dy]], H, W} */
+function plot(o){
+  const W = o.W || 340, H = o.H || 236, l = o.l || 46, r = 18, t = 28, b = 40;
+  const x0 = o.xmin || 0, y0 = o.ymin || 0;
+  const sx = x => +(l + (x - x0) / (o.xmax - x0) * (W - l - r)).toFixed(1);
+  const sy = y => +(H - b - (y - y0) / (o.ymax - y0) * (H - t - b)).toFixed(1);
+  const [defs, mk] = seta('var(--ink)');
+  let s = `<svg viewBox="0 0 ${W} ${H}" class="plot" role="img" aria-label="${o.aria}">${defs}`;
+  (o.xt || []).forEach(x => { s += `<line x1="${sx(x)}" y1="${sy(y0)}" x2="${sx(x)}" y2="${sy(o.ymax)}" stroke="var(--line)"/>`; if (!o.noxl) s += `<text x="${sx(x)}" y="${sy(y0)+16}" text-anchor="middle" class="pt">${nf(x)}</text>`; });
+  (o.yt || []).forEach(y => { s += `<line x1="${sx(x0)}" y1="${sy(y)}" x2="${sx(o.xmax)}" y2="${sy(y)}" stroke="var(--line)"/><text x="${sx(x0)-7}" y="${sy(y)+4}" text-anchor="end" class="pt">${nf(y)}</text>`; });
+  const yax = (y0 < 0 && o.ymax > 0) ? 0 : y0;
+  s += `<line x1="${sx(x0)}" y1="${sy(yax)}" x2="${sx(o.xmax)}" y2="${sy(yax)}" stroke="var(--muted)" stroke-width="1.5"/><line x1="${sx(x0)}" y1="${sy(y0)}" x2="${sx(x0)}" y2="${sy(o.ymax)}" stroke="var(--muted)" stroke-width="1.5"/>`;
+  s += `<text x="${W-r}" y="${H-6}" text-anchor="end" class="pt">${o.xl}</text><text x="${sx(x0)}" y="16" text-anchor="middle" class="pt">${o.yl}</text>`;
+  o.L.forEach(ln => {
+    s += `<polyline points="${ln.p.map(([x,y]) => sx(x)+','+sy(y)).join(' ')}" fill="none" stroke="${ln.c}" stroke-width="${ln.w || 3}" stroke-linecap="round" stroke-linejoin="round"${ln.dash ? ` stroke-dasharray="${ln.dash}"` : ''}/>`;
+    if (ln.lab){ const [x, y] = ln.lp || ln.p[ln.p.length-1]; s += `<text x="${sx(x)}" y="${sy(y)}" class="pt pt-lab" fill="${ln.c}">${ln.lab}</text>`; }
+  });
+  (o.dims || []).forEach(([xa, ya, xb, yb, txt, dx, dy]) => {
+    s += `<line x1="${sx(xa)}" y1="${sy(ya)}" x2="${sx(xb)}" y2="${sy(yb)}" stroke="var(--ink)" stroke-width="1.4" marker-start="${mk}" marker-end="${mk}"/>`;
+    if (txt) s += `<text x="${(sx(xa)+sx(xb))/2 + (dx||0)}" y="${(sy(ya)+sy(yb))/2 + (dy||-6)}" text-anchor="middle" class="pt pt-strong">${txt}</text>`;
+  });
+  (o.pts || []).forEach(([x, y]) => { s += `<circle cx="${sx(x)}" cy="${sy(y)}" r="4.5" fill="var(--ink)" stroke="var(--surface)" stroke-width="2"/>`; });
+  (o.ann || []).forEach(([x, y, txt, a, c]) => { s += `<text x="${sx(x)}" y="${sy(y)}" text-anchor="${a || 'middle'}" class="pt pt-strong"${c ? ` fill="${c}"` : ''}>${txt}</text>`; });
+  return `<figure class="fig">${s}</svg></figure>`;
+}
+
+/* Tabela simples: cab = [..], linhas = [[..],[..]] */
+const tabela = (cab, linhas, esq) => `<div class="tblwrap tbl-txt${esq ? ' tbl-esq' : ''}"><table>${cab ? `<tr>${cab.map(c => `<th>${c}</th>`).join('')}</tr>` : ''}${linhas.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('')}</table></div>`;
+
+/* ===== Lista 1 · Ondulatória: conceitos iniciais e equação fundamental ===== */
+const TOOLS1 = [
+  ['Frequência e período', `f = ${f('n.º de oscilações','tempo')}<br>T = ${f('tempo','n.º de oscilações')} &nbsp; T = ${f('1','f')}`],
+  ['Equação fundamental', `v = λ · f &nbsp;&nbsp; ou &nbsp;&nbsp; v = ${f('λ','T')}`],
+  ['Elementos da onda', `Amplitude (A): do equilíbrio até a crista<br>Comprimento de onda (λ): de uma crista à seguinte`],
+  ['Classificação', `Mecânica: precisa de meio material<br>Eletromagnética: não precisa de meio<br>Transversal: vibra ⊥ à propagação<br>Longitudinal: vibra ∥ à propagação`],
+  ['Mudança de meio', `A frequência não muda (é a da fonte).<br>v e λ mudam na mesma proporção.`],
+  ['Unidades', `1 Hz = 1 oscilação por segundo<br>1 cm = 0,01 m · 1 kHz = 1 000 Hz<br>km/h ÷ 3,6 → m/s`],
+];
+
+/* Q1: lago com boia */
+const FIG1_1 = (() => {
+  const pts = []; for (let x = 10; x <= 330; x += 4) pts.push([x, +(72 + 13 * Math.sin(2 * Math.PI * (x - 10) / 110)).toFixed(1)]);
+  const yb = +(72 + 13 * Math.sin(2 * Math.PI * (178 - 10) / 110)).toFixed(1);
+  const [d, mk] = seta('var(--ink)');
+  return fig('0 0 340 150', 'Corte de um lago: a superfície da água forma ondas que se propagam para a direita; uma pequena boia flutua no ponto P.',
+    `${d}<path d="M${pts.map(p => p.join(' ')).join(' L')} L330 140 L10 140 Z" fill="var(--sign)" opacity=".16"/>
+    <polyline points="${pts.map(p => p.join(',')).join(' ')}" fill="none" stroke="var(--sign)" stroke-width="3"/>
+    <circle cx="178" cy="${yb - 7}" r="8" fill="var(--plot2)" stroke="var(--ink)" stroke-width="1.5"/>
+    <text x="178" y="${yb - 22}" text-anchor="middle" class="pt pt-strong">P</text>
+    <line x1="232" y1="24" x2="312" y2="24" stroke="var(--ink)" stroke-width="2" marker-end="${mk}"/>
+    <text x="272" y="16" text-anchor="middle" class="pt">propagação</text>`);
+})();
+
+/* Q5: ola no estádio */
+const FIG1_5 = (() => {
+  let s = ''; const base = 118, n = 31, dx = 10, x0 = 20;
+  for (let i = 0; i < n; i++){
+    const x = x0 + i * dx, c = Math.cos(2 * Math.PI * (i - 3) / 25), up = c > 0 ? Math.pow(c, 3) : 0;
+    const top = base - 22 - 26 * up;
+    s += `<line x1="${x}" y1="${base}" x2="${x}" y2="${top.toFixed(1)}" stroke="var(--muted)" stroke-width="2"/><circle cx="${x}" cy="${(top - 4).toFixed(1)}" r="4" fill="var(--sign)"/>`;
+  }
+  const [d, mk] = seta('var(--ink)');
+  return fig('0 0 340 170', 'Fileira de torcedores: os que estão na crista da ola estão de pé, os demais sentados. Entre duas cristas seguidas há 25 intervalos entre torcedores; a distância entre dois torcedores vizinhos é 80 centímetros.',
+    `${d}${s}<line x1="12" y1="${base}" x2="328" y2="${base}" stroke="var(--line)" stroke-width="2"/>
+    <line x1="${x0 + 3*dx}" y1="34" x2="${x0 + 28*dx}" y2="34" stroke="var(--ink)" stroke-width="1.4" marker-start="${mk}" marker-end="${mk}"/>
+    <text x="${x0 + 15.5*dx}" y="26" text-anchor="middle" class="pt pt-strong">λ (25 intervalos)</text>
+    <line x1="${x0 + 14*dx}" y1="${base + 14}" x2="${x0 + 15*dx}" y2="${base + 14}" stroke="var(--ink)" stroke-width="1.2"/>
+    <line x1="${x0 + 14*dx}" y1="${base + 9}" x2="${x0 + 14*dx}" y2="${base + 19}" stroke="var(--ink)"/><line x1="${x0 + 15*dx}" y1="${base + 9}" x2="${x0 + 15*dx}" y2="${base + 19}" stroke="var(--ink)"/>
+    <text x="${x0 + 14.5*dx}" y="${base + 34}" text-anchor="middle" class="pt pt-strong">80 cm</text>`);
+})();
+
+/* Q10: tanque visto de cima */
+const FIG1_10 = (() => {
+  const [d, mk] = seta('var(--ink)'); let s = '';
+  [16, 38, 60, 82, 104].forEach(r => { s += `<circle cx="150" cy="122" r="${r}" fill="none" stroke="var(--sign)" stroke-width="2.5"/>`; });
+  return fig('0 0 340 244', 'Vista de cima de um tanque: cinco cristas circulares concêntricas em torno do ponto onde a gota cai. A distância entre a crista mais interna e a mais externa, ao longo de um raio, é 12 centímetros.',
+    `${d}<rect x="34" y="8" width="232" height="228" rx="10" fill="var(--sign)" opacity=".08"/>${s}
+    <circle cx="150" cy="122" r="3.5" fill="var(--ink)"/>
+    <line x1="166" y1="122" x2="254" y2="122" stroke="var(--ink)" stroke-width="1.4" marker-start="${mk}" marker-end="${mk}"/>
+    <rect x="186" y="104" width="48" height="16" rx="3" fill="var(--eq-bg)"/><text x="210" y="116" text-anchor="middle" class="pt pt-strong">12 cm</text>
+    <text x="276" y="40" class="pt">5 cristas</text>`, 300);
+})();
+
+const QL1 = [
+{
+  src:'Inédita', nivel:'básico',
+  text:`Uma onda se propaga para a direita na superfície de um lago, como mostra a figura. Uma pequena boia flutua no ponto P.${FIG1_1}Enquanto as ondas passam por ela, a boia:`,
+  opts:['é arrastada para a direita, acompanhando a crista da onda','oscila, mas não é levada pela onda','fica parada, pois a onda passa por baixo dela','é arrastada para a esquerda, no sentido contrário ao da onda','afunda, pois a onda empurra a água para baixo'], ans:1,
+  hint:'O que uma onda transporta de um lugar para outro: matéria ou energia?',
+  steps:[
+    ['O que a onda transporta', `<p>Uma onda transporta <b>energia</b> de um ponto a outro, mas <b>não transporta matéria</b>. A água (e o que flutua nela) só oscila em torno de onde já estava.</p>`],
+    ['O movimento da boia', `<p>Quando a crista chega, a boia sobe; quando chega o vale, ela desce. Depois que a onda passa, ela está praticamente no mesmo lugar.</p><p>(Na água, as partículas fazem um pequeno vaivém em torno da posição de equilíbrio, mas não acompanham a onda.)</p>`],
+  ],
+  alt:'Pense na “ola” do estádio: a onda dá a volta na arquibancada, mas cada torcedor só levanta e senta no próprio lugar.',
+  warn:'A crista parece “andar” para a direita, e é fácil achar que a boia vai junto (alternativa a). O que se desloca é a perturbação, não a água.',
+  mod:'Inédita (mesma ideia da questão do Albert Einstein da Somativa 1: a onda não transporta matéria), com outro contexto e figura nova.'
+},
+{
+  src:'EEAR (modificada)', nivel:'básico',
+  text:`Um aluno montou a tabela abaixo para classificar algumas ondas quanto à natureza e à direção de vibração.${tabela(['Onda','Natureza','Vibração'],[['I. Som no ar','mecânica','longitudinal'],['II. Luz do Sol','eletromagnética','transversal'],['III. Onda numa corda de violão','mecânica','transversal'],['IV. Micro-ondas','mecânica','transversal']])}Estão corretas as linhas:`,
+  opts:['Apenas I e II','Apenas II e III','Apenas I, II e III','Apenas II, III e IV','I, II, III e IV'], ans:2,
+  hint:'Micro-ondas fazem parte do mesmo “grupo” que a luz. E o som: a vibração do ar vai e volta na mesma direção em que o som avança?',
+  steps:[
+    ['Linha I: som no ar', `<p>O som precisa de um meio (ar, água, sólidos): é <b>mecânico</b>. As camadas de ar vão e voltam na mesma direção em que o som avança: é <b>longitudinal</b>. ✓</p>`],
+    ['Linhas II e III', `<p>A luz é <b>eletromagnética</b> e <b>transversal</b> (os campos elétrico e magnético oscilam perpendicularmente à propagação). ✓</p><p>Numa corda de violão, a corda vibra para os lados enquanto a onda corre ao longo dela: <b>mecânica e transversal</b>. ✓</p>`],
+    ['Linha IV: micro-ondas', `<p>Micro-ondas são ondas <b>eletromagnéticas</b>, como a luz, e se propagam até no vácuo (é assim que os satélites se comunicam). Por isso a linha IV está errada.</p>`],
+  ],
+  alt:'Teste rápido para a natureza: “essa onda chega até nós vinda do espaço?”. Se sim (luz, micro-ondas, raios X), é eletromagnética. O som não atravessa o vácuo.',
+  warn:'O forno de micro-ondas faz a comida vibrar e esquentar, mas isso não torna a micro-onda uma onda mecânica.',
+  mod:'Original (EEAR): quatro afirmações em texto sobre ondas mecânicas, eletromagnéticas e longitudinais. Modificada: virou uma tabela de classificação com outros exemplos.'
+},
+{
+  src:'UEA (modificada)', nivel:'básico',
+  text:'Durante uma pescaria, um pescador percebe que seu barco, atingido por ondas iguais e igualmente espaçadas, sobe e desce 12 vezes em 30 segundos. A frequência e o período dessas ondas são, respectivamente:',
+  opts:['2,5 Hz e 0,4 s','12 Hz e 30 s','0,4 Hz e 0,4 s','2,5 Hz e 2,5 s','0,4 Hz e 2,5 s'], ans:4,
+  hint:'Frequência é quantas oscilações acontecem por segundo. Período é quanto tempo dura uma oscilação.',
+  steps:[
+    ['Dados', `<ul><li>12 oscilações</li><li>em 30 s</li></ul>`],
+    ['Frequência', `<div class="eq">f = ${f('n.º de oscilações','tempo')} = ${f('12','30 s')} = <span class="hl">0,4 Hz</span></div>`],
+    ['Período', `<div class="eq">T = ${f('tempo','n.º de oscilações')} = ${f('30 s','12')} = <span class="hl">2,5 s</span></div><p>Conferindo: T = ${f('1','f')} = ${f('1','0,4')} = 2,5 s ✓</p>`],
+  ],
+  alt:'Faz sentido? Se o barco sobe e desce 12 vezes em 30 s, cada oscilação leva um pouco mais de 2 s. Um período de 0,4 s seria um balanço frenético, mais de 2 por segundo.',
+  warn:'Inverter a divisão (30 ÷ 12 para a frequência) leva à alternativa a. Frequência é sempre “quantas por segundo”: oscilações em cima, tempo embaixo.',
+  mod:'Original (UEA, Somativa 1): 14 oscilações em 20 s, pedia só a frequência. Modificada: 12 oscilações em 30 s e pede frequência e período.'
+},
+{
+  src:'Inédita', nivel:'intermediário',
+  text:`A figura representa, num certo instante, o formato de uma corda por onde passa uma onda com velocidade de 24 m/s.${plot({aria:'Gráfico da corda: posição vertical y em centímetros por posição x em centímetros. Senoide com cristas em y igual a 3 centímetros nas posições x igual a 3 e 15 e 27 centímetros, e vales em y igual a menos 3 centímetros.', xmin:0, xmax:30, ymin:-4, ymax:4, xt:[0,3,6,9,12,15,18,21,24,27,30], yt:[-3,0,3], xl:'x (cm)', yl:'y (cm)', L:[{p:sen(3,12,0,30), c:'var(--sign)'}]})}A amplitude, o comprimento de onda e a frequência dessa onda são, respectivamente:`,
+  opts:['6 cm, 12 cm e 200 Hz','3 cm, 12 cm e 2 Hz','3 cm, 6 cm e 400 Hz','3 cm, 12 cm e 200 Hz','6 cm, 24 cm e 100 Hz'], ans:3,
+  hint:'A amplitude se mede a partir da linha de equilíbrio (y = 0). Para a frequência, passe λ para metros antes de usar v = λ · f.',
+  steps:[
+    ['Lendo o gráfico', `<ul><li>Amplitude: do equilíbrio (y = 0) até a crista (y = 3 cm) → <b>A = 3 cm</b></li><li>Cristas seguidas em x = 3 cm e x = 15 cm → <b>λ = 12 cm = 0,12 m</b></li></ul>`],
+    ['Frequência', `<div class="eq">v = λ · f &nbsp;⇒&nbsp; f = ${f('v','λ')} = ${f('24 m/s','0,12 m')} = <span class="hl">200 Hz</span></div>`],
+  ],
+  alt:'Em 1 s a onda anda 24 m = 2 400 cm. Quantos comprimentos de onda de 12 cm cabem em 2 400 cm? 2 400 ÷ 12 = 200. São 200 oscilações por segundo.',
+  warn:'Da crista ao vale são 6 cm, mas isso é o dobro da amplitude (alternativa a). E dividir 24 por 12 sem converter cm para m dá 2 Hz (alternativa b).',
+  mod:'Inédita, no formato do exercício 8 da lista de Ondulatória da apostila (gráfico + v = λ·f), com outros valores.'
+},
+{
+  src:'Enem (modificada)', nivel:'intermediário',
+  text:`Uma manifestação comum das torcidas em estádios de futebol é a <i>ola</i>. Os torcedores de uma linha, sem sair do lugar, levantam e sentam sincronizados com os da linha vizinha, e o efeito se propaga pela arquibancada como uma onda.${FIG1_5}Suponha que essa “onda humana” se propague a 36 km/h e que, entre duas cristas seguidas, haja 25 intervalos entre torcedores, cada um de 80 cm. A frequência dessa onda, em hertz, é:`,
+  opts:['1,8','0,5','2,0','0,4','1,4'], ans:1,
+  hint:'Monte o comprimento de onda a partir dos torcedores (em metros) e passe a velocidade para m/s.',
+  steps:[
+    ['Comprimento de onda', `<div class="eq">λ = 25 × 0,80 m = 20 m</div>`],
+    ['Velocidade em m/s', `<div class="eq">v = 36 km/h ÷ 3,6 = 10 m/s</div>`],
+    ['Frequência', `<div class="eq">f = ${f('v','λ')} = ${f('10 m/s','20 m')} = <span class="hl">0,5 Hz</span></div><p>Cada torcedor levanta e senta uma vez a cada 2 s, o que é bem realista.</p>`],
+  ],
+  alt:'A crista anda 10 m por segundo e precisa andar 20 m para que a próxima crista chegue ao mesmo torcedor. Isso leva 2 s (o período). Então f = 1/2 = 0,5 Hz.',
+  warn:'Usar 36 direto (sem converter km/h) dá 36 ÷ 20 = 1,8 (alternativa a). E inverter a fórmula (λ ÷ v) dá 2,0, que é o período, não a frequência.',
+  mod:'Original (Enem): 45 km/h, 16 pessoas por período, 80 cm entre elas; resposta ≈ 1,0 Hz. Modificada: 36 km/h e 25 intervalos de 80 cm; resposta 0,5 Hz.'
+},
+{
+  src:'PUCRS (modificada)', nivel:'intermediário',
+  text:'Um estudante está num barco ancorado num lago. Uma brisa leve forma pequenas ondas que fazem oscilar uma folha flutuando perto do barco. Ele estima que a distância entre duas cristas sucessivas é de 1,5 m e que passam pela folha 24 cristas por minuto. A frequência e a velocidade de propagação dessas ondas são, respectivamente:',
+  opts:['24 Hz e 36 m/s','0,4 Hz e 3,75 m/s','2,5 Hz e 3,75 m/s','0,4 Hz e 1,5 m/s','0,4 Hz e 0,6 m/s'], ans:4,
+  hint:'“Por minuto” não é hertz. Quantas cristas passam por segundo?',
+  steps:[
+    ['Dados', `<ul><li>λ = 1,5 m (distância entre cristas sucessivas)</li><li>24 cristas por minuto</li></ul>`],
+    ['Frequência em Hz', `<div class="eq">f = ${f('24','60 s')} = <span class="hl">0,4 Hz</span></div>`],
+    ['Velocidade', `<div class="eq">v = λ · f = 1,5 × 0,4 = <span class="hl">0,6 m/s</span></div>`],
+  ],
+  alt:`Pelo período: T = ${f('60 s','24')} = 2,5 s. A crista anda um λ (1,5 m) em um período: v = ${f('1,5 m','2,5 s')} = 0,6 m/s.`,
+  warn:'2,5 s é o período, não a frequência (alternativa c). E dividir λ pela frequência (1,5 ÷ 0,4 = 3,75) é usar a fórmula de trás para frente (alternativa b).',
+  mod:'Original (PUCRS): cristas a 40 cm e 30 cristas por minuto. Modificada: 1,5 m e 24 cristas por minuto.'
+},
+{
+  src:'Inédita', nivel:'intermediário',
+  text:`Um alto-falante na borda de uma piscina emite um som de 500 Hz. Parte desse som passa do ar para a água. Use a tabela.${tabela(['Meio','Velocidade do som'],[['Ar (20 °C)','340 m/s'],['Água','1 450 m/s']])}Na água, a frequência e o comprimento de onda desse som são, aproximadamente:`,
+  opts:['500 Hz e 0,68 m','2 132 Hz e 0,68 m','500 Hz e 0,34 m','500 Hz e 2,9 m','117 Hz e 2,9 m'], ans:3,
+  hint:'Quem define a frequência é a fonte. Quando a onda muda de meio, o que muda é a velocidade e, com ela, o comprimento de onda.',
+  steps:[
+    ['A frequência não muda', `<p>A frequência é imposta pelo alto-falante: 500 vibrações por segundo no ar continuam sendo 500 por segundo na água. <b>f = 500 Hz</b>.</p>`],
+    ['Comprimento de onda na água', `<div class="eq">λ<sub>água</sub> = ${f('v<sub>água</sub>','f')} = ${f('1 450 m/s','500 Hz')} = <span class="hl">2,9 m</span></div>`],
+    ['Comparando com o ar', `<div class="eq">λ<sub>ar</sub> = ${f('340','500')} = 0,68 m</div><p>Na água o som é mais rápido, então λ fica maior, na mesma proporção.</p>`],
+  ],
+  alt:'Imagine uma fila de pessoas passando por uma porta (a fronteira) num ritmo fixo: quantas passam por segundo não muda. Se do outro lado elas andam mais rápido, ficam mais espaçadas: λ maior.',
+  warn:'Achar que λ continua 0,68 m (alternativa a) ou que a frequência muda (alternativas b e e) são os erros mais comuns. Na mudança de meio, só v e λ mudam.',
+  mod:'Inédita. Usa a velocidade do som na água (1 450 m/s) que já apareceu na Somativa 1.'
+},
+{
+  src:'EEAR (modificada)', nivel:'avançado',
+  text:`O gráfico mostra como a posição vertical de <b>um ponto</b> de uma corda varia com o <b>tempo</b> enquanto uma onda periódica passa por ele.${plot({aria:'Gráfico da posição vertical y em centímetros por tempo t em segundos. Senoide de amplitude 5 centímetros que se repete a cada 0,4 segundo, de t igual a 0 até t igual a 1 segundo.', xmin:0, xmax:1, ymin:-6, ymax:6, xt:[0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1], yt:[-5,0,5], xl:'t (s)', yl:'y (cm)', L:[{p:sen(5,0.4,0,1), c:'var(--sign)'}]})}Sabendo que o comprimento de onda é 2,0 m, a velocidade de propagação da onda é:`,
+  opts:['5,0 m/s','0,8 m/s','2,5 m/s','10 m/s','0,2 m/s'], ans:0,
+  hint:'Repare no eixo horizontal: é tempo, não posição. O que o gráfico mostra a cada 0,4 s?',
+  steps:[
+    ['Que gráfico é esse?', `<p>O eixo horizontal é o <b>tempo</b>. A distância de um “pico” ao próximo nesse gráfico não é λ: é o tempo de uma oscilação completa, o <b>período</b>.</p>`],
+    ['Lendo o período', `<p>O movimento se repete a cada 0,4 s: <b>T = 0,4 s</b>.</p>`],
+    ['Velocidade', `<div class="eq">v = ${f('λ','T')} = ${f('2,0 m','0,4 s')} = <span class="hl">5,0 m/s</span></div>`],
+  ],
+  alt:`Pela frequência: f = ${f('1','0,4 s')} = 2,5 Hz e v = λ · f = 2,0 × 2,5 = 5,0 m/s.`,
+  warn:'Do pico ao vale passam 0,2 s, que é só meio período: usar 0,2 s dá 10 m/s (alternativa d). E 2,5 é a frequência em Hz, não a velocidade (alternativa c).',
+  mod:'Original (EEAR): papel quadriculado com eixo de tempo e λ = 8 m. Modificada: gráfico novo com T = 0,4 s e λ = 2,0 m.'
+},
+{
+  src:'Inédita', nivel:'avançado',
+  text:`O gráfico mostra a mesma corda em dois instantes: t = 0 (linha contínua) e t = 0,5 s (linha tracejada). A onda se propaga para a direita e, entre os dois instantes, andou <b>menos</b> que um comprimento de onda.${plot({aria:'Gráfico y em centímetros por x em metros. Linha contínua, em t igual a zero: senoide com cristas em x igual a 1,5 e 7,5 metros. Linha tracejada, em t igual a 0,5 segundo: a mesma senoide deslocada, com cristas em x igual a 3 e 9 metros.', xmin:0, xmax:12, ymin:-3, ymax:3, xt:[0,1.5,3,4.5,6,7.5,9,10.5,12], yt:[-2,0,2], xl:'x (m)', yl:'y (cm)', L:[{p:sen(2,6,0,12), c:'var(--sign)'},{p:sen(2,6,0,12,-Math.PI/2), c:'var(--plot2)', dash:'7 5'}]})}A velocidade de propagação e a frequência da onda são, respectivamente:`,
+  opts:['3 m/s e 0,5 Hz','3 m/s e 2 Hz','12 m/s e 2 Hz','9 m/s e 1,5 Hz','1,5 m/s e 0,25 Hz'], ans:0,
+  hint:'Escolha uma crista da linha contínua e encontre para onde ela foi na linha tracejada (para a direita, menos de um λ).',
+  steps:[
+    ['Comprimento de onda', `<p>Cristas da linha contínua em x = 1,5 m e x = 7,5 m: <b>λ = 6 m</b>.</p>`],
+    ['Quanto a onda andou', `<p>A crista que estava em 1,5 m aparece em 3,0 m na linha tracejada. Em 0,5 s, a onda andou <b>1,5 m</b> para a direita.</p><div class="eq">v = ${f('Δx','Δt')} = ${f('1,5 m','0,5 s')} = <span class="hl">3 m/s</span></div>`],
+    ['Frequência', `<div class="eq">f = ${f('v','λ')} = ${f('3 m/s','6 m')} = <span class="hl">0,5 Hz</span></div>`],
+  ],
+  alt:'1,5 m é um quarto de λ. Então 0,5 s é um quarto do período: T = 4 × 0,5 = 2 s e f = 1/2 = 0,5 Hz. Depois, v = λ/T = 6/2 = 3 m/s.',
+  warn:'Se você ligou a crista de 1,5 m à crista de 9 m (ou supôs a onda indo para a esquerda), achou 4,5 m de deslocamento e 9 m/s (alternativa d). O enunciado diz: para a direita e menos de um λ.',
+  mod:'Inédita (duas “fotos” da mesma onda).'
+},
+{
+  src:'Inédita', nivel:'avançado',
+  text:`Uma torneira pinga no centro de um tanque com água, formando ondas circulares. A figura mostra o tanque visto de cima num certo instante.${FIG1_10}A torneira pinga 2 gotas por segundo e cada gota produz uma crista. A distância entre a crista mais interna e a mais externa, ao longo de um raio, é 12 cm. A velocidade de propagação das ondas é:`,
+  opts:['4,8 cm/s','24 cm/s','6 cm/s','1,5 cm/s','3 cm/s'], ans:2,
+  hint:'Conte os espaços entre as cristas, e não as cristas. Cinco cristas formam quantos comprimentos de onda?',
+  steps:[
+    ['Comprimento de onda', `<p>Entre 5 cristas há <b>4</b> espaços, e cada espaço é um λ:</p><div class="eq">λ = ${f('12 cm','4')} = 3 cm</div>`],
+    ['Frequência', `<p>Cada gota gera uma crista: 2 gotas por segundo → <b>f = 2 Hz</b>.</p>`],
+    ['Velocidade', `<div class="eq">v = λ · f = 3 cm × 2 Hz = <span class="hl">6 cm/s</span></div>`],
+  ],
+  alt:'Em 1 s caem 2 gotas, então a crista mais nova leva 0,5 s para “virar” a anterior, e nesse tempo cada crista anda um λ = 3 cm. v = 3 cm / 0,5 s = 6 cm/s.',
+  warn:'Dividir 12 cm por 5 cristas (λ = 2,4 cm) leva a 4,8 cm/s (alternativa a). É o mesmo erro de contar os postes em vez dos espaços entre eles.',
+  mod:'Inédita (inspirada no tanque de ondas da questão da Unesp da apostila).'
+},
+];
+
+/* ===== Lista 2 · Fenômenos ondulatórios ===== */
+const TOOLS2 = [
+  ['Reflexão', `A onda bate e volta ao mesmo meio.<br>Ângulo de incidência = ângulo de reflexão<br>Eco: d = ${f('v · t','2')} (ida e volta)`],
+  ['Refração', `A onda muda de meio: v e λ mudam,<br><b>f não muda</b> (é a da fonte).`],
+  ['Difração', `A onda contorna obstáculos e se espalha ao passar por fendas. É mais intensa quando λ é parecido com o tamanho da abertura.`],
+  ['Interferência', `Crista + crista: construtiva (reforço)<br>Crista + vale: destrutiva (cancelamento)<br>Fontes em fase: Δd = 1λ, 2λ, 3λ… → construtiva; Δd = 0,5λ, 1,5λ, 2,5λ… → destrutiva`],
+  ['Polarização', `Filtra uma direção de vibração.<br>Só acontece com ondas <b>transversais</b>.`],
+  ['Equação fundamental', `v = λ · f &nbsp;&nbsp; c = 3,0 · 10<sup>8</sup> m/s<br>1 nm = 10<sup>−9</sup> m · 1 MHz = 10<sup>6</sup> Hz`],
+];
+
+const arco = (cx, cy, r, a1, a2) => { const p = a => [(cx + r * Math.cos(a * Math.PI / 180)).toFixed(1), (cy + r * Math.sin(a * Math.PI / 180)).toFixed(1)]; const [x1, y1] = p(a1), [x2, y2] = p(a2); return `M${x1} ${y1} A${r} ${r} 0 0 1 ${x2} ${y2}`; };
+
+/* Q1: porta e difração (vista de cima) */
+const FIG2_1 = (() => {
+  let s = '';
+  [52, 84, 116, 148].forEach(x => { s += `<line x1="${x}" y1="18" x2="${x}" y2="182" stroke="var(--sign)" stroke-width="2.5"/>`; });
+  [26, 56, 86, 116].forEach(r => { s += `<path d="${arco(170, 100, r, -78, 78)}" fill="none" stroke="var(--sign)" stroke-width="2.5"/>`; });
+  return fig('0 0 340 200', 'Vista de cima: na sala, à esquerda, frentes de onda retas chegam à parede. Elas passam pela porta aberta e, no corredor, à direita, se espalham em semicírculos e chegam até a aluna, que está atrás da parede, fora da linha da porta.',
+    `<rect x="164" y="8" width="12" height="74" fill="var(--ink)"/><rect x="164" y="118" width="12" height="74" fill="var(--ink)"/>${s}
+    <text x="100" y="196" text-anchor="middle" class="pt">sala</text><text x="262" y="196" text-anchor="middle" class="pt">corredor</text>
+    <text x="196" y="104" class="pt pt-strong">porta</text>
+    <circle cx="258" cy="166" r="7" fill="var(--plot2)" stroke="var(--ink)" stroke-width="1.5"/><text x="270" y="170" class="pt pt-strong">aluna</text>`);
+})();
+
+/* Q2: dois filtros polarizadores */
+const FIG2_2 = (() => {
+  const [d, mk] = seta('var(--ink)');
+  let h1 = '', h2 = '';
+  for (let y = 36; y <= 112; y += 8) h2 += `<line x1="214" y1="${y}" x2="230" y2="${y}" stroke="var(--ink)" stroke-width="1.2"/>`;
+  for (let x = 110; x <= 124; x += 4) h1 += `<line x1="${x}" y1="32" x2="${x}" y2="116" stroke="var(--ink)" stroke-width="1.2"/>`;
+  return fig('0 0 340 160', 'Uma lâmpada emite luz que vibra em todas as direções. O filtro 1, de fendas verticais, deixa passar só a vibração vertical. O filtro 2, de fendas horizontais, girado 90 graus, bloqueia essa luz: depois dele quase não há luz.',
+    `${d}<line x1="34" y1="74" x2="214" y2="74" stroke="var(--lane)" stroke-width="5" opacity=".9"/>
+    <circle cx="24" cy="74" r="12" fill="var(--lane)" stroke="var(--ink)" stroke-width="1.5"/>
+    <g stroke="var(--ink)" stroke-width="1.6"><line x1="72" y1="58" x2="72" y2="90" marker-start="${mk}" marker-end="${mk}"/><line x1="56" y1="74" x2="88" y2="74" marker-start="${mk}" marker-end="${mk}"/><line x1="61" y1="63" x2="83" y2="85" marker-start="${mk}" marker-end="${mk}"/></g>
+    <rect x="106" y="28" width="22" height="92" rx="3" fill="var(--sign)" opacity=".18" stroke="var(--sign)"/>${h1}
+    <line x1="170" y1="56" x2="170" y2="92" stroke="var(--ink)" stroke-width="1.6" marker-start="${mk}" marker-end="${mk}"/>
+    <rect x="210" y="28" width="24" height="92" rx="3" fill="var(--sign)" opacity=".18" stroke="var(--sign)"/>${h2}
+    <line x1="240" y1="74" x2="318" y2="74" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="3 5"/>
+    <text x="117" y="140" text-anchor="middle" class="pt pt-strong">filtro 1</text><text x="222" y="140" text-anchor="middle" class="pt pt-strong">filtro 2</text>
+    <text x="222" y="154" text-anchor="middle" class="pt">(girado 90°)</text><text x="282" y="62" text-anchor="middle" class="pt">escuro</text>`);
+})();
+
+/* Q3: película fina */
+const FIG2_3 = (() => {
+  const [d, mk] = seta('var(--ray)');
+  return fig('0 0 340 160', 'Corte de uma película fina, como a parede de uma bolha de sabão. Um raio de luz incide de cima. Parte dele volta já na superfície de cima (raio 1); outra parte entra na película, volta na superfície de baixo e sai por cima (raio 2), paralela ao raio 1. Os dois raios se superpõem.',
+    `${d}<rect x="10" y="78" width="320" height="34" fill="var(--sign)" opacity=".2"/><line x1="10" y1="78" x2="330" y2="78" stroke="var(--sign)" stroke-width="1.5"/><line x1="10" y1="112" x2="330" y2="112" stroke="var(--sign)" stroke-width="1.5"/>
+    <g fill="none" stroke="var(--ray)" stroke-width="2.4">
+      <line x1="56" y1="12" x2="122" y2="78" marker-end="${mk}"/>
+      <line x1="122" y1="78" x2="186" y2="14" marker-end="${mk}"/>
+      <polyline points="122,78 143,112 164,78"/>
+      <line x1="164" y1="78" x2="228" y2="14" marker-end="${mk}"/>
+    </g>
+    <text x="190" y="12" class="pt pt-strong">1</text><text x="232" y="12" class="pt pt-strong">2</text>
+    <text x="262" y="100" class="pt">película</text><text x="20" y="140" class="pt">ar</text><text x="20" y="66" class="pt">ar</text>`);
+})();
+
+/* Q5: tanque com região funda e rasa (vista de cima) */
+const FIG2_5 = (() => {
+  const [d, mk] = seta('var(--ink)'); let s = '';
+  [10, 50, 90, 130, 170].forEach(x => { s += `<line x1="${x}" y1="40" x2="${x}" y2="150" stroke="var(--sign)" stroke-width="2.5"/>`; });
+  [195, 220, 245, 270, 295, 320].forEach(x => { s += `<line x1="${x}" y1="40" x2="${x}" y2="150" stroke="var(--sign)" stroke-width="2.5"/>`; });
+  return fig('0 0 340 182', 'Vista de cima de um tanque de ondas. À esquerda, região funda, com frentes de onda retas separadas por 4,0 centímetros. À direita, região rasa, com frentes separadas por 2,5 centímetros. As ondas vão da esquerda para a direita.',
+    `${d}<rect x="4" y="40" width="166" height="110" fill="var(--sign)" opacity=".1"/><rect x="170" y="40" width="166" height="110" fill="var(--sign)" opacity=".26"/>${s}
+    <line x1="50" y1="30" x2="90" y2="30" stroke="var(--ink)" stroke-width="1.3" marker-start="${mk}" marker-end="${mk}"/><text x="70" y="22" text-anchor="middle" class="pt pt-strong">4,0 cm</text>
+    <line x1="245" y1="30" x2="270" y2="30" stroke="var(--ink)" stroke-width="1.3" marker-start="${mk}" marker-end="${mk}"/><text x="257" y="22" text-anchor="middle" class="pt pt-strong">2,5 cm</text>
+    <text x="88" y="170" text-anchor="middle" class="pt">região funda</text><text x="254" y="170" text-anchor="middle" class="pt">região rasa</text>
+    <line x1="140" y1="12" x2="200" y2="12" stroke="var(--ink)" stroke-width="1.8" marker-end="${mk}"/>`);
+})();
+
+/* Q8: morcego e inseto */
+const FIG2_8 = (() => {
+  const [d, mk] = seta('var(--ink)'); let s = '';
+  [72, 90, 108].forEach((x, k) => { s += `<path d="${arco(x - 30, 70, 30 + 0 * k, -40, 40)}" fill="none" stroke="var(--sign)" stroke-width="2.2"/>`; });
+  [262, 244, 226].forEach(x => { s += `<path d="${arco(x + 30, 70, 30, 140, 220)}" fill="none" stroke="var(--plot2)" stroke-width="2.2" stroke-dasharray="5 4"/>`; });
+  return fig('0 0 340 150', 'Um morcego, à esquerda, emite pulsos de ultrassom (arcos contínuos) em direção a um inseto, à direita. O eco volta do inseto para o morcego (arcos tracejados). A distância d entre eles é desconhecida.',
+    `${d}<path d="M14 66 Q24 52 30 64 Q36 56 42 66 Q48 56 54 64 Q60 52 70 66 Q56 74 42 82 Q28 74 14 66 Z" fill="var(--ink)"/>
+    <ellipse cx="300" cy="70" rx="9" ry="5" fill="var(--ink)"/><ellipse cx="296" cy="62" rx="6" ry="4" fill="none" stroke="var(--ink)"/><ellipse cx="304" cy="62" rx="6" ry="4" fill="none" stroke="var(--ink)"/>${s}
+    <text x="100" y="28" text-anchor="middle" class="pt">emissão</text><text x="240" y="28" text-anchor="middle" class="pt">eco</text>
+    <line x1="42" y1="122" x2="300" y2="122" stroke="var(--ink)" stroke-width="1.3" marker-start="${mk}" marker-end="${mk}"/><text x="171" y="140" text-anchor="middle" class="pt pt-strong">d</text>`);
+})();
+
+/* Q10: dois alto-falantes */
+const FIG2_10 = (() => {
+  const fal = (x, y, n) => `<rect x="${x-16}" y="${y-9}" width="12" height="18" fill="var(--ink)"/><path d="M${x-4} ${y-9} L${x+10} ${y-18} L${x+10} ${y+18} L${x-4} ${y+9} Z" fill="var(--ink)"/><text x="${x-6}" y="${y+34}" text-anchor="middle" class="pt pt-strong">${n}</text>`;
+  return fig('0 0 340 210', 'Dois alto-falantes, F1 em cima e F2 embaixo, à esquerda, e um ponto P à direita. P está a 4,0 metros de F1 e a 5,5 metros de F2. Figura fora de escala.',
+    `${fal(48, 40, 'F1')}${fal(48, 160, 'F2')}
+    <line x1="62" y1="40" x2="292" y2="84" stroke="var(--sign)" stroke-width="2" stroke-dasharray="6 4"/><line x1="62" y1="160" x2="292" y2="84" stroke="var(--plot2)" stroke-width="2" stroke-dasharray="6 4"/>
+    <circle cx="296" cy="84" r="6" fill="var(--ink)"/><text x="306" y="80" class="pt pt-strong">P</text>
+    <text x="176" y="50" text-anchor="middle" class="pt pt-strong">4,0 m</text><text x="176" y="142" text-anchor="middle" class="pt pt-strong">5,5 m</text>
+    <text x="330" y="204" text-anchor="end" class="pt">(fora de escala)</text>`);
+})();
+
+const QL2 = [
+{
+  src:'Inédita', nivel:'básico',
+  text:`Uma aluna está no corredor, encostada na parede, e não consegue ver os colegas que conversam dentro da sala. Mesmo assim, ela ouve a conversa pela porta aberta. A figura (vista de cima) mostra o que acontece com as ondas sonoras.${FIG2_1}O fenômeno que faz o som se espalhar para os lados logo depois de passar pela porta, chegando até a aluna, é a:`,
+  opts:['reflexão','refração','difração','polarização','dispersão'], ans:2,
+  hint:'Repare nas frentes de onda depois da porta: elas deixam de ser retas e “abrem” para os lados.',
+  steps:[
+    ['O que a figura mostra', `<p>As frentes de onda passam pela abertura e se espalham, contornando as bordas da porta. Esse é o fenômeno da <b>difração</b>.</p>`],
+    ['Por que o som difrata e a luz não', `<p>A difração fica forte quando o comprimento de onda é parecido com o tamanho da abertura. O som da voz tem λ de dezenas de centímetros a alguns metros, parecido com uma porta. A luz tem λ de centenas de nanômetros, milhões de vezes menor. Por isso o som “dobra a esquina” e a luz, praticamente, não.</p>`],
+  ],
+  alt:'É por isso que você ouve uma ambulância antes de vê-la virar a esquina.',
+  warn:'Num corredor real o som também reflete nas paredes, mas o que a figura mostra (a onda se abrindo logo depois da porta) é a difração.',
+  mod:'Inédita (mesma ideia da questão 18 da lista de Ondulatória da apostila: ondas contornando obstáculos).'
+},
+{
+  src:'Inédita', nivel:'básico',
+  text:`Num experimento, a luz de uma lâmpada passa por dois filtros polarizadores. Com os dois filtros alinhados, a luz atravessa. Quando o filtro 2 é girado 90°, a luz é praticamente bloqueada, como mostra a figura.${FIG2_2}Esse experimento mostra que a luz é uma onda:`,
+  opts:['transversal','longitudinal','mecânica','estacionária','que precisa de um meio material'], ans:0,
+  hint:'Só faz sentido “filtrar uma direção de vibração” se a onda vibrar perpendicularmente à direção em que avança.',
+  steps:[
+    ['O que o filtro faz', `<p>O filtro 1 deixa passar só a vibração numa direção (vertical, na figura): a luz sai <b>polarizada</b>. O filtro 2, girado 90°, só aceita a vibração horizontal, e a luz que chega não tem essa vibração: ela é bloqueada.</p>`],
+    ['Conclusão', `<p>A luz vibra em direções perpendiculares à direção em que se propaga. Logo, ela é uma onda <b>transversal</b>. Uma onda longitudinal (como o som) vibra na própria direção de propagação e não pode ser polarizada.</p>`],
+  ],
+  alt:'Pense numa corda passando por uma grade de ripas verticais: uma onda que faz a corda subir e descer passa; uma que faz a corda ir para os lados é barrada. Com uma onda que só vai e volta ao longo da corda (longitudinal), a grade não faria diferença.',
+  warn:'A luz não é mecânica nem precisa de meio: ela chega do Sol atravessando o vácuo. As alternativas c e e misturam luz e som.',
+  mod:'Inédita (amplia o exercício 6 da lista de Óptica da apostila: “A polarização é uma propriedade de…”).'
+},
+{
+  src:'Fuvest (modificada)', nivel:'básico',
+  text:`As cores que aparecem numa bolha de sabão, ou numa mancha de óleo sobre o asfalto molhado, mudam conforme o ângulo de observação. Elas surgem porque a luz que volta da superfície de cima da película fina se superpõe à luz que volta da superfície de baixo (raios 1 e 2 da figura).${FIG2_3}Os fenômenos físicos diretamente relacionados a essas cores são:`,
+  opts:['dilatação e reflexão','interferência e dilatação','difração e convecção','reflexão e interferência','polarização e convecção'], ans:3,
+  hint:'Primeiro: o que acontece com a luz quando ela “volta” de uma superfície? Depois: que nome tem a superposição de duas ondas?',
+  steps:[
+    ['Reflexão', `<p>Os raios 1 e 2 voltam das superfícies da película: isso é <b>reflexão</b>.</p>`],
+    ['Interferência', `<p>Os dois raios refletidos se superpõem. Dependendo da espessura da película e da cor (comprimento de onda), eles se reforçam ou se cancelam: é a <b>interferência</b>. Cada cor é reforçada num ponto diferente, e por isso aparecem faixas coloridas que mudam com o ângulo.</p>`],
+  ],
+  alt:'O mesmo efeito aparece na parte de trás de um CD ou nas asas de algumas borboletas (iridescência).',
+  warn:'Dilatação e convecção são fenômenos térmicos: não têm relação com as cores.',
+  mod:'Original (Fuvest, Somativa 1): iridescência nas asas de borboletas. Modificada: bolha de sabão e mancha de óleo, com figura da película e alternativas trocadas.'
+},
+{
+  src:'Inédita', nivel:'intermediário',
+  text:`Fones com cancelamento ativo de ruído captam o som do ambiente com um microfone e emitem, no próprio alto-falante, uma onda sonora de mesma frequência e mesma amplitude que o ruído, mas em oposição de fase, como no gráfico.${plot({aria:'Gráfico de pressão por tempo com duas senoides de mesma amplitude e frequência: a do ruído, contínua, e a emitida pelo fone, tracejada. Onde uma tem crista, a outra tem vale.', xmin:0, xmax:4, ymin:-1.4, ymax:1.4, xt:[0,1,2,3,4], noxl:true, yt:[], xl:'tempo', yl:'pressão', L:[{p:sen(1,2,0,4), c:'var(--sign)'},{p:sen(-1,2,0,4), c:'var(--plot2)', dash:'7 5'}], ann:[[0.55,1.22,'ruído','middle','var(--sign)'],[1.55,1.22,'fone','middle','var(--plot2)']]})}O fenômeno explorado e o resultado no ouvido são:`,
+  opts:['difração, que desvia o ruído para longe do ouvido','interferência destrutiva, que reduz o ruído','interferência construtiva, que dobra a amplitude','refração, que faz o ruído ser absorvido no fone','polarização, que bloqueia uma direção do ruído'], ans:1,
+  hint:'O que acontece quando a crista de uma onda encontra o vale de outra, de mesma amplitude?',
+  steps:[
+    ['Superposição', `<p>No ouvido chegam as duas ondas ao mesmo tempo. Onde uma tem crista, a outra tem vale: as perturbações se somam e se anulam.</p>${plot({aria:'Soma das duas ondas: uma linha praticamente reta, no zero.', xmin:0, xmax:4, ymin:-1.4, ymax:1.4, xt:[0,1,2,3,4], noxl:true, yt:[], xl:'tempo', yl:'soma', L:[{p:[[0,0],[4,0]], c:'var(--ok)', w:4}]})}`],
+    ['Nome do fenômeno', `<p>Superposição com cancelamento é <b>interferência destrutiva</b>. O ruído (principalmente o grave e constante, como o do motor de um avião) fica muito mais fraco.</p>`],
+  ],
+  alt:'É a mesma ideia de somar +1 com −1: as duas ondas existem, mas a soma delas, no ouvido, é quase zero.',
+  warn:'Interferência construtiva (alternativa c) acontece quando crista encontra crista, ou seja, ondas em fase. Aqui elas estão em oposição de fase.',
+  mod:'Inédita.'
+},
+{
+  src:'Inédita', nivel:'intermediário',
+  text:`Num tanque de ondas, uma régua vibra com frequência de 3 Hz e produz ondas retas que passam de uma região funda para uma região rasa (figura, vista de cima).${FIG2_5}A velocidade das ondas na região rasa é:`,
+  opts:['12 cm/s','0,83 cm/s','19,2 cm/s','4,8 cm/s','7,5 cm/s'], ans:4,
+  hint:'Ao passar de uma região para a outra, a frequência continua 3 Hz. Use o comprimento de onda da região rasa.',
+  steps:[
+    ['A frequência não muda', `<p>Quem define a frequência é a régua: <b>f = 3 Hz</b> nas duas regiões. Mudou a velocidade e, com ela, o comprimento de onda: é uma <b>refração</b>.</p>`],
+    ['Velocidade na região rasa', `<div class="eq">v<sub>rasa</sub> = λ<sub>rasa</sub> · f = 2,5 cm × 3 Hz = <span class="hl">7,5 cm/s</span></div>`],
+    ['Conferindo com a região funda', `<div class="eq">v<sub>funda</sub> = 4,0 × 3 = 12 cm/s</div><p>Na região rasa a onda fica mais lenta, e λ diminui na mesma proporção.</p>`],
+  ],
+  alt:`Por proporção: com f fixa, v e λ são proporcionais. ${f('v<sub>rasa</sub>','12')} = ${f('2,5','4,0')} ⇒ v<sub>rasa</sub> = 7,5 cm/s.`,
+  warn:'12 cm/s é a velocidade na região funda (alternativa a). A pergunta é sobre a rasa.',
+  mod:'Inédita (inspirada no exercício 17 da lista de Ondulatória da apostila, sobre profundidade e velocidade).'
+},
+{
+  src:'Inédita', nivel:'intermediário',
+  text:`Associe cada situação ao fenômeno ondulatório que melhor a explica.${tabela(['','Situação'],[['1','Ouvir o próprio eco ao gritar diante de um paredão'],['2','Um canudo parece “quebrado” dentro de um copo com água'],['3','Sintonizar uma rádio AM num vale cercado de morros'],['4','Óculos especiais reduzirem o brilho refletido pelo asfalto']], true)}A sequência correta, de 1 a 4, é:`,
+  opts:['refração, reflexão, difração, polarização','reflexão, difração, refração, polarização','reflexão, refração, difração, polarização','reflexão, refração, polarização, difração','difração, refração, reflexão, polarização'], ans:2,
+  hint:'Eco é som que bateu e voltou. O canudo “quebra” exatamente na superfície da água, onde a luz muda de meio.',
+  steps:[
+    ['1 e 2', `<ul><li><b>Eco</b>: o som bate no paredão e volta → reflexão.</li><li><b>Canudo “quebrado”</b>: a luz que vem da parte submersa muda de direção ao passar da água para o ar → refração.</li></ul>`],
+    ['3 e 4', `<ul><li><b>Rádio AM no vale</b>: as ondas AM têm λ de centenas de metros e contornam os morros → difração.</li><li><b>Óculos polarizados</b>: a luz refletida pelo asfalto vibra principalmente numa direção, e a lente filtra essa direção → polarização.</li></ul>`],
+  ],
+  alt:'Uma forma de lembrar: reflexão = volta; refração = muda de meio (e de direção); difração = contorna; polarização = filtra a direção de vibração.',
+  warn:'Refração e reflexão têm nomes parecidos e costumam ser trocadas (alternativa a). Se a onda muda de meio, é refração.',
+  mod:'Inédita.'
+},
+{
+  src:'Inédita', nivel:'intermediário',
+  text:'Uma rádio AM transmite em 1 000 kHz e uma rádio FM em 100 MHz. Uma pessoa que mora num vale cercado por morros sintoniza bem a AM, mas a FM chega com muitas falhas. Sendo a velocidade das ondas de rádio igual a 3,0 · 10<sup>8</sup> m/s, os comprimentos de onda e a melhor explicação são:',
+  opts:['AM: 300 m; FM: 3 m. A AM difrata mais nos morros.','AM: 3 m; FM: 300 m. A FM difrata mais nos morros.','AM: 300 m; FM: 3 m. A FM difrata mais nos morros.','AM: 0,3 m; FM: 30 m. A AM reflete mais nos morros.','AM: 300 m; FM: 3 m. A AM é mais rápida no ar.'], ans:0,
+  hint:'Passe as frequências para hertz (k = 10³, M = 10⁶) e use λ = c/f. Depois: qual λ é parecido com o tamanho de um morro?',
+  steps:[
+    ['Comprimentos de onda', `<div class="eq">λ<sub>AM</sub> = ${f('3,0 · 10<sup>8</sup>','1 000 · 10<sup>3</sup>')} = ${f('3,0 · 10<sup>8</sup>','10<sup>6</sup>')} = 300 m</div><div class="eq">λ<sub>FM</sub> = ${f('3,0 · 10<sup>8</sup>','100 · 10<sup>6</sup>')} = ${f('3,0 · 10<sup>8</sup>','10<sup>8</sup>')} = 3 m</div>`],
+    ['Explicação', `<p>A difração é mais intensa quando λ é comparável ao tamanho do obstáculo. Com λ de centenas de metros, a onda AM contorna os morros com facilidade. A FM, com λ de poucos metros, se comporta quase como “luz”: o morro faz sombra.</p>`],
+  ],
+  alt:'Frequência maior → λ menor → menos difração. A FM “enxerga” o morro como uma parede; a AM o contorna.',
+  warn:'Todas as ondas eletromagnéticas têm praticamente a mesma velocidade no ar (alternativa e). A diferença entre AM e FM está no comprimento de onda.',
+  mod:'Inédita (amplia o exercício 18 da lista de Ondulatória da apostila, rádio AM e difração).'
+},
+{
+  src:'UEA (modificada)', nivel:'avançado',
+  text:`Um morcego emite pulsos de ultrassom de frequência 34 kHz e localiza um inseto pelo eco, que recebe 0,020 s após a emissão (figura).${FIG2_8}Considere o morcego e o inseto parados e a velocidade do som no ar igual a 340 m/s. A distância d até o inseto e o comprimento de onda do ultrassom são, respectivamente:`,
+  opts:['6,8 m e 1 cm','3,4 m e 1 cm','3,4 m e 10 cm','6,8 m e 10 m','1,7 m e 1 mm'], ans:1,
+  hint:'Em 0,020 s o som foi até o inseto e voltou. Para λ, passe 34 kHz para hertz.',
+  steps:[
+    ['Distância (eco)', `<p>O som percorre <b>2d</b> (ida e volta) em 0,020 s:</p><div class="eq">2d = v · t = 340 × 0,020 = 6,8 m</div><div class="eq">d = <span class="hl">3,4 m</span></div>`],
+    ['Comprimento de onda', `<div class="eq">λ = ${f('v','f')} = ${f('340 m/s','34 000 Hz')} = 0,01 m = <span class="hl">1 cm</span></div>`],
+  ],
+  alt:'λ de 1 cm é parecido com o tamanho de um inseto. Ondas assim “batem” no inseto e voltam bem, em vez de contorná-lo. É por isso que morcegos usam ultrassom e não sons graves.',
+  warn:'6,8 m é o caminho de ida e volta (alternativa a). A distância até o inseto é a metade. E esquecer o “k” de 34 kHz dá λ = 10 m.',
+  mod:'Original (UEA, Somativa 1): sonar de navio medindo a profundidade do oceano. Modificada: morcego e inseto, pedindo também o comprimento de onda.'
+},
+{
+  src:'EFOMM (modificada)', nivel:'avançado',
+  text:'O comprimento de onda da luz de um laser é 600 nm no ar, onde ela se propaga a 3,0 · 10<sup>8</sup> m/s. Ao entrar num bloco de acrílico, o comprimento de onda dessa luz passa a ser 400 nm. No acrílico, a velocidade e a frequência dessa luz são, respectivamente:',
+  opts:['2,0 · 10<sup>8</sup> m/s e 7,5 · 10<sup>14</sup> Hz','4,5 · 10<sup>8</sup> m/s e 5,0 · 10<sup>14</sup> Hz','2,0 · 10<sup>8</sup> m/s e 5,0 · 10<sup>5</sup> Hz','3,0 · 10<sup>8</sup> m/s e 7,5 · 10<sup>14</sup> Hz','2,0 · 10<sup>8</sup> m/s e 5,0 · 10<sup>14</sup> Hz'], ans:4,
+  hint:'Calcule a frequência no ar. Ela é a mesma no acrílico. Depois use v = λ · f com o λ do acrílico.',
+  steps:[
+    ['Frequência (no ar)', `<div class="eq">f = ${f('c','λ<sub>ar</sub>')} = ${f('3,0 · 10<sup>8</sup>','600 · 10<sup>−9</sup>')} = <span class="hl">5,0 · 10<sup>14</sup> Hz</span></div><p>Na refração a frequência não muda: no acrílico ela também é 5,0 · 10<sup>14</sup> Hz.</p>`],
+    ['Velocidade no acrílico', `<div class="eq">v = λ · f = 400 · 10<sup>−9</sup> × 5,0 · 10<sup>14</sup> = <span class="hl">2,0 · 10<sup>8</sup> m/s</span></div>`],
+  ],
+  alt:`Com f constante, v e λ são proporcionais: λ caiu para ${f('400','600')} = ${f('2','3')} do valor, então v = ${f('2','3')} × 3,0 · 10<sup>8</sup> = 2,0 · 10<sup>8</sup> m/s.`,
+  warn:'Calcular a frequência com o λ do acrílico e a velocidade do ar mistura dados de meios diferentes e dá 7,5 · 10¹⁴ Hz (alternativas a e d). E esquecer que 1 nm = 10⁻⁹ m leva ao 10⁵ da alternativa c.',
+  mod:'Original (EFOMM): λ = 675 nm no ar e 450 nm no outro meio. Modificada: 600 nm e 400 nm (acrílico).'
+},
+{
+  src:'Inédita', nivel:'avançado',
+  text:`Dois alto-falantes, ligados ao mesmo aparelho, emitem em fase um som de 340 Hz. Um estudante está no ponto P, a 4,0 m de um deles e a 5,5 m do outro (figura).${FIG2_10}Sendo 340 m/s a velocidade do som, no ponto P ocorre interferência:`,
+  opts:['construtiva, pois Δd = 1,5 λ','destrutiva, pois Δd = 3 λ','construtiva, pois Δd = 3 λ','destrutiva, pois Δd = 1,5 λ','construtiva, pois as duas ondas têm a mesma frequência'], ans:3,
+  hint:'Calcule λ e veja quantos comprimentos de onda “cabem” na diferença de caminho 5,5 − 4,0.',
+  steps:[
+    ['Comprimento de onda', `<div class="eq">λ = ${f('v','f')} = ${f('340','340')} = 1,0 m</div>`],
+    ['Diferença de caminho', `<div class="eq">Δd = 5,5 − 4,0 = 1,5 m = 1,5 λ</div>`],
+    ['Construtiva ou destrutiva?', `<p>As fontes estão em fase. Se Δd for um número inteiro de λ (1λ, 2λ…), crista chega com crista: construtiva. Se sobrar meio λ (0,5λ, 1,5λ…), crista chega com vale: <b>destrutiva</b>. Em P o som fica fraco.</p>`],
+  ],
+  alt:'Imagine as duas ondas saindo juntas, crista com crista. A do falante mais distante anda 1,5 λ a mais: um λ inteiro não muda nada, mas o meio λ extra transforma a crista em vale.',
+  warn:'Ter a mesma frequência é condição para a interferência ficar estável, mas não diz se ela é construtiva ou destrutiva (alternativa e). Quem decide é a diferença de caminho.',
+  mod:'Inédita.'
+},
+];
+
+/* ===== Lista 3 · Espectro eletromagnético ===== */
+const TAB_ESP = tabela(['Radiação','Comprimento de onda (aprox.)'],[['Rádio','acima de 1 m'],['Micro-ondas','1 mm a 1 m'],['Infravermelho','700 nm a 1 mm'],['Luz visível','400 nm a 700 nm'],['Ultravioleta','10 nm a 400 nm'],['Raios X','0,01 nm a 10 nm'],['Raios gama','abaixo de 0,01 nm']]);
+const TOOLS3 = [
+  ['Equação fundamental', `c = λ · f &nbsp; (no vácuo e, aproximadamente, no ar)<br>c = 3,0 · 10<sup>8</sup> m/s para <b>todas</b> as radiações`],
+  ['Ordem do espectro', `rádio → micro-ondas → infravermelho → visível → ultravioleta → raios X → gama<br>Para a direita: f e energia aumentam, λ diminui.`],
+  ['Luz visível', `vermelho (≈ 700 nm) → violeta (≈ 400 nm)<br>O violeta tem a maior frequência do visível.`],
+  ['Energia e ionização', `A energia de cada fóton cresce com a frequência.<br>Ionizantes (arrancam elétrons): ultravioleta mais energético, raios X e gama.`],
+  ['Prefixos', `1 nm = 10<sup>−9</sup> m · 1 μm = 10<sup>−6</sup> m · 1 mm = 10<sup>−3</sup> m<br>1 MHz = 10<sup>6</sup> Hz · 1 GHz = 10<sup>9</sup> Hz`],
+  ['Faixas aproximadas', TAB_ESP],
+];
+
+/* Q1: espectro com lacunas */
+const FIG3_1 = (() => {
+  const [d, mk] = seta('var(--ink)');
+  const nomes = ['rádio','1','infravermelho','2','ultravioleta','3','raios gama'];
+  let s = '';
+  nomes.forEach((n, i) => {
+    const x = 12 + i * 45.5, lac = /^\d$/.test(n);
+    s += `<rect x="${x}" y="46" width="45.5" height="34" fill="${lac ? 'var(--surface)' : 'var(--sign)'}" opacity="${lac ? 1 : (0.18 + i * 0.1).toFixed(2)}" stroke="var(--ink)" stroke-width="1.2"/>`;
+    if (lac) s += `<text x="${x + 22.75}" y="69" text-anchor="middle" class="pt pt-strong" style="font-size:16px">${n}</text>`;
+    else s += `<text x="${x + 22.75}" y="${i % 4 === 0 ? 100 : 116}" text-anchor="middle" class="pt pt-strong">${n}</text><line x1="${x + 22.75}" y1="81" x2="${x + 22.75}" y2="${i % 4 === 0 ? 89 : 105}" stroke="var(--muted)"/>`;
+  });
+  return fig('0 0 340 128', 'Faixa do espectro eletromagnético em ordem crescente de frequência, da esquerda para a direita: rádio, lacuna 1, infravermelho, lacuna 2, ultravioleta, lacuna 3, raios gama.',
+    `${d}<line x1="40" y1="24" x2="300" y2="24" stroke="var(--ink)" stroke-width="1.8" marker-end="${mk}"/><text x="170" y="16" text-anchor="middle" class="pt">frequência aumenta</text>${s}`);
+})();
+
+/* Q7: radiografia */
+const FIG3_7 = (() => {
+  const [d, mk] = seta('var(--plot2)'); let r = '';
+  [40, 62, 84, 106, 128].forEach(y => { r += `<line x1="58" y1="${y}" x2="128" y2="${y}" stroke="var(--plot2)" stroke-width="2" marker-end="${mk}"/>`; });
+  return fig('0 0 340 170', 'Aparelho de raios X à esquerda emite um feixe para a direita. O feixe atravessa uma mão, que tem tecidos moles e um osso no meio, e chega a um filme ou sensor à direita.',
+    `${d}<rect x="10" y="30" width="40" height="110" rx="6" fill="var(--ink)"/><text x="30" y="160" text-anchor="middle" class="pt">fonte</text>${r}
+    <ellipse cx="190" cy="85" rx="44" ry="62" fill="var(--plot2)" opacity=".28" stroke="var(--ink)" stroke-width="1.4"/>
+    <rect x="178" y="34" width="24" height="102" rx="12" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.4"/>
+    <text x="190" y="164" text-anchor="middle" class="pt">mão (osso no centro)</text>
+    <rect x="290" y="20" width="16" height="130" fill="var(--muted)" opacity=".5" stroke="var(--ink)"/><text x="298" y="164" text-anchor="middle" class="pt">filme</text>`);
+})();
+
+/* Q8: barra de chocolate */
+const FIG3_8 = (() => {
+  const [d, mk] = seta('var(--ink)'); let s = '';
+  [50, 110, 170, 230, 290].forEach(x => { s += `<ellipse cx="${x}" cy="66" rx="13" ry="10" fill="var(--plot2)" opacity=".85"/>`; });
+  return fig('0 0 340 120', 'Barra de chocolate vista de cima com cinco pontos derretidos igualmente espaçados. A distância entre dois pontos vizinhos é 6,0 centímetros.',
+    `${d}<rect x="14" y="44" width="312" height="44" rx="6" fill="#6B4226" opacity=".55" stroke="var(--ink)" stroke-width="1.4"/>${s}
+    <line x1="110" y1="104" x2="170" y2="104" stroke="var(--ink)" stroke-width="1.3" marker-start="${mk}" marker-end="${mk}"/><text x="140" y="118" text-anchor="middle" class="pt pt-strong">6,0 cm</text>
+    <text x="170" y="30" text-anchor="middle" class="pt">pontos derretidos</text>`);
+})();
+
+/* Q10: transparência da atmosfera (simplificado) */
+const FIG3_10 = (() => {
+  const faixas = [['gama',1],['raios X',1],['UV',0.85],['visível',0.05],['infraverm.',0.6],['micro-ondas',0.12],['rádio',0.05],['rádio longo',1]];
+  let s = ''; const w = 39, x0 = 14;
+  faixas.forEach(([n, op], i) => {
+    const x = x0 + i * w;
+    s += `<rect x="${x}" y="${(104 - op * 82).toFixed(1)}" width="${w}" height="${(op * 82).toFixed(1)}" fill="var(--sign)" opacity=".75"/>`;
+    s += `<rect x="${x}" y="22" width="${w}" height="82" fill="none" stroke="var(--line)"/>`;
+    s += `<text x="${x + w/2}" y="${i % 2 ? 136 : 120}" text-anchor="middle" class="pt pt-strong" style="font-size:10px">${n}</text>`;
+  });
+  const [d, mk] = seta('var(--ink)');
+  return fig('0 0 340 178', 'Gráfico simplificado da absorção pela atmosfera. Barras altas indicam radiação absorvida antes de chegar ao solo: raios gama, raios X e quase todo o ultravioleta são absorvidos; a luz visível passa; o infravermelho é parcialmente absorvido; micro-ondas e boa parte das ondas de rádio passam; as ondas de rádio muito longas não passam.',
+    `${d}${s}<text x="10" y="14" class="pt">absorção pela atmosfera (simplificado)</text>
+    <line x1="80" y1="168" x2="260" y2="168" stroke="var(--ink)" stroke-width="1.6" marker-start="${mk}"/><text x="170" y="160" text-anchor="middle" class="pt">frequência aumenta</text>`);
+})();
+
+const QL3 = [
+{
+  src:'Inédita', nivel:'básico',
+  text:`A figura representa o espectro eletromagnético em ordem crescente de frequência. Algumas faixas foram substituídas pelos números 1, 2 e 3.${FIG3_1}As faixas 1, 2 e 3 correspondem, respectivamente, a:`,
+  opts:['raios X, luz visível e micro-ondas','micro-ondas, raios X e luz visível','ondas de TV, luz visível e raios X','raios X, micro-ondas e luz visível','micro-ondas, luz visível e raios X'], ans:4,
+  hint:'Entre o rádio e o infravermelho fica a radiação do forno e do Wi-Fi. Entre o infravermelho e o ultravioleta fica o que os nossos olhos enxergam.',
+  steps:[
+    ['A sequência do espectro', `<div class="eq">rádio → <b>micro-ondas</b> → infravermelho → <b>visível</b> → ultravioleta → <b>raios X</b> → gama</div>`],
+    ['Preenchendo', `<ul><li>1: micro-ondas</li><li>2: luz visível</li><li>3: raios X</li></ul>`],
+  ],
+  alt:'Os próprios nomes ajudam: <b>infra</b>vermelho fica “abaixo” do vermelho e <b>ultra</b>violeta fica “além” do violeta. Entre os dois, só pode estar a luz visível.',
+  warn:'Ondas de TV (alternativa c) são ondas de rádio. Elas ficam antes das micro-ondas, não no lugar delas.',
+  mod:'Inédita.'
+},
+{
+  src:'Enem (modificada)', nivel:'básico',
+  text:'Câmeras térmicas são usadas por bombeiros para encontrar pessoas em ambientes cheios de fumaça. Elas formam imagens a partir da radiação que todo corpo aquecido emite e que, para objetos à temperatura do corpo humano, está principalmente fora da faixa visível. A radiação captada por essas câmeras está na região:',
+  opts:['da luz visível','do ultravioleta','dos raios X','do infravermelho','das ondas longas de rádio'], ans:3,
+  hint:'Que radiação você sente na pele perto de uma brasa ou de um aquecedor, mesmo sem olhar para ele?',
+  steps:[
+    ['Radiação térmica', `<p>Todo corpo emite radiação por estar aquecido. Na temperatura do corpo humano (cerca de 37 °C), essa emissão é principalmente no <b>infravermelho</b>.</p>`],
+    ['Aplicação', `<p>A câmera térmica “enxerga” o infravermelho: as regiões mais quentes aparecem com cores diferentes. A fumaça atrapalha muito a luz visível, mas atrapalha bem menos esse infravermelho.</p>`],
+  ],
+  alt:'Sensores de presença de alarmes e termômetros de testa sem contato usam a mesma ideia.',
+  warn:'Ultravioleta e raios X não são emitidos em quantidade relevante por corpos à temperatura ambiente: eles exigem fontes muito mais energéticas.',
+  mod:'Original (Enem): detector de movimento que capta a radiação emitida pelo corpo. Modificada: câmera térmica de bombeiros.'
+},
+{
+  src:'UFJF (modificada)', nivel:'básico',
+  text:'Sobre as ondas eletromagnéticas, considere as afirmações.<br>I. Elas não precisam de um meio material para se propagar.<br>II. No vácuo, os raios gama são mais rápidos que as ondas de rádio.<br>III. O infravermelho tem frequência menor que a da luz visível.<br>IV. O som é uma onda eletromagnética de baixa frequência.<br>Estão corretas:',
+  opts:['Apenas I e II','Apenas I e III','Apenas II e IV','Apenas I, III e IV','Apenas II, III e IV'], ans:1,
+  hint:'No vácuo, toda radiação eletromagnética tem a mesma velocidade. E o som chega até nós vindo do espaço?',
+  steps:[
+    ['I e II', `<ul><li>I. Correta: a luz do Sol atravessa o vácuo do espaço.</li><li>II. Errada: no vácuo, <b>todas</b> as ondas eletromagnéticas andam a c = 3,0 · 10<sup>8</sup> m/s. O que muda de uma para outra é f e λ.</li></ul>`],
+    ['III e IV', `<ul><li>III. Correta: o infravermelho fica antes do vermelho, com frequência menor.</li><li>IV. Errada: o som é onda <b>mecânica</b> e não se propaga no vácuo.</li></ul>`],
+  ],
+  alt:'Se os raios gama fossem mais rápidos, numa explosão de estrela distante eles chegariam muito antes da luz visível. Os telescópios mostram que chegam praticamente juntos.',
+  warn:'“Mais energético” não quer dizer “mais rápido”. Raios gama carregam mais energia por fóton, mas têm a mesma velocidade no vácuo.',
+  mod:'Original (UFJF, Somativa 2): cinco afirmações sobre espectro e luz visível. Modificada: quatro afirmações novas, uma delas sobre o som.'
+},
+{
+  src:'Inédita', nivel:'intermediário',
+  text:`Um roteador de Wi-Fi transmite em 2,4 GHz. Use c = 3,0 · 10<sup>8</sup> m/s e a tabela de faixas aproximadas.${TAB_ESP}A radiação do roteador e o seu comprimento de onda são:`,
+  opts:['Rádio, com λ ≈ 1,25 m','Ultravioleta, com λ ≈ 125 nm','Micro-ondas, com λ ≈ 12,5 cm','Rádio, com λ ≈ 8 m','Micro-ondas, com λ ≈ 0,8 m'], ans:2,
+  hint:'2,4 GHz = 2,4 · 10⁹ Hz. Use λ = c/f e depois compare com a tabela.',
+  steps:[
+    ['Converter a frequência', `<div class="eq">f = 2,4 GHz = 2,4 · 10<sup>9</sup> Hz</div>`],
+    ['Comprimento de onda', `<div class="eq">λ = ${f('c','f')} = ${f('3,0 · 10<sup>8</sup>','2,4 · 10<sup>9</sup>')} = 0,125 m = <span class="hl">12,5 cm</span></div>`],
+    ['Classificar', `<p>12,5 cm está entre 1 mm e 1 m: <b>micro-ondas</b>, a mesma faixa do forno de micro-ondas (2,45 GHz).</p>`],
+  ],
+  alt:'Atalho: 3 · 10⁸ ÷ 10⁹ = 0,3 m. Como a frequência é 2,4 vezes maior que 10⁹ Hz, λ é 2,4 vezes menor que 0,3 m: cerca de 0,12 m.',
+  warn:'Dividir f por c (2,4 · 10⁹ ÷ 3 · 10⁸ = 8) dá a alternativa d. λ = c/f: a velocidade fica em cima.',
+  mod:'Inédita (no formato da questão 5 da Somativa 2: calcular λ e classificar pela tabela).'
+},
+{
+  src:'Fuvest (modificada)', nivel:'intermediário',
+  text:`Chama-se ionizante a radiação com energia suficiente para arrancar elétrons dos átomos e moléculas do material que ela atinge. Considere as fontes da tabela.${tabela(['Fonte','Radiação emitida'],[['Roteador de Wi-Fi','micro-ondas'],['Lâmpada de LED','luz visível'],['Controle remoto da TV','infravermelho'],['Aparelho de radiografia','raios X'],['Radioterapia com cobalto-60','raios gama']])}Emitem radiação ionizante apenas:`,
+  opts:['o roteador e o controle remoto','a lâmpada, a radiografia e a radioterapia','a radiografia e a radioterapia','todas as fontes, pois todas emitem radiação','o roteador, a radiografia e a radioterapia'], ans:2,
+  hint:'A energia de cada fóton cresce com a frequência. Quais dessas radiações estão na ponta de alta frequência do espectro?',
+  steps:[
+    ['Energia cresce com a frequência', `<p>Para arrancar elétrons, cada fóton precisa carregar bastante energia, e isso só acontece nas frequências mais altas: parte do ultravioleta, os <b>raios X</b> e os <b>raios gama</b>.</p>`],
+    ['Classificando', `<ul><li>Micro-ondas, visível e infravermelho: <b>não ionizantes</b>.</li><li>Raios X (radiografia) e gama (radioterapia): <b>ionizantes</b>. Por isso exigem proteção com chumbo e controle do tempo de exposição.</li></ul>`],
+  ],
+  alt:'Na radioterapia, a capacidade de ionizar é justamente o objetivo: danificar o DNA das células do tumor.',
+  warn:'Ser “radiação” não significa ser perigosa ou ionizante (alternativa d). A luz da lâmpada também é radiação eletromagnética, e não ioniza.',
+  mod:'Original (Fuvest, Somativa 2): textos sobre radiação ionizante e alternativas sobre luz, micro-ondas e efeito fotoelétrico. Modificada: tabela de fontes do cotidiano e da saúde para classificar.'
+},
+{
+  src:'Inédita', nivel:'intermediário',
+  text:'Uma pessoa passa uma hora perto de um aquecedor elétrico, que emite principalmente infravermelho, e outra hora ao sol forte, sem protetor. O aquecedor esquenta mais a pele, mas só a exposição ao sol causa a queimadura solar (a vermelhidão que aparece horas depois) e danos ao DNA das células da pele. A melhor explicação é que:',
+  opts:['o infravermelho tem frequência maior que a do ultravioleta, mas é absorvido pelo ar','o ultravioleta se propaga no ar muito mais rápido que o infravermelho','o ultravioleta é uma onda mecânica e o infravermelho é eletromagnética, por isso agem de modos diferentes','o infravermelho não chega à pele, pois é refletido pelo ar ao redor do aquecedor','cada fóton de ultravioleta carrega mais energia e pode alterar moléculas'], ans:4,
+  hint:'O que importa para quebrar uma ligação química não é o “calor total”, mas a energia de cada pacotinho de radiação.',
+  steps:[
+    ['Energia por fóton', `<p>A radiação eletromagnética chega em “pacotes” de energia, os fótons. A energia de cada fóton é proporcional à frequência. O ultravioleta tem frequência maior que o infravermelho: cada fóton de UV carrega mais energia.</p>`],
+    ['Efeito na pele', `<p>Um fóton de UV tem energia suficiente para alterar moléculas como o DNA. Os fótons de infravermelho não têm, cada um, essa energia: eles fazem as moléculas vibrarem mais, ou seja, <b>esquentam</b>.</p>`],
+  ],
+  alt:'É como tentar quebrar um vidro: mil bolinhas de algodão (infravermelho) esquentam e cansam, mas não quebram; uma pedra (fóton de UV) quebra, mesmo sozinha.',
+  warn:'Todas as ondas eletromagnéticas têm praticamente a mesma velocidade no ar (alternativa b). A diferença está na frequência, e não na velocidade.',
+  mod:'Inédita.'
+},
+{
+  src:'Inédita', nivel:'intermediário',
+  text:`Numa radiografia, um feixe de raios X atravessa a mão do paciente e atinge um filme (ou sensor), como mostra a figura. Onde chega mais radiação, a imagem fica mais escura.${FIG3_7}Os ossos aparecem claros na radiografia porque:`,
+  opts:['absorvem mais raios X que os tecidos moles','refletem os raios X de volta para a fonte, como um espelho','emitem luz visível quando são atingidos pelos raios X','difratam os raios X, que se espalham para fora da mão','são totalmente transparentes aos raios X, assim como a pele'], ans:0,
+  hint:'Pense na sombra: o que acontece com a radiação que deveria chegar ao filme logo atrás do osso?',
+  steps:[
+    ['Interação com a matéria', `<p>Os raios X atravessam com facilidade tecidos moles (pele, músculo), formados principalmente por átomos leves. Os ossos têm muito cálcio, um átomo mais pesado, e <b>absorvem</b> bem mais raios X.</p>`],
+    ['A imagem', `<p>Atrás do osso chega pouca radiação ao filme, que fica claro: a radiografia é uma espécie de “sombra” do osso.</p>`],
+  ],
+  alt:'É o mesmo princípio dos aparelhos de raios X dos aeroportos: objetos metálicos absorvem muito e aparecem bem marcados na imagem.',
+  warn:'Se os ossos fossem transparentes aos raios X (alternativa e), eles nem apareceriam na imagem.',
+  mod:'Inédita.'
+},
+{
+  src:'Inédita', nivel:'avançado',
+  text:`Para medir a velocidade da luz em casa, um estudante retirou o prato giratório de um forno de micro-ondas de 2,45 GHz e aqueceu uma barra de chocolate por poucos segundos. Dentro do forno se forma uma onda estacionária, e o chocolate derrete nos ventres, que ficam separados por <b>meio</b> comprimento de onda. A figura mostra o resultado.${FIG3_8}O valor que ele obteve para a velocidade da luz é, aproximadamente:`,
+  opts:['1,5 · 10<sup>8</sup> m/s','5,9 · 10<sup>8</sup> m/s','2,9 · 10<sup>10</sup> m/s','2,9 · 10<sup>8</sup> m/s','1,5 · 10<sup>10</sup> m/s'], ans:3,
+  hint:'A distância entre dois pontos derretidos vizinhos é λ/2. Passe para metros e use v = λ · f com f = 2,45 · 10⁹ Hz.',
+  steps:[
+    ['Comprimento de onda', `<div class="eq">${f('λ','2')} = 6,0 cm &nbsp;⇒&nbsp; λ = 12 cm = 0,12 m</div>`],
+    ['Velocidade', `<div class="eq">v = λ · f = 0,12 × 2,45 · 10<sup>9</sup> ≈ <span class="hl">2,9 · 10<sup>8</sup> m/s</span></div><p>Bem perto do valor aceito, 3,0 · 10<sup>8</sup> m/s.</p>`],
+  ],
+  alt:'Numa corda vibrando em onda estacionária, dois ventres vizinhos também ficam a λ/2 um do outro. No forno é o mesmo padrão, só que com micro-ondas.',
+  warn:'Usar os 6,0 cm como se fossem λ leva à metade do valor (alternativa a). E esquecer de passar cm para m dá 10¹⁰ (alternativas c e e).',
+  mod:'Inédita (experimento caseiro clássico; relaciona com as ondas estacionárias da Somativa 1).'
+},
+{
+  src:'Inédita', nivel:'avançado',
+  text:`Num ponto do espaço, o campo elétrico de uma radiação eletromagnética oscila com o tempo como mostra o gráfico.${plot({aria:'Gráfico do campo elétrico E por tempo t, em unidades de 10 elevado a menos 15 segundos. Senoide que se repete a cada 2 unidades de tempo, de 0 a 6.', xmin:0, xmax:6, ymin:-1.3, ymax:1.3, xt:[0,1,2,3,4,5,6], yt:[], xl:'t (10⁻¹⁵ s)', yl:'E', L:[{p:sen(1,2,0,6), c:'var(--sign)'}]})}Usando c = 3,0 · 10<sup>8</sup> m/s e as faixas aproximadas da caixa de ferramentas, essa radiação é classificada como:`,
+  opts:['infravermelho','luz visível','ultravioleta','raios X','micro-ondas'], ans:1,
+  hint:'O gráfico é em função do tempo: leia o período. Depois calcule f e λ.',
+  steps:[
+    ['Período', `<p>O campo se repete a cada 2 unidades do eixo: <b>T = 2,0 · 10<sup>−15</sup> s</b>.</p>`],
+    ['Frequência e λ', `<div class="eq">f = ${f('1','T')} = ${f('1','2,0 · 10<sup>−15</sup>')} = 5,0 · 10<sup>14</sup> Hz</div><div class="eq">λ = ${f('c','f')} = ${f('3,0 · 10<sup>8</sup>','5,0 · 10<sup>14</sup>')} = 6,0 · 10<sup>−7</sup> m = <span class="hl">600 nm</span></div>`],
+    ['Classificar', `<p>600 nm está entre 400 nm e 700 nm: <b>luz visível</b> (alaranjada).</p>`],
+  ],
+  alt:'Atalho: λ = c · T = 3,0 · 10⁸ × 2,0 · 10⁻¹⁵ = 6,0 · 10⁻⁷ m. Uma onda anda um λ em um período.',
+  warn:'Ler o pico em t = 0,5 e achar T = 0,5 · 10⁻¹⁵ s leva a λ = 150 nm, ultravioleta (alternativa c). O período é o tempo de um ciclo completo.',
+  mod:'Inédita, no formato do Exemplo 2 do capítulo de Óptica da apostila (gráfico de E × t e tabela de faixas).'
+},
+{
+  src:'Inédita', nivel:'avançado',
+  text:`A figura mostra, de forma simplificada, quanto de cada faixa do espectro vinda do espaço é absorvida pela atmosfera antes de chegar ao solo (barra alta = muita absorção).${FIG3_10}Com base na figura, assinale a alternativa correta.`,
+  opts:['Telescópios de raios X precisam ficar em órbita, pois a atmosfera absorve essa radiação.','Radiotelescópios precisam ficar em órbita, pois a atmosfera bloqueia quase todas as ondas de rádio.','A atmosfera nos protege do ultravioleta porque reflete toda a luz visível de volta ao espaço.','Os raios gama não chegam ao solo porque são mais lentos que a luz visível na atmosfera.','A luz visível é quase toda absorvida pela atmosfera, e só o infravermelho chega ao solo.'], ans:0,
+  hint:'Procure as faixas com barra alta (não chegam ao solo) e as com barra baixa (chegam).',
+  steps:[
+    ['Lendo a figura', `<ul><li>Gama, raios X e quase todo o UV: absorvidos (o UV, principalmente pela camada de ozônio).</li><li>Luz visível, micro-ondas e boa parte do rádio: atravessam. Essas são as “janelas” da atmosfera.</li></ul>`],
+    ['Consequência', `<p>Telescópios ópticos e radiotelescópios funcionam no solo. Para observar raios X, gama e boa parte do UV, é preciso levar o telescópio para fora da atmosfera, em satélites.</p>`],
+  ],
+  alt:'A mesma absorção que atrapalha os astrônomos é a que protege a vida na superfície das radiações ionizantes vindas do espaço.',
+  warn:'Os raios gama não chegam porque são <b>absorvidos</b>, e não por serem lentos (alternativa d): todas as ondas eletromagnéticas têm a mesma velocidade no vácuo.',
+  mod:'Inédita.'
+},
+];
+
+/* ===== Lista 4 · Princípios da óptica geométrica ===== */
+const TOOLS4 = [
+  ['Princípios', `<b>Propagação retilínea</b>: em meio homogêneo, a luz anda em linha reta.<br><b>Independência</b>: raios que se cruzam não se perturbam.<br><b>Reversibilidade</b>: o caminho de ida também serve de volta.`],
+  ['Meios', `Transparente: imagem nítida através dele<br>Translúcido: passa luz, sem imagem nítida<br>Opaco: não deixa a luz passar`],
+  ['Cor de um objeto', `O objeto reflete a cor que vemos e absorve as outras.<br>Branco reflete todas · preto absorve todas<br>Sem luz da sua cor para refletir, o objeto parece preto.`],
+  ['Sombras (semelhança)', `${f('H','h')} = ${f('S','s')} &nbsp; (altura e sombra, mesmo instante)`],
+  ['Câmara escura', `${f('i','o')} = ${f("p'",'p')}<br>i: imagem · o: objeto · p: objeto–orifício · p': profundidade da câmara`],
+  ['Ano-luz', `É <b>distância</b>: o que a luz percorre em 1 ano.<br>c = 3,0 · 10<sup>5</sup> km/s · 1 ano ≈ 3,2 · 10<sup>7</sup> s`],
+];
+
+/* Câmara escura de orifício */
+function camara(lo, lp, lpp, li){
+  const [d, mk] = seta('var(--ink)');
+  return fig('0 0 340 160', `Câmara escura de orifício: objeto à esquerda, ${lo}, a uma distância ${lp} do orifício; dentro da caixa, a imagem invertida, ${li}, no fundo, a uma distância ${lpp} do orifício.`,
+    `${d}<line x1="44" y1="105" x2="44" y2="57" stroke="var(--plot2)" stroke-width="4" marker-end="${mk}"/>
+    <rect x="150" y="36" width="150" height="88" fill="var(--ink)" opacity=".08" stroke="var(--ink)" stroke-width="2"/>
+    <rect x="147" y="77" width="6" height="6" fill="var(--surface)"/>
+    <g stroke="var(--ray)" stroke-width="1.6" opacity=".9"><line x1="44" y1="55" x2="300" y2="113"/><line x1="44" y1="105" x2="300" y2="47"/></g>
+    <line x1="296" y1="47" x2="296" y2="111" stroke="var(--plot2)" stroke-width="4" marker-end="${mk}"/>
+    <text x="44" y="124" text-anchor="middle" class="pt pt-strong">${lo}</text><text x="276" y="140" text-anchor="middle" class="pt pt-strong">${li}</text>
+    <line x1="44" y1="20" x2="150" y2="20" stroke="var(--muted)" stroke-width="1.2" marker-start="${mk}" marker-end="${mk}"/><text x="97" y="14" text-anchor="middle" class="pt pt-strong">${lp}</text>
+    <line x1="150" y1="20" x2="300" y2="20" stroke="var(--muted)" stroke-width="1.2" marker-start="${mk}" marker-end="${mk}"/><text x="225" y="14" text-anchor="middle" class="pt pt-strong">${lpp}</text>
+    <text x="150" y="150" text-anchor="middle" class="pt">orifício</text>`);
+}
+
+/* Q2: bandeira sob luz vermelha */
+const FIG4_2 = (() => {
+  const [d, mk] = seta('#D23B2A'); let r = '';
+  [[58, 40, 210, 50], [58, 52, 210, 90], [58, 64, 210, 128]].forEach(([a, b, c, e]) => { r += `<line x1="${a}" y1="${b}" x2="${c}" y2="${e}" stroke="#D23B2A" stroke-width="2.2" marker-end="${mk}"/>`; });
+  return fig('0 0 340 170', 'Quarto escuro: uma lâmpada à esquerda emite só luz vermelha sobre uma bandeira à direita, que tem uma faixa branca em cima e uma faixa verde embaixo.',
+    `${d}<circle cx="40" cy="52" r="18" fill="#D23B2A" opacity=".85" stroke="var(--ink)" stroke-width="1.5"/><text x="40" y="92" text-anchor="middle" class="pt">luz vermelha</text>${r}
+    <line x1="222" y1="22" x2="222" y2="160" stroke="var(--ink)" stroke-width="3"/>
+    <rect x="224" y="28" width="104" height="52" fill="none" stroke="var(--ink)" stroke-width="1.5"/><text x="276" y="59" text-anchor="middle" class="pt pt-strong">branca</text>
+    <rect x="224" y="80" width="104" height="52" fill="none" stroke="var(--ink)" stroke-width="1.5"/><text x="276" y="111" text-anchor="middle" class="pt pt-strong">verde</text>`);
+})();
+
+/* Q4: sombra da haste e do prédio */
+const FIG4_4 = (() => {
+  const [d, mk] = seta('var(--ink)');
+  return fig('0 0 340 190', 'Num mesmo instante, uma haste vertical de 1,5 metro projeta sombra de 2,0 metros, e um prédio de altura H desconhecida projeta sombra de 24 metros. Os raios de sol são paralelos. Figura fora de escala.',
+    `${d}<line x1="8" y1="150" x2="332" y2="150" stroke="var(--muted)" stroke-width="2"/>
+    <line x1="40" y1="150" x2="40" y2="105" stroke="var(--ink)" stroke-width="4"/>
+    <line x1="40" y1="150" x2="100" y2="150" stroke="var(--ink)" stroke-width="6" opacity=".35"/>
+    <rect x="150" y="40" width="26" height="110" fill="var(--sign)" opacity=".5" stroke="var(--ink)"/>
+    <line x1="176" y1="150" x2="322" y2="150" stroke="var(--ink)" stroke-width="6" opacity=".35"/>
+    <g stroke="var(--ray)" stroke-width="1.6" stroke-dasharray="5 4"><line x1="24" y1="93" x2="100" y2="150"/><line x1="150" y1="22" x2="322" y2="151"/></g>
+    <text x="34" y="128" text-anchor="end" class="pt pt-strong">1,5 m</text><text x="70" y="168" text-anchor="middle" class="pt pt-strong">2,0 m</text>
+    <text x="144" y="98" text-anchor="end" class="pt pt-strong">H</text><text x="249" y="168" text-anchor="middle" class="pt pt-strong">24 m</text>
+    <text x="332" y="186" text-anchor="end" class="pt">(fora de escala)</text>`);
+})();
+
+/* Q5: muro e senhora */
+const FIG4_5 = (() => {
+  const [d, mk] = seta('var(--ink)');
+  return fig('0 0 340 170', 'Um muro vertical de 3,0 metros projeta no chão uma sombra de 4,5 metros. Uma pessoa de 1,8 metro caminha em direção ao muro, ainda fora da sombra.',
+    `${d}<line x1="8" y1="140" x2="332" y2="140" stroke="var(--muted)" stroke-width="2"/>
+    <rect x="50" y="50" width="12" height="90" fill="var(--sign)" opacity=".6" stroke="var(--ink)"/>
+    <polygon points="62,140 62,50 197,140" fill="var(--ink)" opacity=".12"/>
+    <line x1="44" y1="38" x2="210" y2="149" stroke="var(--ray)" stroke-width="1.8" stroke-dasharray="5 4"/>
+    <line x1="252" y1="140" x2="252" y2="100" stroke="var(--ink)" stroke-width="3"/><circle cx="252" cy="93" r="7" fill="var(--plot2)" stroke="var(--ink)"/>
+    <line x1="238" y1="120" x2="208" y2="120" stroke="var(--ink)" stroke-width="1.6" marker-end="${mk}"/>
+    <text x="44" y="98" text-anchor="end" class="pt pt-strong">3,0 m</text><text x="130" y="158" text-anchor="middle" class="pt pt-strong">4,5 m</text><text x="262" y="124" class="pt pt-strong">1,8 m</text>`);
+})();
+
+/* Q6: eclipse */
+const FIG4_6 = fig('0 0 340 150', 'Fora de escala: o Sol à esquerda, a Terra no meio e a Lua à direita, alinhados. A Lua está inteiramente dentro da sombra (umbra) da Terra.',
+  `<circle cx="30" cy="75" r="28" fill="#F2B705" stroke="var(--ink)" stroke-width="1.2"/>
+  <polygon points="170,59 340,73.6 340,76.4 170,91" fill="var(--ink)" opacity=".38"/>
+  <g stroke="var(--muted)" stroke-dasharray="4 4"><line x1="30" y1="47" x2="340" y2="144"/><line x1="30" y1="103" x2="340" y2="6"/></g>
+  <circle cx="170" cy="75" r="16" fill="var(--sign)" stroke="var(--ink)" stroke-width="1.2"/>
+  <circle cx="280" cy="75" r="5" fill="var(--muted)" stroke="var(--ink)"/>
+  <text x="30" y="124" text-anchor="middle" class="pt pt-strong">Sol</text><text x="170" y="112" text-anchor="middle" class="pt pt-strong">Terra</text>
+  <text x="280" y="64" text-anchor="middle" class="pt pt-strong">Lua</text><text x="232" y="104" text-anchor="middle" class="pt">umbra</text>`);
+
+/* Q9: disco e sombra */
+const FIG4_9 = (() => {
+  const [d, mk] = seta('var(--ink)');
+  return fig('0 0 340 190', 'Uma lâmpada pontual à esquerda, um disco opaco de 10 centímetros de diâmetro a 50 centímetros dela e uma parede a 2,0 metros da lâmpada, paralela ao disco. A sombra do disco aparece na parede.',
+    `${d}<circle cx="30" cy="80" r="6" fill="#F2B705" stroke="var(--ink)"/>
+    <g stroke="var(--ray)" stroke-width="1.5"><line x1="30" y1="80" x2="290" y2="24"/><line x1="30" y1="80" x2="290" y2="136"/></g>
+    <line x1="95" y1="66" x2="95" y2="94" stroke="var(--ink)" stroke-width="5"/>
+    <rect x="290" y="8" width="10" height="150" fill="var(--muted)" opacity=".4"/><line x1="290" y1="24" x2="290" y2="136" stroke="var(--ink)" stroke-width="5" opacity=".55"/>
+    <text x="104" y="62" class="pt pt-strong">10 cm</text><text x="276" y="80" text-anchor="end" class="pt">sombra</text>
+    <line x1="30" y1="168" x2="95" y2="168" stroke="var(--muted)" stroke-width="1.2" marker-start="${mk}" marker-end="${mk}"/><text x="62" y="184" text-anchor="middle" class="pt pt-strong">50 cm</text>
+    <line x1="30" y1="150" x2="290" y2="150" stroke="var(--muted)" stroke-width="1.2" marker-start="${mk}" marker-end="${mk}"/><text x="200" y="144" text-anchor="middle" class="pt pt-strong">2,0 m</text>`);
+})();
+
+/* Q10: moeda e Lua */
+const FIG4_10 = (() => {
+  const [d, mk] = seta('var(--ink)');
+  return fig('0 0 340 190', 'Fora de escala: o olho à esquerda, uma moeda de 1,0 centímetro a 1,1 metro do olho e a Lua cheia ao fundo, a 3,8 vezes 10 elevado a 5 quilômetros. As bordas da moeda coincidem com as bordas da Lua.',
+    `${d}<path d="M14 76 Q24 66 34 76 Q24 86 14 76 Z" fill="none" stroke="var(--ink)" stroke-width="1.5"/><circle cx="26" cy="76" r="3" fill="var(--ink)"/>
+    <g stroke="var(--ray)" stroke-width="1.4"><line x1="30" y1="76" x2="284" y2="36"/><line x1="30" y1="76" x2="284" y2="116"/></g>
+    <line x1="92" y1="66" x2="92" y2="86" stroke="var(--plot2)" stroke-width="5"/>
+    <circle cx="284" cy="76" r="40" fill="var(--muted)" opacity=".35" stroke="var(--ink)"/>
+    <text x="92" y="106" text-anchor="middle" class="pt pt-strong">1,0 cm</text><text x="284" y="80" text-anchor="middle" class="pt pt-strong">D = ?</text>
+    <line x1="26" y1="134" x2="92" y2="134" stroke="var(--muted)" stroke-width="1.2" marker-start="${mk}" marker-end="${mk}"/><text x="59" y="150" text-anchor="middle" class="pt pt-strong">1,1 m</text>
+    <line x1="26" y1="166" x2="284" y2="166" stroke="var(--muted)" stroke-width="1.2" marker-start="${mk}" marker-end="${mk}"/><text x="170" y="184" text-anchor="middle" class="pt pt-strong">3,8 · 10⁵ km</text>`);
+})();
+
+const QL4 = [
+{
+  src:'IFBA (modificada)', nivel:'básico',
+  text:`Um objeto luminoso é colocado a 30 cm do orifício de uma câmara escura, e a imagem projetada no fundo da câmara mede 6 cm.${camara('objeto','p','p\'','imagem')}O objeto é então afastado até ficar a 90 cm do orifício. A nova imagem mede:`,
+  opts:['18 cm','2 cm','3 cm','12 cm','6 cm'], ans:1,
+  hint:'A profundidade da câmara não muda. Se a distância do objeto ao orifício triplica, o que acontece com a imagem?',
+  steps:[
+    ['Semelhança de triângulos', `<div class="eq">${f('i','o')} = ${f("p'",'p')}</div><p>O tamanho do objeto (o) e a profundidade da câmara (p') não mudam. Então i é inversamente proporcional a p.</p>`],
+    ['Comparando', `<p>p passou de 30 cm para 90 cm: ficou 3 vezes maior. A imagem fica 3 vezes menor:</p><div class="eq">i = ${f('6 cm','3')} = <span class="hl">2 cm</span></div>`],
+  ],
+  alt:'É o que acontece quando você fotografa algo distante: quanto mais longe o objeto, menor ele aparece na foto.',
+  warn:'Multiplicar por 3 (alternativa a) supõe que a imagem cresce quando o objeto se afasta. É o contrário.',
+  mod:'Original (IFBA): objeto a 20 cm com imagem de 8 cm, afastado para 80 cm. Modificada: 30 cm, 6 cm e 90 cm.'
+},
+{
+  src:'Inédita', nivel:'básico',
+  text:`Num quarto escuro, uma bandeira com uma faixa branca e uma faixa verde é iluminada <b>somente</b> por luz vermelha. Considere os pigmentos ideais.${FIG4_2}Um observador vê a faixa branca e a faixa verde, respectivamente, com as cores:`,
+  opts:['vermelha e verde','branca e verde','vermelha e preta','preta e vermelha','branca e preta'], ans:2,
+  hint:'Um objeto só pode refletir a luz que chega até ele. Que luz o branco reflete? E o verde?',
+  steps:[
+    ['Faixa branca', `<p>O branco reflete todas as cores que recebe. Recebendo só vermelho, reflete vermelho: parece <b>vermelha</b>.</p>`],
+    ['Faixa verde', `<p>O pigmento verde ideal reflete só o verde e absorve as outras cores. Como não chega luz verde, ele absorve o vermelho e não reflete nada: parece <b>preta</b>.</p>`],
+  ],
+  alt:'A cor não está “dentro” do objeto: ela depende da luz que o ilumina. Por isso uma roupa pode parecer de outra cor sob a luz amarelada de uma rua.',
+  warn:'A faixa verde não “continua verde” (alternativa a): para parecer verde, ela precisaria receber luz verde para refletir.',
+  mod:'Inédita (amplia o exercício 3 da lista de Óptica da apostila, sobre a cor da pétala).'
+},
+{
+  src:'Inédita', nivel:'básico',
+  text:`Associe cada situação ao princípio da óptica geométrica que ela ilustra.${tabela(['','Situação'],[['1','Num show, os feixes de dois holofotes se cruzam e cada um segue como se o outro não existisse.'],['2','Se você vê os olhos do motorista pelo retrovisor, ele também pode ver os seus.'],['3','A luz do sol entra por uma fresta e forma um feixe reto no ar empoeirado.']], true)}A sequência correta, de 1 a 3, é:`,
+  opts:['independência, reversibilidade, propagação retilínea','reversibilidade, independência, propagação retilínea','propagação retilínea, reversibilidade, independência','independência, propagação retilínea, reversibilidade','reversibilidade, propagação retilínea, independência'], ans:0,
+  hint:'Se a luz faz um caminho de ida, ela pode fazer o mesmo caminho de volta. Qual situação fala de ida e volta?',
+  steps:[
+    ['1: holofotes', `<p>Os feixes se cruzam sem se perturbar: <b>independência dos raios de luz</b>.</p>`],
+    ['2: retrovisor', `<p>O caminho da luz que vai dos olhos do motorista até os seus é o mesmo, no sentido contrário, do que vai dos seus até os dele: <b>reversibilidade</b>.</p>`],
+    ['3: fresta', `<p>O feixe reto mostra a <b>propagação retilínea</b> da luz num meio homogêneo. A poeira só torna o feixe visível, espalhando um pouco de luz para os nossos olhos.</p>`],
+  ],
+  alt:'Os três princípios aparecem juntos num jogo de lanterna no escuro: a luz vai reta, dois feixes se cruzam sem problema e quem é iluminado pode “ver” a lanterna.',
+  warn:'Independência e reversibilidade costumam ser trocadas (alternativa b). Independência é sobre raios diferentes que se cruzam; reversibilidade é sobre o mesmo caminho percorrido nos dois sentidos.',
+  mod:'Inédita.'
+},
+{
+  src:'EEAR (modificada)', nivel:'intermediário',
+  text:`Para estimar a altura de um prédio, um estudante fincou uma haste vertical de 1,5 m no chão. No mesmo instante, a sombra da haste mediu 2,0 m e a sombra do prédio, 24 m.${FIG4_4}A altura H do prédio é:`,
+  opts:['32 m','24 m','12 m','18 m','36 m'], ans:3,
+  hint:'Como os raios do sol são paralelos, os triângulos “objeto + sombra” são semelhantes.',
+  steps:[
+    ['Semelhança', `<div class="eq">${f('H','24 m')} = ${f('1,5 m','2,0 m')}</div>`],
+    ['Resolvendo', `<div class="eq">H = 24 × 0,75 = <span class="hl">18 m</span></div>`],
+  ],
+  alt:'A sombra do prédio é 12 vezes a da haste (24 ÷ 2). Então o prédio é 12 vezes mais alto: 12 × 1,5 = 18 m.',
+  warn:`Montar a proporção invertida (${f('H','24')} = ${f('2,0','1,5')}) dá 32 m (alternativa a). Altura com altura, sombra com sombra.`,
+  mod:'Original (EEAR): haste de 1 m com sombra de 2 m e torre com sombra de 30 m. Modificada: 1,5 m, 2,0 m e 24 m, com figura.'
+},
+{
+  src:'PUC-Rio (modificada)', nivel:'intermediário',
+  text:`Num certo horário, um muro de 3,0 m de altura projeta no chão horizontal uma sombra de 4,5 m. Uma pessoa de 1,8 m de altura caminha em direção ao muro.${FIG4_5}A que distância máxima do muro ela precisa estar para ficar totalmente coberta pela sombra?`,
+  opts:['2,7 m','1,2 m','1,8 m','3,0 m','0,9 m'], ans:2,
+  hint:'A pessoa fica totalmente na sombra quando o topo da cabeça dela toca o raio de sol que passa pelo alto do muro.',
+  steps:[
+    ['O triângulo da sombra', `<p>O raio que passa pelo topo do muro chega ao chão no fim da sombra, a 4,5 m do muro. Para cada 1 m de altura, a sombra se estende 1,5 m (4,5 ÷ 3,0).</p>`],
+    ['Onde a cabeça toca o raio', `<p>A partir do fim da sombra, a altura do raio cresce 1 m a cada 1,5 m. Para chegar a 1,8 m:</p><div class="eq">x = 1,8 × 1,5 = 2,7 m (medido a partir do fim da sombra)</div>`],
+    ['Distância até o muro', `<div class="eq">d = 4,5 − 2,7 = <span class="hl">1,8 m</span></div>`],
+  ],
+  alt:`Semelhança direta: ${f('1,8','3,0')} = ${f('x','4,5')} ⇒ x = 2,7 m. Esse x é a sombra de uma “pessoa” na ponta do raio, contada a partir do fim da sombra do muro. Falta 4,5 − 2,7 = 1,8 m até o muro.`,
+  warn:'2,7 m é a distância contada a partir do <b>fim</b> da sombra, não do muro (alternativa a).',
+  mod:'Original (PUC-Rio): muro de 4,0 m, sombra de 6,0 m, pessoa de 1,6 m. Modificada: 3,0 m, 4,5 m e 1,8 m, com figura.'
+},
+{
+  src:'Inédita', nivel:'intermediário',
+  text:`A figura, fora de escala, mostra o Sol, a Terra e a Lua alinhados, com a Lua inteiramente dentro da umbra da Terra.${FIG4_6}Nessa situação, ocorre um eclipse:`,
+  opts:['total do Sol, na lua nova','parcial da Lua, na lua nova','total da Lua, na lua nova','anular do Sol, na lua cheia','total da Lua, na lua cheia'], ans:4,
+  hint:'Quem está na sombra de quem? E, nessa posição, a face da Lua voltada para a Terra está iluminada ou escura?',
+  steps:[
+    ['Que eclipse é', `<p>A Lua entrou na sombra da Terra: ela deixa de receber a luz direta do Sol. É um <b>eclipse lunar</b>. Como está toda dentro da umbra, é <b>total</b>.</p>`],
+    ['Que fase da Lua', `<p>Com a Terra entre o Sol e a Lua, a face da Lua voltada para nós é a iluminada: essa é a <b>lua cheia</b>. Eclipses lunares só acontecem na lua cheia.</p>`],
+  ],
+  alt:'Eclipse solar: a sombra da Lua cai na Terra (Lua no meio, lua nova). Eclipse lunar: a sombra da Terra cai na Lua (Terra no meio, lua cheia).',
+  warn:'Na lua nova é a Lua que fica entre o Sol e a Terra, e o eclipse possível é o solar (alternativas a e c).',
+  mod:'Inédita (mesmo tema da questão da Santa Casa da Somativa 2, agora com eclipse lunar e fase da Lua).'
+},
+{
+  src:'Inédita', nivel:'intermediário',
+  text:'Sirius, a estrela mais brilhante do céu noturno, está a cerca de 8,6 anos-luz da Terra. Use c = 3,0 · 10<sup>5</sup> km/s e 1 ano ≈ 3,2 · 10<sup>7</sup> s. A luz de Sirius que vemos hoje saiu da estrela há cerca de ___, e a distância até ela é de aproximadamente ___.',
+  opts:['8,6 anos; 2,6 · 10<sup>6</sup> km','8,6 segundos; 2,6 · 10<sup>6</sup> km','8,6 anos; 9,6 · 10<sup>12</sup> km','8,6 anos; 8,3 · 10<sup>13</sup> km','1 ano; 8,3 · 10<sup>13</sup> km'], ans:3,
+  hint:'Ano-luz é a distância que a luz percorre em 1 ano. Calcule essa distância em km e multiplique por 8,6.',
+  steps:[
+    ['Quanto vale 1 ano-luz', `<div class="eq">1 ano-luz = c · t = 3,0 · 10<sup>5</sup> × 3,2 · 10<sup>7</sup> = 9,6 · 10<sup>12</sup> km</div>`],
+    ['Distância até Sirius', `<div class="eq">d = 8,6 × 9,6 · 10<sup>12</sup> ≈ <span class="hl">8,3 · 10<sup>13</sup> km</span></div>`],
+    ['Há quanto tempo a luz saiu', `<p>Se a distância é 8,6 anos-luz, a luz levou <b>8,6 anos</b> para chegar. Vemos Sirius como ela era há 8,6 anos.</p>`],
+  ],
+  alt:'Olhar para o céu é olhar para o passado: a luz do Sol tem cerca de 8 minutos de “atraso”, e a de Sirius, mais de 8 anos.',
+  warn:'9,6 · 10¹² km é só 1 ano-luz (alternativa c): faltou multiplicar por 8,6. E usar 8,6 s no lugar de 8,6 anos (alternativa b) esquece que ano-luz envolve um ano inteiro.',
+  mod:'Inédita (mesma ideia do exercício 9 da lista de Óptica da apostila, sobre Andrômeda).'
+},
+{
+  src:'UFSCar (modificada)', nivel:'avançado',
+  text:`Uma vela de 30 cm está a 1,2 m do orifício de uma câmara escura cujo fundo pode ser movido, e sua imagem no fundo mede 6 cm.${camara('vela','1,2 m','p\'','6 cm')}A vela é aproximada até ficar a 75 cm do orifício. Para que a imagem continue medindo 6 cm, o fundo da câmara deve ser deslocado:`,
+  opts:['9 cm, aproximando-se do orifício','9 cm, afastando-se do orifício','15 cm, aproximando-se do orifício','24 cm, afastando-se do orifício','6 cm, aproximando-se do orifício'], ans:0,
+  hint:'Calcule a profundidade da câmara (p\') nas duas situações. O deslocamento é a diferença.',
+  steps:[
+    ['Situação inicial', `<div class="eq">${f('i','o')} = ${f("p'",'p')} ⇒ ${f('6','30')} = ${f("p'",'120 cm')} ⇒ p' = 24 cm</div>`],
+    ['Situação final', `<div class="eq">${f('6','30')} = ${f("p'",'75 cm')} ⇒ p' = 15 cm</div>`],
+    ['Deslocamento', `<div class="eq">24 − 15 = <span class="hl">9 cm</span></div><p>Como p' diminuiu, o fundo deve se <b>aproximar</b> do orifício. Faz sentido: com a vela mais perto, a imagem tenderia a crescer; aproximando o fundo, ela volta ao tamanho original.</p>`],
+  ],
+  alt:`A razão ${f('i','o')} = ${f('6','30')} = ${f('1','5')} não muda. Então p' é sempre p/5: 120/5 = 24 cm e 75/5 = 15 cm.`,
+  warn:'15 cm é a nova profundidade da câmara, e não o deslocamento (alternativa c).',
+  mod:'Original (UFSCar): vela de 20 cm a 1 m, imagem de 4 cm, aproximada para 50 cm. Modificada: 30 cm, 1,2 m, 6 cm e 75 cm.'
+},
+{
+  src:'CPS (modificada)', nivel:'avançado',
+  text:`Uma lâmpada de dimensões desprezíveis ilumina um disco opaco de 10 cm de diâmetro, colocado a 50 cm dela e paralelo a uma parede que está a 2,0 m da lâmpada.${FIG4_9}A área da sombra do disco na parede é quantas vezes maior que a área do disco?`,
+  opts:['4 vezes','8 vezes','2 vezes','40 vezes','16 vezes'], ans:4,
+  hint:'Primeiro descubra quantas vezes o diâmetro da sombra é maior que o do disco. A área depende do diâmetro ao quadrado.',
+  steps:[
+    ['Diâmetro da sombra', `<div class="eq">${f('D<sub>sombra</sub>','10 cm')} = ${f('200 cm','50 cm')} = 4 ⇒ D<sub>sombra</sub> = 40 cm</div>`],
+    ['Área', `<p>A área de um círculo é proporcional ao quadrado do diâmetro. Se o diâmetro ficou 4 vezes maior:</p><div class="eq">${f('A<sub>sombra</sub>','A<sub>disco</sub>')} = 4<sup>2</sup> = <span class="hl">16</span></div>`],
+  ],
+  alt:'Pense num quadrado de lado 1 que vira um quadrado de lado 4: cabem 16 quadradinhos dentro dele, e não 4.',
+  warn:'4 vezes (alternativa a) é a razão entre os diâmetros. A pergunta é sobre a área.',
+  mod:'Original (CPS): sombra da mão na parede, iluminada por uma vela, pedindo a distância da parede. Modificada: disco e lâmpada, pedindo a razão entre as áreas.'
+},
+{
+  src:'Inédita', nivel:'avançado',
+  text:`Uma moeda de 1,0 cm de diâmetro, segurada a 1,1 m do olho, cobre exatamente o disco da Lua cheia.${FIG4_10}Sabendo que a distância Terra–Lua é de cerca de 3,8 · 10<sup>5</sup> km, o diâmetro da Lua é, aproximadamente:`,
+  opts:['3,5 · 10<sup>5</sup> km','3,5 · 10<sup>3</sup> km','4,2 · 10<sup>7</sup> km','3,8 · 10<sup>3</sup> km','35 km'], ans:1,
+  hint:'O olho, as bordas da moeda e as bordas da Lua formam dois triângulos semelhantes. Use as mesmas unidades nas razões.',
+  steps:[
+    ['Semelhança', `<div class="eq">${f('D','3,8 · 10<sup>5</sup> km')} = ${f('1,0 cm','110 cm')}</div><p>(1,1 m = 110 cm, para ficar na mesma unidade da moeda.)</p>`],
+    ['Resolvendo', `<div class="eq">D = ${f('3,8 · 10<sup>5</sup>','110')} ≈ 3,5 · 10<sup>3</sup> km</div><p>O valor real é cerca de 3 470 km: a estimativa é muito boa.</p>`],
+  ],
+  alt:'A Lua está a umas 110 vezes o próprio diâmetro de distância (como a moeda está a 110 vezes o diâmetro dela). 3,8 · 10⁵ ÷ 110 ≈ 3 500 km.',
+  warn:'Esquecer de passar 1,1 m para centímetros dá 3,5 · 10⁵ km (alternativa a), maior que a própria distância Terra–Lua: um sinal de que algo deu errado. E nunca faça essa medida olhando para o Sol: a luz solar direta pode danificar a retina.',
+  mod:'Inédita (semelhança de triângulos com dado astronômico real).'
+},
+];
+
+/* ===== Lista 5 · Espelhos planos e esféricos ===== */
+const TOOLS5 = [
+  ['Espelho plano', `Imagem virtual, direita, do mesmo tamanho e simétrica: d<sub>imagem</sub> = d<sub>objeto</sub><br>Troca esquerda e direita (enantiomorfa).`],
+  ['Movimento e associação', `Espelho translada a → imagem translada 2a<br>Espelho gira α → raio refletido gira 2α<br>n = ${f('360°','α')} − 1 (n.º de imagens)`],
+  ['Elementos', `f = ${f('R','2')}<br>Côncavo: f &gt; 0 · Convexo: f &lt; 0`],
+  ['Equação de Gauss', `${f('1','f')} = ${f('1','p')} + ${f('1',"p'")}<br>p' &gt; 0: imagem real · p' &lt; 0: virtual`],
+  ['Aumento', `A = ${f('i','o')} = −${f("p'",'p')}<br>A &gt; 0: direita · A &lt; 0: invertida<br>|A| &gt; 1: maior · |A| &lt; 1: menor`],
+  ['Raios notáveis', `Paralelo ao eixo → reflete passando pelo foco<br>Pelo foco → reflete paralelo ao eixo<br>Pelo centro C → volta sobre si mesmo`],
+];
+
+/* Q2: ambulância */
+const FIG5_2 = fig('0 0 340 130', 'Frente de uma ambulância, com a palavra AMBULÂNCIA escrita de forma espelhada, com as letras na ordem inversa e viradas.',
+  `<rect x="22" y="20" width="296" height="90" rx="14" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/>
+  <rect x="44" y="30" width="252" height="26" rx="5" fill="var(--sign)" opacity=".18"/>
+  <g transform="translate(340 0) scale(-1 1)"><text x="170" y="84" text-anchor="middle" style="font-family:var(--f-display);font-weight:700;font-size:30px;fill:#D23B2A;letter-spacing:1px">AMBULÂNCIA</text></g>
+  <circle cx="54" cy="96" r="7" fill="#F2B705" stroke="var(--ink)"/><circle cx="286" cy="96" r="7" fill="#F2B705" stroke="var(--ink)"/>`);
+
+/* Q4: campo visual (malha) */
+function campo(sol){
+  const u = 28, ox = 132, oy = 214; // (0,0) do sistema
+  const X = x => ox + x * u, Y = y => oy - y * u;
+  let s = '';
+  for (let x = -4; x <= 6; x++) s += `<line x1="${X(x)}" y1="${Y(0)}" x2="${X(x)}" y2="${Y(7)}" stroke="var(--line)"/>`;
+  for (let y = 0; y <= 7; y++) s += `<line x1="${X(-4)}" y1="${Y(y)}" x2="${X(6)}" y2="${Y(y)}" stroke="var(--line)"/>`;
+  s += `<line x1="${X(0)}" y1="${Y(2)}" x2="${X(0)}" y2="${Y(4)}" stroke="var(--sign)" stroke-width="5"/>`;
+  for (let y = 2.1; y < 4; y += 0.3) s += `<line x1="${X(0) - 3}" y1="${Y(y)}" x2="${X(0) - 10}" y2="${Y(y) + 7}" stroke="var(--sign)" stroke-width="1.4"/>`;
+  if (sol){
+    s += `<polygon points="${X(0)},${Y(2)} ${X(6)},${Y(4)} ${X(6)},${Y(7)} ${X(3)},${Y(7)} ${X(0)},${Y(4)}" fill="var(--ok)" opacity=".16"/>`;
+    s += `<g stroke="var(--ray)" stroke-width="1.6" stroke-dasharray="5 4"><line x1="${X(-3)}" y1="${Y(1)}" x2="${X(6)}" y2="${Y(4)}"/><line x1="${X(-3)}" y1="${Y(1)}" x2="${X(3)}" y2="${Y(7)}"/></g>`;
+    s += `<circle cx="${X(-3)}" cy="${Y(1)}" r="5" fill="none" stroke="var(--ink)" stroke-width="2"/><text x="${X(-3)}" y="${Y(1) + 20}" text-anchor="middle" class="pt pt-strong">O'</text>`;
+  }
+  s += `<circle cx="${X(3)}" cy="${Y(1)}" r="6" fill="var(--ink)"/><text x="${X(3) + 10}" y="${Y(1) + 18}" class="pt pt-strong">O</text>`;
+  [['A',1,1],['B',2,4],['C',5,3],['D',3,5],['E',1,6]].forEach(([n, x, y]) => { s += `<circle cx="${X(x)}" cy="${Y(y)}" r="5" fill="var(--plot2)" stroke="var(--ink)" stroke-width="1.2"/><text x="${X(x) + 8}" y="${Y(y) - 7}" class="pt pt-strong">${n}</text>`; });
+  s += `<text x="${X(0) - 14}" y="${Y(4.3)}" text-anchor="end" class="pt pt-strong">espelho</text>`;
+  return fig('0 0 340 230', sol ? 'Solução: a imagem O\' do observador fica 3 quadradinhos atrás do espelho. As retas que saem de O\' e passam pelas bordas do espelho limitam o campo visual, sombreado. Ficam dentro dele apenas os pontos B e D.' : 'Malha quadriculada com um espelho plano vertical de 2 quadradinhos de altura. O observador O está 3 quadradinhos à direita do espelho e 1 quadradinho acima da base da malha, abaixo da borda inferior do espelho. Os pontos, em coordenadas (horizontal, vertical) a partir da base do espelho: A (1, 1), B (2, 4), C (5, 3), D (3, 5) e E (1, 6). O espelho vai da altura 2 à altura 4.', s);
+}
+
+/* Q5: espelhos a 90° com dado */
+const FIG5_5 = (() => {
+  let dots = ''; [[-9,-9],[9,-9],[0,0],[-9,9],[9,9]].forEach(([a,b]) => { dots += `<circle cx="${150 + a}" cy="${100 + b}" r="3.2" fill="var(--ink)"/>`; });
+  return fig('0 0 340 190', 'Vista de cima: dois espelhos planos verticais formando um ângulo de 90 graus. Um dado, com a face de 5 pontos voltada para os espelhos, está no meio do ângulo.',
+    `<line x1="60" y1="170" x2="60" y2="16" stroke="var(--sign)" stroke-width="5"/><line x1="60" y1="170" x2="320" y2="170" stroke="var(--sign)" stroke-width="5"/>
+    <path d="M60 140 A30 30 0 0 1 90 170" fill="none" stroke="var(--ink)" stroke-width="1.4"/><text x="94" y="152" class="pt pt-strong">90°</text>
+    <rect x="132" y="82" width="36" height="36" rx="6" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.6" transform="rotate(45 150 100)"/>${dots}
+    <text x="40" y="96" text-anchor="middle" class="pt" transform="rotate(-90 40 96)">espelho</text><text x="200" y="186" text-anchor="middle" class="pt">espelho</text>`);
+})();
+
+/* Q7: espelho côncavo projetando na parede */
+const FIG5_7 = (() => {
+  const [d, mk] = seta('var(--ink)');
+  return fig('0 0 340 170', 'Uma parede à esquerda, um objeto luminoso no meio e um espelho côncavo à direita, voltado para a parede. O objeto está a 30 centímetros do espelho e a 30 centímetros da parede. O espelho projeta na parede uma imagem nítida do objeto.',
+    `${d}<rect x="40" y="16" width="14" height="128" fill="var(--muted)" opacity=".45"/><text x="47" y="160" text-anchor="middle" class="pt">parede</text>
+    <line x1="54" y1="90" x2="300" y2="90" stroke="var(--muted)" stroke-dasharray="3 4"/>
+    <line x1="177" y1="90" x2="177" y2="58" stroke="var(--plot2)" stroke-width="4" marker-end="${mk}"/><text x="177" y="108" text-anchor="middle" class="pt pt-strong">objeto</text>
+    <path d="M292 22 Q312 90 292 158" fill="none" stroke="var(--sign)" stroke-width="4"/><text x="300" y="166" text-anchor="middle" class="pt">espelho</text>
+    <line x1="54" y1="134" x2="177" y2="134" stroke="var(--muted)" stroke-width="1.2" marker-start="${mk}" marker-end="${mk}"/><text x="115" y="128" text-anchor="middle" class="pt pt-strong">30 cm</text>
+    <line x1="177" y1="134" x2="300" y2="134" stroke="var(--muted)" stroke-width="1.2" marker-start="${mk}" marker-end="${mk}"/><text x="238" y="128" text-anchor="middle" class="pt pt-strong">30 cm</text>`);
+})();
+
+/* Q9: côncavo, objeto entre C e F */
+function concavo(sol){
+  const [d, mk] = seta('var(--plot2)'); const [d2, mk2] = seta('var(--ray)');
+  let s = `${d}${d2}<line x1="10" y1="100" x2="322" y2="100" stroke="var(--muted)" stroke-width="1.2"/>
+    <path d="M304 18 Q316 100 304 182" fill="none" stroke="var(--sign)" stroke-width="4"/>
+    ${[190, 250, 310].map((x, i) => `<circle cx="${x}" cy="100" r="3" fill="var(--ink)"/><text x="${x}" y="${i === 2 ? 92 : 118}" text-anchor="middle" class="pt pt-strong">${['C','F','V'][i]}</text>`).join('')}
+    <line x1="220" y1="100" x2="220" y2="72" stroke="var(--plot2)" stroke-width="4" marker-end="${mk}"/><text x="220" y="118" text-anchor="middle" class="pt pt-strong">o</text>`;
+  if (sol) s += `<g stroke="var(--ray)" stroke-width="1.8" fill="none"><polyline points="220,70 309,70 130,160"/><polyline points="220,70 309,159 130,160"/></g>
+    <line x1="130" y1="100" x2="130" y2="158" stroke="var(--plot2)" stroke-width="4" stroke-dasharray="1 0" marker-end="${mk}"/><text x="122" y="94" text-anchor="middle" class="pt pt-strong">i</text>`;
+  return fig('0 0 340 196', sol ? 'Construção: o raio que sai do topo do objeto paralelo ao eixo reflete passando pelo foco F; o raio que passa por F reflete paralelo ao eixo. Eles se cruzam além de C, abaixo do eixo, onde fica o topo da imagem: real, invertida e maior que o objeto.' : 'Espelho esférico côncavo à direita, com vértice V, foco F e centro de curvatura C marcados no eixo principal. Um objeto o está entre C e F.', s);
+}
+
+/* Q10: pessoa e espelho em movimento */
+const FIG5_10 = (() => {
+  const [d, mk] = seta('var(--ink)'); let h = '';
+  for (let y = 26; y < 140; y += 10) h += `<line x1="262" y1="${y}" x2="270" y2="${y - 7}" stroke="var(--sign)" stroke-width="1.3"/>`;
+  return fig('0 0 340 170', 'Uma pessoa à esquerda caminha para a direita, em direção a um espelho plano, a 1,5 metro por segundo. O espelho, sobre um carrinho, se move para a esquerda, em direção à pessoa, a 0,5 metro por segundo. Velocidades em relação ao chão.',
+    `${d}<line x1="10" y1="146" x2="330" y2="146" stroke="var(--muted)" stroke-width="2"/>
+    <circle cx="60" cy="58" r="10" fill="var(--plot2)" stroke="var(--ink)"/><line x1="60" y1="68" x2="60" y2="112" stroke="var(--ink)" stroke-width="3"/><line x1="60" y1="112" x2="48" y2="144" stroke="var(--ink)" stroke-width="3"/><line x1="60" y1="112" x2="74" y2="144" stroke="var(--ink)" stroke-width="3"/><line x1="60" y1="80" x2="76" y2="98" stroke="var(--ink)" stroke-width="3"/>
+    <line x1="86" y1="40" x2="146" y2="40" stroke="var(--ink)" stroke-width="2" marker-end="${mk}"/><text x="116" y="32" text-anchor="middle" class="pt pt-strong">1,5 m/s</text>
+    <line x1="260" y1="20" x2="260" y2="134" stroke="var(--sign)" stroke-width="5"/>${h}<rect x="244" y="134" width="34" height="8" fill="var(--ink)"/>
+    <line x1="246" y1="40" x2="196" y2="40" stroke="var(--ink)" stroke-width="2" marker-end="${mk}"/><text x="221" y="32" text-anchor="middle" class="pt pt-strong">0,5 m/s</text>
+    <text x="330" y="164" text-anchor="end" class="pt">velocidades em relação ao chão</text>`);
+})();
+
+const QL5 = [
+{
+  src:'Inédita', nivel:'básico',
+  text:'Uma pessoa está a 1,5 m de um espelho plano vertical. Ela dá alguns passos e se aproxima 0,5 m do espelho. A nova distância entre a pessoa e a sua imagem é:',
+  opts:['1,0 m','2,0 m','3,0 m','2,5 m','0,5 m'], ans:1,
+  hint:'Primeiro descubra a nova distância da pessoa ao espelho. A imagem está à mesma distância, do outro lado.',
+  steps:[
+    ['Nova distância ao espelho', `<div class="eq">1,5 − 0,5 = 1,0 m</div>`],
+    ['Distância até a imagem', `<p>A imagem fica 1,0 m atrás do espelho (simetria). Da pessoa até a imagem:</p><div class="eq">1,0 + 1,0 = <span class="hl">2,0 m</span></div>`],
+  ],
+  alt:'A distância pessoa–imagem é sempre o dobro da distância pessoa–espelho. Se ela se aproxima 0,5 m do espelho, a distância até a imagem diminui o dobro disso: 3,0 − 1,0 = 2,0 m.',
+  warn:'1,0 m é a distância da pessoa ao <b>espelho</b> (alternativa a). A imagem está atrás dele.',
+  mod:'Inédita (mesma ideia do Exemplo 1 de Espelhos Planos da apostila, o barbeiro).'
+},
+{
+  src:'Inédita', nivel:'básico',
+  text:`Na frente de muitas ambulâncias, a palavra AMBULÂNCIA aparece escrita de forma espelhada, como na figura.${FIG5_2}Isso é feito porque:`,
+  opts:['o motorista da frente lê a palavra pelo retrovisor, que inverte esquerda e direita','a palavra fica mais visível à noite quando escrita ao contrário, por causa da refração','o espelho plano inverte a imagem de cima para baixo, e a escrita compensa essa inversão','pedestres que estão na calçada leem a palavra com mais facilidade quando ela está espelhada','é uma exigência estética, sem relação com a óptica dos espelhos'], ans:0,
+  hint:'Quem está na frente da ambulância vê a ambulância como? Diretamente ou por um espelho?',
+  steps:[
+    ['Imagem no espelho', `<p>A imagem de um espelho plano tem esquerda e direita trocadas em relação ao objeto: ela é <b>enantiomorfa</b>. É por isso que um texto visto no espelho aparece “ao contrário”.</p>`],
+    ['A ambulância', `<p>O motorista que está à frente vê a ambulância pelo retrovisor. Escrita já espelhada, a palavra é espelhada de novo pelo retrovisor e aparece normal: AMBULÂNCIA.</p>`],
+  ],
+  alt:'Escreva seu nome numa folha e olhe pelo espelho: ele aparece invertido. Agora escreva espelhado e olhe de novo: aparece certo. Espelhar duas vezes desfaz a troca.',
+  warn:'O espelho plano <b>não</b> inverte de cima para baixo (alternativa c): a imagem é direita. Ele troca esquerda e direita.',
+  mod:'Inédita (mesma ideia da questão da ETEC da Somativa 2, a palavra FÍSICA na camiseta).'
+},
+{
+  src:'Famerp (modificada)', nivel:'básico',
+  text:'Em saídas de garagem, cruzamentos estreitos e portas de ônibus, usam-se espelhos esféricos convexos. Para um objeto real, a imagem formada por um espelho convexo é sempre ___, e esse espelho é usado porque ___.',
+  opts:['real, invertida e menor; reduz o campo visual','virtual, invertida e maior; amplia o campo visual','real, direita e do mesmo tamanho; amplia o campo visual','virtual, direita e maior; reduz o campo visual','virtual, direita e menor; amplia o campo visual'], ans:4,
+  hint:'Lembre do visor do capacete do astronauta (Somativa 2) ou da parte de trás de uma colher: como você aparece nele?',
+  steps:[
+    ['Características da imagem', `<p>No espelho convexo, os raios refletidos divergem. A imagem é formada pelos prolongamentos (atrás do espelho): <b>virtual</b>, <b>direita</b> e <b>menor</b> que o objeto, qualquer que seja a posição do objeto real.</p>`],
+    ['Por que usar', `<p>Como as imagens ficam menores, “cabe” muito mais coisa no espelho: o <b>campo visual é maior</b> que o de um espelho plano do mesmo tamanho.</p>`],
+  ],
+  alt:'Pela equação: no convexo f < 0. Para qualquer p > 0, a equação de Gauss dá p\' < 0 (virtual) e 0 < A < 1 (direita e menor).',
+  warn:'O espelho convexo mostra mais coisas, mas cada uma delas fica menor (alternativa d está errada). Por isso, no retrovisor, os carros parecem mais distantes do que realmente estão.',
+  mod:'Original (Famerp, Somativa 2): imagem no visor do capacete do astronauta. Modificada: aplicações em garagens e ônibus, pedindo também a vantagem do espelho.'
+},
+{
+  src:'Univag (modificada)', nivel:'intermediário',
+  text:`Na malha quadriculada, O é um observador diante de um espelho plano vertical, representado pelo traço grosso, e A, B, C, D e E são pequenos objetos.${campo(false)}O observador consegue ver, refletidos no espelho, somente os objetos:`,
+  opts:['B','B e D','A e C','B, D e E','C, D e E'], ans:1,
+  hint:'Marque a imagem O\' do observador, simétrica em relação ao espelho. Trace retas de O\' passando pelas duas bordas do espelho: o campo visual fica entre elas.',
+  steps:[
+    ['Imagem do observador', `<p>O está 3 quadradinhos à direita do espelho. Sua imagem O' fica 3 quadradinhos à esquerda, na mesma altura.</p>`],
+    ['Campo visual', `<p>As retas que saem de O' e passam pelas bordas do espelho limitam a região que o observador vê refletida.</p>${campo(true)}`],
+    ['Conclusão', `<p>Dentro da região estão apenas <b>B</b> e <b>D</b>. A fica abaixo da reta inferior; E fica acima da reta superior; C fica abaixo da reta inferior.</p>`],
+  ],
+  alt:'Outro caminho: para cada objeto, marque sua imagem atrás do espelho e ligue-a ao olho. Se a reta passar pelo espelho, o objeto é visto. É o mesmo resultado, só que com mais traços.',
+  warn:'C está mais perto do observador do que D, mas fica fora do campo visual. O que importa é a posição em relação às retas que passam pelas bordas do espelho, e não a distância.',
+  mod:'Original (Univag, Somativa 2): malha com observador e objetos R, S, T e U. Modificada: nova malha, novos pontos e outro observador.'
+},
+{
+  src:'EEAR (modificada)', nivel:'intermediário',
+  text:`Um dado é colocado entre dois espelhos planos verticais que formam um ângulo de 90°, no plano que divide esse ângulo ao meio (figura, vista de cima). Nos espelhos é possível ver imagens nítidas de apenas uma face do dado, e a soma de todos os pontos dessa face nas imagens é 15.${FIG5_5}A face do dado voltada para os espelhos é a de número:`,
+  opts:['3','4','6','5','1'], ans:3,
+  hint:'Calcule quantas imagens a associação forma. A soma dos pontos é (número de imagens) × (pontos da face).',
+  steps:[
+    ['Número de imagens', `<div class="eq">n = ${f('360°','90°')} − 1 = 4 − 1 = 3 imagens</div>`],
+    ['Pontos da face', `<div class="eq">3 × (pontos da face) = 15 ⇒ face = <span class="hl">5</span></div>`],
+  ],
+  alt:'Com dois espelhos a 90°, como num canto de provador de loja, você vê 3 imagens de si mesmo: uma em cada espelho e uma “no canto”.',
+  warn:'Usar 360 ÷ 90 = 4 como número de imagens (esquecendo o −1) dá 15 ÷ 4, que não é inteiro. A conta da associação sempre desconta o próprio objeto.',
+  mod:'Original (EEAR): espelhos a 60° e soma de 20 pontos (face 4). Modificada: espelhos a 90° e soma de 15 (face 5).'
+},
+{
+  src:'Inédita', nivel:'intermediário',
+  text:'Um objeto de 3,0 cm de altura é colocado a 30 cm de um espelho esférico côncavo de distância focal 20 cm, perpendicular ao eixo principal (condições de Gauss). A imagem se forma:',
+  opts:['a 60 cm do espelho; 6,0 cm; real e invertida','a 12 cm do espelho; 1,2 cm; virtual e direita','a 60 cm do espelho; 6,0 cm; virtual e direita','a 60 cm do espelho; 1,5 cm; real e invertida','a 10 cm do espelho; 1,0 cm; real e invertida'], ans:0,
+  hint:'Isole 1/p\' na equação de Gauss. O sinal de p\' diz se a imagem é real; o sinal de A diz se é direita ou invertida.',
+  steps:[
+    ['Posição da imagem', `<div class="eq">${f('1',"p'")} = ${f('1','f')} − ${f('1','p')} = ${f('1','20')} − ${f('1','30')} = ${f('3 − 2','60')} = ${f('1','60')}</div><div class="eq">p' = <span class="hl">60 cm</span> &nbsp; (p' &gt; 0: real)</div>`],
+    ['Tamanho da imagem', `<div class="eq">A = −${f("p'",'p')} = −${f('60','30')} = −2</div><div class="eq">i = A · o = −2 × 3,0 = <span class="hl">−6,0 cm</span> &nbsp; (sinal −: invertida)</div>`],
+  ],
+  alt:'O objeto está entre F (20 cm) e C (40 cm). Pela construção com raios notáveis, nessa região a imagem é sempre real, invertida e maior, além de C. Confere com 60 cm e 6,0 cm.',
+  warn:'Somar os inversos em vez de subtrair (1/20 + 1/30) dá 12 cm (alternativa b). Na equação de Gauss, 1/f = 1/p + 1/p\': para achar 1/p\', subtraia 1/p de 1/f.',
+  mod:'Inédita (mesmo tipo do Exemplo 3 de Espelhos Esféricos da apostila).'
+},
+{
+  src:'Famerp (modificada)', nivel:'intermediário',
+  text:`Um objeto luminoso está a 30 cm de uma parede e a 30 cm de um espelho côncavo, que projeta na parede uma imagem nítida do objeto (figura). O espelho obedece às condições de Gauss.${FIG5_7}A distância focal do espelho é:`,
+  opts:['15 cm','30 cm','45 cm','20 cm','60 cm'], ans:3,
+  hint:'A imagem está na parede. Qual é a distância da parede ao espelho? Essa é a posição da imagem, p\'.',
+  steps:[
+    ['Dados', `<ul><li>Objeto: p = 30 cm</li><li>Imagem projetada na parede (real): p' = 30 + 30 = 60 cm</li></ul>`],
+    ['Equação de Gauss', `<div class="eq">${f('1','f')} = ${f('1','30')} + ${f('1','60')} = ${f('2 + 1','60')} = ${f('3','60')} = ${f('1','20')}</div><div class="eq">f = <span class="hl">20 cm</span></div>`],
+  ],
+  alt:`Atalho para dois termos: f = ${f("p · p'","p + p'")} = ${f('30 × 60','90')} = 20 cm.`,
+  warn:'Usar p\' = 30 cm (a distância do objeto à parede) dá f = 15 cm (alternativa a). A imagem está na parede, e p\' é medido a partir do espelho.',
+  mod:'Original (Famerp): objeto a 40 cm da parede e 20 cm do espelho (f = 15 cm). Modificada: 30 cm e 30 cm (f = 20 cm).'
+},
+{
+  src:'Unifesp (modificada)', nivel:'avançado',
+  text:'O retrovisor externo de um carro é um espelho esférico convexo com raio de curvatura de 1,6 m. Pelo retrovisor, o motorista vê a imagem de uma moto que está atrás do carro, com altura igual a 1/10 da altura real da moto (condições de Gauss). A distância entre a moto e o espelho é:',
+  opts:['8,0 m','0,72 m','8,8 m','0,08 m','7,2 m'], ans:4,
+  hint:'No espelho convexo, f é negativo: f = −R/2. A imagem é direita, então A = +1/10. Escreva p\' em função de p e use Gauss.',
+  steps:[
+    ['Dados', `<ul><li>f = −${f('1,6','2')} = −0,8 m (convexo)</li><li>A = +${f('1','10')} (imagem direita e menor)</li></ul>`],
+    ['Relacionando p e p\'', `<div class="eq">A = −${f("p'",'p')} = ${f('1','10')} ⇒ p' = −${f('p','10')}</div>`],
+    ['Equação de Gauss', `<div class="eq">${f('1','f')} = ${f('1','p')} + ${f('1',"p'")} = ${f('1','p')} − ${f('10','p')} = −${f('9','p')}</div><div class="eq">−${f('1','0,8')} = −${f('9','p')} ⇒ p = 9 × 0,8 = <span class="hl">7,2 m</span></div>`],
+  ],
+  alt:`Existe uma fórmula direta para o aumento: A = ${f('f','f − p')}. Com f = −0,8: ${f('1','10')} = ${f('−0,8','−0,8 − p')} ⇒ −0,8 − p = −8 ⇒ p = 7,2 m.`,
+  warn:'Tratar o espelho como côncavo (f positivo) e a imagem como invertida leva a 8,8 m (alternativa c). E 8,0 m (alternativa a) sai de supor que a imagem está exatamente no foco (p\' = f), o que só vale para objetos muito distantes.',
+  mod:'Original (Unifesp): espelho convexo num parque e criança vendo imagem com 1/3 da altura. Modificada: retrovisor de carro com R = 1,6 m e imagem com 1/10 da altura.'
+},
+{
+  src:'UEFS (modificada)', nivel:'avançado',
+  text:`A figura mostra um espelho esférico côncavo gaussiano, com centro de curvatura C, foco F e vértice V, e um objeto o colocado entre C e F.${concavo(false)}A imagem desse objeto é:`,
+  opts:['virtual, direita e maior, atrás do espelho','real, invertida e menor, entre F e C','real, invertida e maior, além de C','real, invertida e do mesmo tamanho, sobre C','imprópria, formada no infinito'], ans:2,
+  hint:'Use dois raios notáveis saindo do topo do objeto: um paralelo ao eixo e outro passando pelo foco.',
+  steps:[
+    ['Raios notáveis', `<ul><li>O raio paralelo ao eixo reflete passando por F.</li><li>O raio que passa por F reflete paralelo ao eixo.</li></ul>${concavo(true)}`],
+    ['Classificando', `<p>Os raios refletidos se cruzam de verdade, à esquerda de C e abaixo do eixo: a imagem é <b>real</b>, <b>invertida</b>, <b>maior</b> que o objeto e fica <b>além de C</b>.</p>`],
+  ],
+  alt:'Pela equação, com f = 2 unidades e o objeto em p = 3 unidades (entre F e C): 1/p\' = 1/2 − 1/3 = 1/6, então p\' = 6 (além de C, que está em 4) e A = −2 (invertida e maior).',
+  warn:'Imagem real, invertida e menor entre F e C (alternativa b) é o caso do objeto <b>além</b> de C. As duas situações são “trocadas” uma da outra pela reversibilidade da luz.',
+  mod:'Original (UEFS): espelho com regiões coloridas e objetos pontuais em duas posições. Modificada: objeto extenso entre C e F, pedindo a classificação da imagem.'
+},
+{
+  src:'UFRGS (modificada)', nivel:'avançado',
+  text:`Uma pessoa caminha a 1,5 m/s em direção a um espelho plano vertical, montado num carrinho que se move a 0,5 m/s em direção à pessoa. As duas velocidades são medidas em relação ao chão.${FIG5_10}A imagem da pessoa se aproxima dela com velocidade de:`,
+  opts:['2,0 m/s','3,0 m/s','4,0 m/s','5,0 m/s','1,0 m/s'], ans:2,
+  hint:'Olhe tudo a partir do espelho: com que velocidade a pessoa se aproxima dele? A imagem faz o mesmo, do outro lado.',
+  steps:[
+    ['Pessoa em relação ao espelho', `<p>Os dois vêm um em direção ao outro: a distância pessoa–espelho diminui</p><div class="eq">1,5 + 0,5 = 2,0 m/s</div>`],
+    ['Imagem em relação ao espelho', `<p>A imagem é sempre simétrica: ela se aproxima do espelho com os mesmos 2,0 m/s, do lado de trás.</p>`],
+    ['Imagem em relação à pessoa', `<p>A distância pessoa–imagem é o dobro da distância pessoa–espelho, então diminui com o dobro da rapidez:</p><div class="eq">2 × 2,0 = <span class="hl">4,0 m/s</span></div>`],
+  ],
+  alt:'Em 1 s, a distância pessoa–espelho diminui 2,0 m. A distância pessoa–imagem, que é o dobro dela, diminui 4,0 m.',
+  warn:'Somar só 1,5 + 0,5 = 2,0 m/s (alternativa a) dá a aproximação entre a pessoa e o <b>espelho</b>, e não entre a pessoa e a imagem.',
+  mod:'Original (UFRGS, Somativa 2, afirmação II): pessoa se aproximando de um espelho fixo a 2 m/s. Modificada: pessoa e espelho em movimento, pedindo a velocidade relativa da imagem.'
+},
+];
+
+/* ===== Lista 6 · Refração ===== */
+const TOOLS6 = [
+  ['Índice de refração', `n = ${f('c','v')} &nbsp; (sem unidade, n ≥ 1)<br>c = 3,0 · 10<sup>8</sup> m/s`],
+  ['Lei de Snell', `n<sub>1</sub> · sen θ<sub>1</sub> = n<sub>2</sub> · sen θ<sub>2</sub><br>${f('sen θ<sub>1</sub>','sen θ<sub>2</sub>')} = ${f('v<sub>1</sub>','v<sub>2</sub>')} = ${f('n<sub>2</sub>','n<sub>1</sub>')}<br>Ângulos medidos a partir da <b>normal</b>.`],
+  ['Regras práticas', `Meio mais refringente (n maior): luz mais lenta e raio mais perto da normal.<br>Na refração, f não muda; λ muda junto com v.`],
+  ['Ângulo limite', `sen L = ${f('n<sub>menor</sub>','n<sub>maior</sub>')}<br>Reflexão total: luz indo do meio mais refringente para o menos, com θ &gt; L.`],
+  ['Dispersão', `n depende da cor. No vidro: n<sub>vermelho</sub> &lt; … &lt; n<sub>violeta</sub><br>O violeta é o mais lento e o mais desviado.`],
+  ['Senos', tabela(['θ','30°','37°','45°','53°','60°'],[['sen θ','0,50','0,60','0,71','0,80','0,87']])],
+];
+
+/* Interface horizontal com normal; ângulos em graus a partir da normal */
+function interface(o){
+  const cx = 170, cy = 92, R = 84, rad = a => a * Math.PI / 180;
+  const [d, mk] = seta('var(--ray)');
+  const pi = [cx - R * Math.sin(rad(o.a1)), cy - R * Math.cos(rad(o.a1))];
+  let s = `${d}<rect x="10" y="${cy}" width="320" height="${184 - cy}" fill="var(--sign)" opacity=".16"/><line x1="10" y1="${cy}" x2="330" y2="${cy}" stroke="var(--sign)" stroke-width="2"/>
+    <line x1="${cx}" y1="10" x2="${cx}" y2="178" stroke="var(--muted)" stroke-dasharray="5 4"/><text x="${cx + 4}" y="20" class="pt">normal</text>
+    <line x1="${pi[0].toFixed(1)}" y1="${pi[1].toFixed(1)}" x2="${cx}" y2="${cy}" stroke="var(--ray)" stroke-width="2.6" marker-end="${mk}"/>
+    <text x="20" y="${cy - 8}" class="pt pt-strong">${o.m1}</text><text x="20" y="${cy + 20}" class="pt pt-strong">${o.m2}</text>`;
+  const arc = (a, up, lab) => { const r = 34, sgn = up ? -1 : 1, x2 = cx + (up ? -1 : 1) * r * Math.sin(rad(a)), y2 = cy + sgn * r * Math.cos(rad(a)); return `<path d="M${cx} ${cy + sgn * r} A${r} ${r} 0 0 ${up ? 0 : 0} ${x2.toFixed(1)} ${y2.toFixed(1)}" fill="none" stroke="var(--ink)" stroke-width="1.2"/><text x="${(cx + (up ? -1 : 1) * 46 * Math.sin(rad(a / 2))).toFixed(1)}" y="${(cy + sgn * 46 * Math.cos(rad(a / 2)) + 4).toFixed(1)}" text-anchor="middle" class="pt pt-strong">${lab}</text>`; };
+  if (o.a2 !== undefined){
+    const pr = [cx + R * Math.sin(rad(o.a2)), cy + R * Math.cos(rad(o.a2))];
+    s += `<line x1="${cx}" y1="${cy}" x2="${pr[0].toFixed(1)}" y2="${pr[1].toFixed(1)}" stroke="var(--ray)" stroke-width="2.6" marker-end="${mk}"/>`;
+    if (o.l2) s += arc(o.a2, false, o.l2);
+  }
+  if (o.l1) s += arc(o.a1, true, o.l1);
+  (o.cand || []).forEach(([a, n]) => { const p = [cx + 78 * Math.sin(rad(a)), cy + 78 * Math.cos(rad(a))]; s += `<line x1="${cx}" y1="${cy}" x2="${p[0].toFixed(1)}" y2="${p[1].toFixed(1)}" stroke="var(--ink)" stroke-width="1.6" stroke-dasharray="6 4"/><text x="${(cx + 90 * Math.sin(rad(a)) + (a === 0 ? 10 : 0)).toFixed(1)}" y="${(cy + 90 * Math.cos(rad(a)) + 4).toFixed(1)}" text-anchor="middle" class="pt pt-strong">${n}</text>`; });
+  return fig('0 0 340 196', o.aria, s);
+}
+
+/* Q8: fibra óptica */
+const FIG6_8 = (() => {
+  const [d, mk] = seta('var(--ray)');
+  return fig('0 0 340 140', 'Corte longitudinal de uma fibra óptica: um núcleo central envolvido por uma casca. Um raio de luz dentro do núcleo vai e volta entre as paredes do núcleo, em zigue-zague, ao longo da fibra.',
+    `${d}<rect x="10" y="22" width="320" height="96" rx="8" fill="var(--sign)" opacity=".14"/><rect x="10" y="44" width="320" height="52" fill="var(--sign)" opacity=".28"/>
+    <polyline points="14,70 52,46 112,94 172,46 232,94 292,46 316,61" fill="none" stroke="var(--ray)" stroke-width="2.4" marker-end="${mk}"/>
+    <line x1="112" y1="94" x2="112" y2="62" stroke="var(--muted)" stroke-dasharray="4 3"/><text x="118" y="76" class="pt pt-strong">θ</text>
+    <text x="170" y="16" text-anchor="middle" class="pt">casca</text><text x="170" y="134" text-anchor="middle" class="pt">casca</text><text x="300" y="86" text-anchor="end" class="pt pt-strong">núcleo</text>`);
+})();
+
+/* Q9: pescador e peixe */
+function peixe(sol){
+  const [d, mk] = seta('var(--ray)');
+  const fish = (x, y, op, dash) => `<path d="M${x - 16} ${y} Q${x} ${y - 10} ${x + 14} ${y} Q${x} ${y + 10} ${x - 16} ${y} Z M${x + 14} ${y} L${x + 24} ${y - 7} L${x + 24} ${y + 7} Z" fill="${dash ? 'none' : 'var(--plot2)'}" stroke="var(--ink)" stroke-width="1.4" opacity="${op}"${dash ? ' stroke-dasharray="4 3"' : ''}/>`;
+  let s = `${d}<rect x="10" y="80" width="320" height="104" fill="var(--sign)" opacity=".18"/><line x1="10" y1="80" x2="330" y2="80" stroke="var(--sign)" stroke-width="2"/>
+    <circle cx="44" cy="30" r="8" fill="none" stroke="var(--ink)" stroke-width="1.6"/><circle cx="47" cy="30" r="2.5" fill="var(--ink)"/><text x="44" y="56" text-anchor="middle" class="pt">pescador</text>
+    ${fish(250, 158, 1, false)}<text x="250" y="182" text-anchor="middle" class="pt pt-strong">peixe</text>`;
+  if (sol) s += `<polyline points="244,154 170,80 56,34" fill="none" stroke="var(--ray)" stroke-width="2" marker-end="${mk}"/><line x1="170" y1="80" x2="244" y2="110" stroke="var(--muted)" stroke-dasharray="5 4"/>${fish(250, 112, .9, true)}<text x="280" y="100" class="pt pt-strong">imagem</text>`;
+  return fig('0 0 340 190', sol ? 'Solução: a luz que sai do peixe se afasta da normal ao passar da água para o ar e chega ao olho do pescador. Prolongando o raio que chega ao olho, a imagem do peixe aparece mais acima, mais rasa que o peixe real.' : 'Um pescador, fora da água, à esquerda, observa um peixe dentro da água, à direita e mais abaixo.', s);
+}
+
+/* Q10: prisma */
+function prisma(sol){
+  const [d, mk] = seta('var(--ray)');
+  let s = `${d}<polygon points="60,170 60,30 302,170" fill="var(--sign)" opacity=".2" stroke="var(--sign)" stroke-width="2"/>
+    <text x="50" y="182" class="pt pt-strong">A</text><text x="50" y="28" class="pt pt-strong">B</text><text x="306" y="184" class="pt pt-strong">C</text>
+    <path d="M60 58 A28 28 0 0 0 84 44" fill="none" stroke="var(--ink)" stroke-width="1.3"/><text x="74" y="74" class="pt pt-strong">60°</text>
+    <polyline points="60,160 70,160 70,170" fill="none" stroke="var(--ink)" stroke-width="1.2"/>
+    <line x1="8" y1="110" x2="198" y2="110" stroke="var(--ray)" stroke-width="2.6" marker-end="${mk}"/>`;
+  if (sol) s += `<line x1="198.6" y1="110" x2="233" y2="170" stroke="var(--ray)" stroke-width="2.6" marker-end="${mk}"/><line x1="168" y1="162" x2="230" y2="55" stroke="var(--muted)" stroke-dasharray="5 4"/><text x="234" y="54" class="pt">normal</text><text x="214" y="122" class="pt pt-strong">60°</text>`;
+  return fig('0 0 340 196', sol ? 'Solução: o raio entra pela face AB sem desviar e chega à face BC com ângulo de incidência de 60 graus em relação à normal. Se houver reflexão total, ele é refletido para a face AC.' : 'Prisma de vidro cuja seção é um triângulo retângulo ABC, com ângulo reto em A e ângulo de 60 graus em B. Um raio de luz chega pela esquerda e incide perpendicularmente à face AB.', s);
+}
+
+const QL6 = [
+{
+  src:'Inédita', nivel:'básico',
+  text:'Num certo tipo de vidro, a luz se propaga a 2,0 · 10<sup>8</sup> m/s. Sendo a velocidade da luz no vácuo igual a 3,0 · 10<sup>8</sup> m/s, o índice de refração desse vidro é:',
+  opts:['0,67','1,5','6,0','2,0','1,2'], ans:1,
+  hint:'O índice de refração compara a velocidade da luz no vácuo com a velocidade no meio: n = c/v.',
+  steps:[
+    ['Definição', `<div class="eq">n = ${f('c','v')} = ${f('3,0 · 10<sup>8</sup>','2,0 · 10<sup>8</sup>')} = <span class="hl">1,5</span></div>`],
+    ['Interpretação', `<p>No vidro, a luz é 1,5 vez mais lenta que no vácuo. O índice não tem unidade (m/s dividido por m/s).</p>`],
+  ],
+  alt:'Todo meio material tem n maior que 1, porque nada é mais rápido que a luz no vácuo. Isso já elimina a alternativa a.',
+  warn:'Inverter a fração (v/c) dá 0,67 (alternativa a). Um índice menor que 1 significaria luz mais rápida que no vácuo, o que não acontece.',
+  mod:'Inédita (mesmo tipo do exercício 3 da lista de Refração da apostila).'
+},
+{
+  src:'Inédita', nivel:'básico',
+  text:`Um raio de luz monocromática, propagando-se no ar, incide obliquamente na superfície da água. As linhas tracejadas numeradas são possíveis trajetórias para o raio refratado.${interface({a1:50, m1:'ar', m2:'água', cand:[[66,'1'],[50,'2'],[35,'3'],[0,'4'],[-35,'5']], aria:'Raio de luz no ar chegando à superfície da água, inclinado 50 graus em relação à normal, vindo da esquerda. Abaixo da superfície, cinco linhas tracejadas: a 1, mais inclinada que o prolongamento do raio; a 2, no prolongamento do raio; a 3, mais próxima da normal; a 4, sobre a normal; a 5, voltando para o lado esquerdo da normal.'})}A trajetória que melhor representa o raio refratado é a:`,
+  opts:['1','2','3','4','5'], ans:2,
+  hint:'Na água a luz é mais lenta que no ar. Quando a luz entra num meio onde é mais lenta, ela se aproxima ou se afasta da normal?',
+  steps:[
+    ['Comparando os meios', `<p>A água (n ≈ 1,33) é mais refringente que o ar (n ≈ 1): a luz fica mais lenta ao entrar na água.</p>`],
+    ['Desvio', `<p>Ao entrar num meio mais refringente, o raio <b>se aproxima da normal</b>, sem passar para o outro lado dela. Essa é a trajetória <b>3</b>.</p><div class="eq">sen θ<sub>2</sub> = ${f('sen 50°','1,33')} ≈ ${f('0,77','1,33')} ≈ 0,58 ⇒ θ<sub>2</sub> ≈ 35°</div>`],
+  ],
+  alt:'Pense num carrinho que sai do asfalto e entra na areia de lado: a roda que toca a areia primeiro freia antes, e o carrinho “gira” em direção à normal.',
+  warn:'A trajetória 4 (sobre a normal) só aconteceria se o raio chegasse perpendicular à superfície. A 2 seria o caso de meios com o mesmo índice.',
+  mod:'Inédita (mesmo tipo do exercício 1 da lista de Refração da apostila).'
+},
+{
+  src:'PUCPR (modificada)', nivel:'básico',
+  text:'Um feixe de laser verde passa do ar para a água. Sobre a luz desse feixe, considere as afirmações.<br>I. A frequência não muda.<br>II. A velocidade diminui.<br>III. O comprimento de onda aumenta.<br>Está(ão) correta(s):',
+  opts:['Apenas I','Apenas III','Apenas II e III','I, II e III','Apenas I e II'], ans:4,
+  hint:'A frequência é definida pela fonte. Se v diminui e f fica igual, o que acontece com λ em v = λ · f?',
+  steps:[
+    ['I e II', `<p>I. Correta: a frequência é a da fonte e não muda na refração. Por isso a cor do laser não muda.</p><p>II. Correta: a água é mais refringente que o ar, então a luz fica mais lenta.</p>`],
+    ['III', `<div class="eq">λ = ${f('v','f')}</div><p>Com f constante e v menor, λ <b>diminui</b>. A afirmação III está errada.</p>`],
+  ],
+  alt:'Mergulhe de olhos abertos numa piscina com uma lanterna verde: a luz continua verde. Se a frequência mudasse, a cor mudaria.',
+  warn:'É comum achar que, por mudar de meio, “tudo muda”. Na refração, só v e λ mudam, e sempre no mesmo sentido.',
+  mod:'Original (PUCPR, Somativa 1): afirmações sobre velocidade, frequência, cor e o nome do fenômeno. Modificada: três afirmações novas sobre f, v e λ.'
+},
+{
+  src:'UEFS (modificada)', nivel:'intermediário',
+  text:`Um raio de luz passa do ar (n = 1,0) para um líquido desconhecido, como na figura. Use sen 53° = 0,80 e sen 37° = 0,60.${interface({a1:53, a2:37, l1:'53°', l2:'37°', m1:'ar', m2:'líquido', aria:'Raio de luz no ar incide na superfície de um líquido com ângulo de 53 graus em relação à normal e se refrata no líquido com ângulo de 37 graus em relação à normal.'})}${tabela(['Líquido','n'],[['Etanol','1,36'],['Glicerina','1,47'],['Benzeno','1,50'],['Água','1,33'],['Dissulfeto de carbono','1,63']])}Pela tabela, o líquido pode ser:`,
+  opts:['Etanol','Glicerina','Benzeno','Água','Dissulfeto de carbono'], ans:3,
+  hint:'Use a lei de Snell com n do ar igual a 1,0 e isole o índice do líquido.',
+  steps:[
+    ['Lei de Snell', `<div class="eq">n<sub>ar</sub> · sen 53° = n<sub>líq</sub> · sen 37°</div><div class="eq">1,0 × 0,80 = n<sub>líq</sub> × 0,60</div>`],
+    ['Índice do líquido', `<div class="eq">n<sub>líq</sub> = ${f('0,80','0,60')} ≈ <span class="hl">1,33</span></div><p>Pela tabela: <b>água</b>.</p>`],
+  ],
+  alt:'Antes de calcular: o raio se aproximou da normal (53° → 37°), então o líquido é mais refringente que o ar, como todos da tabela. A conta decide qual deles.',
+  warn:`Dividir ao contrário (${f('0,60','0,80')} = 0,75) dá um índice menor que 1, impossível. O seno do ângulo maior fica em cima quando a luz vem do ar.`,
+  mod:'Original (UEFS, Exemplo 1 de Refração da apostila): 60° e 30°, ar e vidro. Modificada: 53° e 37°, com tabela para identificar o líquido.'
+},
+{
+  src:'UFRGS (modificada)', nivel:'intermediário',
+  text:`Um raio de luz passa de um meio 1 para um meio 2. O ângulo de incidência é 30° e o de refração é 45° (figura). Use sen 30° = 0,50 e sen 45° = 0,71.${interface({a1:30, a2:45, l1:'30°', l2:'45°', m1:'meio 1', m2:'meio 2', aria:'Raio de luz no meio 1 incide na superfície com ângulo de 30 graus em relação à normal e se refrata no meio 2 com ângulo de 45 graus em relação à normal, afastando-se dela.'})}Comparando as velocidades da luz v<sub>1</sub> e v<sub>2</sub> nos dois meios:`,
+  opts:['v₂ ≈ 1,4 v₁; o meio 2 é menos refringente','v₂ ≈ 1,4 v₁; o meio 2 é mais refringente','v₂ ≈ 0,7 v₁; o meio 2 é mais refringente','v₂ ≈ 0,7 v₁; o meio 2 é menos refringente','v₂ = v₁, pois a frequência não muda'], ans:0,
+  hint:'O raio se afastou da normal. Na lei de Snell, a razão entre os senos é igual à razão entre as velocidades.',
+  steps:[
+    ['Razão das velocidades', `<div class="eq">${f('v<sub>2</sub>','v<sub>1</sub>')} = ${f('sen θ<sub>2</sub>','sen θ<sub>1</sub>')} = ${f('0,71','0,50')} ≈ 1,4</div><div class="eq">v<sub>2</sub> ≈ <span class="hl">1,4 v<sub>1</sub></span></div>`],
+    ['Refringência', `<p>No meio 2 a luz é mais rápida: o meio 2 é <b>menos refringente</b>. Por isso o raio se afastou da normal.</p>`],
+  ],
+  alt:'Regra visual: ângulo maior com a normal ↔ luz mais rápida ↔ meio menos refringente. O ângulo é maior no meio 2.',
+  warn:'Montar a razão ao contrário (sen 30°/sen 45°) dá 0,7 (alternativas c e d). Ângulo e velocidade “andam juntos”: o maior ângulo fica no meio de maior velocidade.',
+  mod:'Original (UFRGS, exercício 8 da lista de Refração da apostila): 45° e 30°, luz do ar para um bloco. Modificada: 30° e 45°, com a luz se afastando da normal.'
+},
+{
+  src:'PUCRS (modificada)', nivel:'intermediário',
+  text:`Quando a luz branca atravessa um prisma de vidro, ela se separa em cores: é a dispersão da luz. A tabela mostra o índice de refração de um tipo de vidro para algumas cores.${tabela(['Cor','Índice de refração'],[['Vermelho','1,513'],['Amarelo','1,517'],['Verde','1,519'],['Azul','1,528'],['Violeta','1,532']])}Para a luz que atravessa esse vidro, é correto afirmar que:`,
+  opts:['a luz vermelha é a que mais se desvia','a luz violeta é a mais rápida dentro do vidro','todas as cores têm a mesma velocidade dentro do vidro','a luz vermelha é a mais rápida dentro do vidro','a luz azul se desvia menos que a luz amarela'], ans:3,
+  hint:'Como n e v estão relacionados? n = c/v.',
+  steps:[
+    ['Índice e velocidade', `<div class="eq">v = ${f('c','n')}</div><p>Quanto menor o índice, maior a velocidade. O vermelho tem o menor índice (1,513): é a cor <b>mais rápida</b> no vidro.</p>`],
+    ['Desvio', `<p>Quanto maior o índice, maior o desvio: o violeta é o que mais se desvia, e o vermelho, o que menos se desvia. O azul (1,528) se desvia mais que o amarelo (1,517).</p>`],
+  ],
+  alt:'No vácuo todas as cores têm a mesma velocidade. Só dentro de um meio material elas ficam com velocidades (um pouco) diferentes, e é isso que separa as cores.',
+  warn:'Maior índice não significa maior velocidade (alternativa b): é o contrário. O violeta, com o maior n, é o mais lento.',
+  mod:'Original (PUCRS, exercício 9 da lista de Refração da apostila): mesma tabela, alternativas sobre o desvio. Modificada: alternativas sobre a velocidade de cada cor e o desvio.'
+},
+{
+  src:'Inédita', nivel:'intermediário',
+  text:'Um bloco de material transparente, de índice de refração √2 ≈ 1,41, está no ar (n = 1,0). Para que um raio de luz sofra reflexão total na superfície do bloco, ele deve se propagar do ___ para o ___ e incidir com ângulo maior que o ângulo limite, que vale ___.',
+  opts:['material; ar; 45°','ar; material; 45°','material; ar; 30°','material; ar; 60°','ar; material; 90°'], ans:0,
+  hint:'A reflexão total só acontece quando a luz tenta sair para um meio menos refringente. Para o ângulo limite: sen L = n<sub>menor</sub>/n<sub>maior</sub>.',
+  steps:[
+    ['Sentido', `<p>A reflexão total exige luz indo do meio <b>mais</b> refringente (material) para o <b>menos</b> refringente (ar).</p>`],
+    ['Ângulo limite', `<div class="eq">sen L = ${f('n<sub>ar</sub>','n<sub>material</sub>')} = ${f('1','√2')} = ${f('√2','2')} ≈ 0,71 ⇒ L = <span class="hl">45°</span></div>`],
+  ],
+  alt:'No ângulo limite, o raio refratado sai “rasante” à superfície (90° com a normal). Acima de L, não há mais refração: toda a luz é refletida.',
+  warn:'Do ar para o material (alternativa b) a luz se aproxima da normal e sempre consegue entrar: não existe reflexão total nesse sentido.',
+  mod:'Inédita (mesmo formato do exercício 10 da lista de Refração da apostila, que usava n = 2 e L = 30°).'
+},
+{
+  src:'Inédita', nivel:'avançado',
+  text:`Uma fibra óptica tem um núcleo de vidro por onde a luz se propaga, envolvido por uma casca também de vidro. A figura mostra um raio que se propaga dentro do núcleo.${FIG6_8}Considere as afirmações.<br>I. O núcleo é mais refringente que a casca.<br>II. A luz fica “presa” no núcleo porque o ângulo θ é maior que o ângulo limite núcleo–casca.<br>III. O ângulo limite núcleo–casca depende apenas do índice de refração do núcleo.<br>IV. A luz percorre a fibra por sucessivas reflexões totais.<br>Estão corretas:`,
+  opts:['Apenas I e II','Apenas II e III','Apenas I, II e IV','Apenas I, III e IV','I, II, III e IV'], ans:2,
+  hint:'Para haver reflexão total, de qual meio para qual meio a luz precisa ir? E a fórmula do ângulo limite usa quantos índices?',
+  steps:[
+    ['I e II', `<p>I. Correta: a reflexão total só ocorre se a luz vai do meio mais refringente (núcleo) para o menos refringente (casca).</p><p>II. Correta: com θ (medido a partir da normal) maior que o ângulo limite, não há refração para a casca, e toda a luz volta para o núcleo.</p>`],
+    ['III e IV', `<div class="eq">sen L = ${f('n<sub>casca</sub>','n<sub>núcleo</sub>')}</div><p>III. Errada: L depende dos <b>dois</b> índices.</p><p>IV. Correta: é essa sequência de reflexões totais que guia a luz, mesmo com a fibra curvada.</p>`],
+  ],
+  alt:'É o mesmo motivo de, olhando de dentro de uma piscina, a superfície da água parecer um espelho a partir de certo ângulo.',
+  warn:'Pela figura, θ parece um ângulo “grande”, e alguns acham que ele precisa ser menor que o limite. Para a reflexão total, θ tem de ser <b>maior</b> que L.',
+  mod:'Inédita, inspirada no exercício 11 da lista de Refração da apostila (fibra óptica), com afirmações reescritas.'
+},
+{
+  src:'Inédita', nivel:'avançado',
+  text:`Um pescador, fora da água, vê um peixe parado dentro de um lago (figura).${peixe(false)}A posição em que o peixe <b>parece</b> estar é ___ que a real. Para acertá-lo com um arpão, o pescador deve mirar ___ da imagem; para atingi-lo com um feixe de laser, deve mirar ___ na imagem.`,
+  opts:['mais funda; acima; diretamente','mais rasa; acima; abaixo','mais rasa; diretamente; abaixo','igual; diretamente; diretamente','mais rasa; abaixo; diretamente'], ans:4,
+  hint:'A luz que sai do peixe passa da água para o ar e se afasta da normal. O olho “prolonga” o raio em linha reta. E o laser faz o caminho da luz ao contrário.',
+  steps:[
+    ['Onde o peixe parece estar', `<p>A luz do peixe se afasta da normal ao sair da água. O cérebro interpreta que a luz veio em linha reta, então a imagem aparece <b>mais rasa</b> (acima) do que o peixe real.</p>${peixe(true)}`],
+    ['Arpão', `<p>O arpão anda em linha reta e não sofre refração: é preciso mirar <b>abaixo</b> da imagem, onde o peixe realmente está.</p>`],
+    ['Laser', `<p>O laser é luz: ao entrar na água ele refrata exatamente pelo mesmo caminho, ao contrário (reversibilidade). Mirando <b>diretamente</b> na imagem, ele chega ao peixe.</p>`],
+  ],
+  alt:'É o mesmo efeito que faz uma piscina parecer mais rasa do que é, e um lápis dentro do copo parecer “quebrado”.',
+  warn:'Muitos pensam que o laser também precisa mirar abaixo (alternativa b). Mas o laser segue o mesmo caminho da luz que chega ao olho, só que no sentido contrário.',
+  mod:'Inédita.'
+},
+{
+  src:'Inédita', nivel:'avançado',
+  text:`Um prisma de vidro, cuja seção é o triângulo retângulo ABC da figura, está no ar (n = 1,0). Um raio de luz incide perpendicularmente à face AB.${prisma(false)}O menor índice de refração do vidro para que a luz <b>não</b> saia pela face BC é, aproximadamente (use sen 60° = 0,87):`,
+  opts:['1,41','1,15','2,00','1,73','1,50'], ans:1,
+  hint:'Na face AB o raio entra sem desviar (incidência normal). Descubra o ângulo de incidência na face BC pela geometria e exija reflexão total.',
+  steps:[
+    ['Entrando pela face AB', `<p>Incidência perpendicular (θ = 0°): o raio entra sem desviar e segue até a face BC.</p>`],
+    ['Ângulo de incidência em BC', `<p>A normal a BC faz com o raio o mesmo ângulo que BC faz com AB, ou seja, o ângulo do vértice B: <b>60°</b>.</p>${prisma(true)}`],
+    ['Condição de reflexão total', `<p>Para não sair por BC, 60° deve ser maior (ou igual) que o ângulo limite:</p><div class="eq">sen L ≤ sen 60° ⇒ ${f('1','n')} ≤ 0,87 ⇒ n ≥ ${f('1','0,87')} ≈ <span class="hl">1,15</span></div>`],
+  ],
+  alt:'Quanto maior n, menor o ângulo limite e mais fácil a reflexão total. Por isso basta um índice de 1,15, menor que o de qualquer vidro comum (cerca de 1,5): esse prisma funciona como um espelho.',
+  warn:'1,41 é o resultado para um prisma de 45° (exercício 13 da apostila). Aqui o ângulo de incidência em BC é 60°.',
+  mod:'Inédita, a partir do exercício 13 da lista de Refração da apostila, com outro ângulo no prisma.'
+},
+];
+
+/* ===== Estrutura do site: temas e listas. Para adicionar material, inclua um item em "listas" ou um novo tema. ===== */
+const SITE = {
+  escola: 'Colégio Israelita Brasileiro',
+  turma: '2ª série',
+  turmas: 'Turmas 201, 202 e 203',
+  prof: 'Prof. Ricieri',
+  temas: [
+    {
+      id: 'ondas', ico: 'λ', nome: 'Ondas', cls: 'th-ondas', estilo: 'onda',
+      resumo: 'O que é uma onda, a equação fundamental, os fenômenos ondulatórios e o espectro eletromagnético.',
+      listas: [
+        { id: 'conceitos', key: 'cib2-ondas-conceitos-v1', num: 1,
+          titulo: 'Conceitos iniciais e equação fundamental',
+          resumo: 'Classificação das ondas, período, frequência, amplitude, comprimento de onda e v = λ · f.',
+          intro: 'É a base de tudo o que vem depois em ondas e óptica.',
+          tools: TOOLS1, Q: QL1 },
+        { id: 'fenomenos', key: 'cib2-ondas-fenomenos-v1', num: 2,
+          titulo: 'Fenômenos ondulatórios',
+          resumo: 'Reflexão, refração, difração, interferência e polarização, com aplicações do cotidiano.',
+          intro: 'Habilidade H2 da próxima somativa.',
+          tools: TOOLS2, Q: QL2 },
+        { id: 'espectro', key: 'cib2-ondas-espectro-v1', num: 3,
+          titulo: 'Espectro eletromagnético',
+          resumo: 'As radiações, sua energia, a interação com a matéria e as aplicações em saúde, indústria e tecnologia.',
+          intro: 'Habilidade H2 da próxima somativa.',
+          tools: TOOLS3, Q: QL3 }
+      ]
+    },
+    {
+      id: 'optica', ico: 'θ', nome: 'Óptica geométrica', cls: 'th-optica', estilo: 'raio',
+      resumo: 'Raios de luz, sombras, espelhos planos e esféricos e refração.',
+      listas: [
+        { id: 'principios', key: 'cib2-optica-principios-v1', num: 4,
+          titulo: 'Princípios da óptica geométrica',
+          resumo: 'Propagação retilínea, sombras, câmara escura, eclipses, cor dos objetos e ano-luz.',
+          intro: 'Habilidade H3 da próxima somativa.',
+          tools: TOOLS4, Q: QL4 },
+        { id: 'espelhos', key: 'cib2-optica-espelhos-v1', num: 5,
+          titulo: 'Espelhos planos e esféricos',
+          resumo: 'Imagens em espelhos planos, campo visual, associação de espelhos, construção de imagens e equação de Gauss.',
+          intro: 'Habilidade H3 da próxima somativa.',
+          tools: TOOLS5, Q: QL5 },
+        { id: 'refracao', key: 'cib2-optica-refracao-v1', num: 6,
+          titulo: 'Refração',
+          resumo: 'Índice de refração, lei de Snell, dispersão, ângulo limite e reflexão total.',
+          intro: 'Habilidade H3 da próxima somativa.',
+          tools: TOOLS6, Q: QL6 }
+      ]
+    }
+  ]
+};
+
+/* ===== Configuração do registro (preencher ao publicar) ===== */
+const CONFIG = {
+  dominio: '',      // domínio do e-mail dos alunos do CIB, ex.: 'aluno.escola.com.br'. Vazio = não pede identificação
+  registro: '',     // URL do App da Web do Google Apps Script. Vazio = não envia resultados
+  turmas: ['201', '202', '203']
+};
+const $ = id => document.getElementById(id);
+const ID_KEY = 'fis2cib-aluno', FILA_KEY = 'fis2cib-fila', DIA_KEY = 'fis2cib-ultimo-acesso';
+const getAluno = () => { try { const a = JSON.parse(localStorage.getItem(ID_KEY) || 'null'); return a && a.email ? a : null; } catch(e){ return null; } };
+const setAluno = a => { try { if (a) localStorage.setItem(ID_KEY, JSON.stringify(a)); else localStorage.removeItem(ID_KEY); } catch(e){} };
+const precisaLogin = () => !!CONFIG.dominio && !getAluno();
+function emailValido(e){ const d = CONFIG.dominio.toLowerCase().replace(/^@/, ''); return new RegExp('^[a-z0-9._%+-]+@' + d.replace(/[.]/g, '\\.') + '$').test(e); }
+function enviar(ev){
+  const a = getAluno(); if (!CONFIG.registro || !a) return;
+  const item = Object.assign({ email: a.email, turma: a.turma, quando: new Date().toISOString(), dispositivo: /mobi|android|iphone|ipad/i.test(navigator.userAgent) ? 'celular/tablet' : 'computador' }, ev);
+  let fila = []; try { fila = JSON.parse(localStorage.getItem(FILA_KEY) || '[]'); } catch(e){}
+  fila.push(item); try { localStorage.setItem(FILA_KEY, JSON.stringify(fila.slice(-60))); } catch(e){}
+  enviarFila();
+}
+let enviando = false;
+async function enviarFila(){
+  if (!CONFIG.registro || enviando || navigator.onLine === false) return;
+  enviando = true;
+  try {
+    let fila = []; try { fila = JSON.parse(localStorage.getItem(FILA_KEY) || '[]'); } catch(e){}
+    while (fila.length){
+      await fetch(CONFIG.registro, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(fila[0]) });
+      fila.shift(); try { localStorage.setItem(FILA_KEY, JSON.stringify(fila)); } catch(e){}
+    }
+  } catch(e){} finally { enviando = false; }
+}
+window.addEventListener('online', enviarFila);
+function registrarAcessoDoDia(){
+  const a = getAluno(); if (!CONFIG.registro || !a) return;
+  const marca = a.email + '|' + new Date().toLocaleDateString('sv-SE');
+  let ult = null; try { ult = localStorage.getItem(DIA_KEY); } catch(e){}
+  if (ult !== marca){ enviar({ evento: 'acesso' }); try { localStorage.setItem(DIA_KEY, marca); } catch(e){} }
+}
+/* Tempo ativo: conta só com a lista aberta, a tela visível e o aluno interagindo (pausa após 3 min parado) */
+let tMarca = null, tInter = Date.now();
+['click','keydown','scroll','touchstart'].forEach(ev => window.addEventListener(ev, () => { if (LI && tMarca === null && document.visibilityState === 'visible') tMarca = Date.now(); tInter = Date.now(); }, { passive: true }));
+function contarTempo(){
+  if (!LI || !st || tMarca === null) return;
+  const fim = Math.min(Date.now(), tInter + 180000);
+  if (fim > tMarca) st.tempo = (st.tempo || 0) + (fim - tMarca) / 1000;
+  tMarca = Date.now() <= tInter + 180000 ? Date.now() : null;
+  store(LI.key, st);
+}
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden'){ contarTempo(); tMarca = null; } else if (LI){ tMarca = Date.now(); tInter = Date.now(); } });
+const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const toTop = () => window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+const load = k => { try { const s = JSON.parse(localStorage.getItem(k) || 'null'); if (s && typeof s === 'object') return Object.assign({ answers:{}, hints:{}, cur:-1 }, s); } catch(e){} return { answers:{}, hints:{}, cur:-1 }; };
+const store = (k, s) => { try { localStorage.setItem(k, JSON.stringify(s)); } catch(e){} };
+
+let T = null, LI = null, st = null; // tema, lista e progresso atuais
+
+function stats(l){ const s = load(l.key); let n = 0, c = 0; l.Q.forEach((q,i)=>{ const a = s.answers[i]; if (a !== undefined){ n++; if (a === q.ans) c++; } }); return { n, c, total: l.Q.length }; }
+
+function plate(eyebrow, title, sub){
+  $('eyebrow').textContent = eyebrow; $('ptitle').textContent = title; $('psub').textContent = sub;
+  const r = document.documentElement;
+  SITE.temas.forEach(t => t.cls && r.classList.remove(t.cls));
+  if (T && T.cls) r.classList.add(T.cls);
+  $('deco').innerHTML = T ? decoTema(T.estilo) : '';
+}
+/* Enfeite do cabeçalho de cada tema */
+function decoTema(e){
+  if (e === 'onda'){
+    let d = 'M0 40'; for (let x = 0; x <= 220; x += 4) d += ` L${x} ${(40 - 14 * Math.sin(2 * Math.PI * x / 55)).toFixed(1)}`;
+    return `<svg viewBox="0 0 220 80" aria-hidden="true"><path d="${d}" fill="none" stroke="currentColor" stroke-width="3"/><path d="${d}" transform="translate(0 22)" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".5"/></svg>`;
+  }
+  if (e === 'raio'){
+    const cores = ['#FF5A4F','#FF9F40','#FFE24D','#55D17A','#4FA3FF','#8B6CFF'];
+    return `<svg viewBox="0 0 220 80" aria-hidden="true"><line x1="0" y1="52" x2="104" y2="40" stroke="#FFFFFF" stroke-width="3"/><polygon points="96,70 128,14 160,70" fill="none" stroke="currentColor" stroke-width="2.5"/>${cores.map((c, i) => `<line x1="140" y1="44" x2="220" y2="${30 + i * 8}" stroke="${c}" stroke-width="2.5"/>`).join('')}</svg>`;
+  }
+  return '';
+}
+/* Trilha de progresso: estrada (carro), onda (corda) ou raio de luz */
+function trilha(n){
+  const e = (T && T.estilo) || 'estrada';
+  if (e === 'onda'){
+    let d = 'M0 15'; for (let x = 0; x <= 1000; x += 4) d += ` L${x} ${(15 - 10 * Math.sin(2 * Math.PI * x * n / 1000)).toFixed(2)}`;
+    return `<div class="lane2 ln-onda" id="lane" data-estilo="onda">
+      <svg class="ln-base" viewBox="0 0 1000 30" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="15" x2="1000" y2="15"/></svg>
+      <svg class="ln-fill" viewBox="0 0 1000 30" preserveAspectRatio="none" aria-hidden="true"><path d="${d}"/></svg>
+      <span class="ln-src" aria-hidden="true"></span><span class="ln-head" aria-hidden="true"></span></div>`;
+  }
+  if (e === 'raio'){
+    return `<div class="lane2 ln-raio" id="lane" data-estilo="raio">
+      <svg class="ln-base" viewBox="0 0 1000 30" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="15" x2="1000" y2="15"/></svg>
+      <svg class="ln-fill" viewBox="0 0 1000 30" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="15" x2="1000" y2="15"/></svg>
+      <span class="ln-src" aria-hidden="true"></span><span class="ln-head" aria-hidden="true"></span></div>`;
+  }
+  return `<div class="lane" id="lane" data-estilo="estrada">
+        <svg class="car" id="car" viewBox="0 0 34 20" aria-hidden="true">
+          <path d="M3 13 L5 8 Q6 6 9 6 L21 6 Q23 6 25 8 L29 11 Q32 11.5 32 14 L32 15 L2 15 L2 14 Q2 13 3 13 Z" fill="var(--lane)"/>
+          <path d="M8 8 L12 8 L12 11 L6.5 11 Z M14 8 L20 8 Q21.5 8 23 9.5 L24.5 11 L14 11 Z" fill="var(--road)"/>
+          <circle cx="9" cy="15.5" r="3" fill="var(--road-ink)"/><circle cx="25" cy="15.5" r="3" fill="var(--road-ink)"/>
+        </svg>
+      </div>`;
+}
+function crumbs(items){
+  const c = $('crumbs');
+  if (!items){ c.hidden = true; c.innerHTML = ''; return; }
+  c.hidden = false;
+  c.innerHTML = items.map((it, i) => {
+    const last = i === items.length - 1;
+    return (i ? '<span class="sep">›</span>' : '') + (last ? `<span class="here">${it.label}</span>` : `<button data-nav="${it.nav}">${it.label}</button>`);
+  }).join('');
+}
+
+/* ===== Nível 1: início da turma ===== */
+function openHome(){
+  contarTempo(); tMarca = null;
+  T = LI = null;
+  plate(`Física · ${SITE.escola}`, SITE.turma, `${SITE.turmas} · ${SITE.prof}`);
+  crumbs(null);
+  $('view').innerHTML = `
+    <section class="card intro">
+      <p class="sect-label">Como usar</p>
+      <p>Aqui ficam as listas e práticas de Física da turma. Escolha um tema e depois a lista. Cada lista mostra uma questão por vez, com dica e resolução detalhada logo depois de responder.</p>
+    </section>
+    <p class="sect-label">Temas</p>
+    <div class="cards">
+      ${SITE.temas.map((t, i) => {
+        const nl = t.listas.length;
+        return `<button class="tile ${t.cls || ''}" data-tema="${i}">
+          <span class="ico">${t.ico}</span>
+          <span><span class="tt">${t.nome}</span><span class="ds">${t.resumo}</span>
+            <span class="meta"><span class="chip">${nl} ${nl === 1 ? 'lista' : 'listas'}</span></span></span>
+          <span class="go">→</span></button>`;
+      }).join('')}
+    </div>
+    <p class="note">Novos temas e listas entram aqui ao longo do trimestre.</p>
+    <section class="card install" id="installCard" hidden></section>
+    ${getAluno() ? `<p class="note">Entrou como <b>${getAluno().email}</b>${getAluno().turma ? ' · Turma ' + getAluno().turma : ''}. <button class="btn ghost" data-act="sair" style="padding:0">Não é você? Trocar</button></p>` : ''}`;
+  showInstall();
+  toTop();
+}
+
+/* ===== Nível 2: tema ===== */
+function openTema(ti){
+  contarTempo(); tMarca = null;
+  T = SITE.temas[ti]; LI = null;
+  plate(`Física · ${SITE.turma}`, T.nome, T.resumo);
+  crumbs([{ label:'Início', nav:'home' }, { label:T.nome }]);
+  $('view').innerHTML = `
+    <p class="sect-label">Listas e práticas</p>
+    <div class="cards">
+      ${T.listas.map((l, i) => {
+        const s = stats(l);
+        const prog = s.n ? `<span class="chip ${s.n === s.total ? 'ok' : ''}">${s.n === s.total ? `Feita · ${s.c}/${s.total} certas` : `${s.n}/${s.total} respondidas`}</span>` : '';
+        return `<button class="tile" data-lista="${i}">
+          <span class="ico lane">L${l.num}</span>
+          <span><span class="tt">Lista ${l.num} · ${l.titulo}</span><span class="ds">${l.resumo}</span>
+            <span class="meta"><span class="chip">${s.total} questões</span><span class="chip">com resolução</span>${prog}</span></span>
+          <span class="go">→</span></button>`;
+      }).join('')}
+    </div>`;
+  toTop();
+}
+
+/* ===== Nível 3: lista interativa ===== */
+function openLista(li){
+  contarTempo();
+  LI = T.listas[li]; st = load(LI.key); st.cur = -1; tMarca = Date.now(); tInter = Date.now();
+  plate(`Física · ${SITE.turma} · ${T.nome}`, `Lista ${LI.num}`, LI.titulo);
+  crumbs([{ label:'Início', nav:'home' }, { label:T.nome, nav:'tema' }, { label:`Lista ${LI.num}` }]);
+  $('view').innerHTML = `
+    <nav class="road" aria-label="Progresso nas questões">
+      <div class="road-top"><span id="roadLabel"></span><span id="roadScore"></span></div>
+      ${trilha(LI.Q.length)}
+      <div class="marks" id="marks" style="grid-template-columns:repeat(${LI.Q.length},1fr)"></div>${levelRow()}
+    </nav>
+    <details class="tools">
+      <summary><span>Caixa de ferramentas: fórmulas e conversões</span><span class="chev">›</span></summary>
+      <div class="tools-grid">${LI.tools.map(([t,h])=>`<div class="tool"><h4>${t}</h4><div>${h}</div></div>`).join('')}</div>
+    </details>
+    <div id="qa"></div>`;
+  renderRoad(); renderIntro(); toTop();
+}
+
+
+const lvKey = n => ({'básico':'b','intermediário':'i','avançado':'a'})[n] || 'b';
+function levelGroups(){
+  const g = [];
+  LI.Q.forEach((q, i) => { if (!q.nivel) return; const last = g[g.length-1]; if (last && last.n === q.nivel && last.end === i) last.end = i + 1; else g.push({ n: q.nivel, start: i, end: i + 1 }); });
+  return g;
+}
+function levelRow(){
+  const g = levelGroups(); if (!g.length) return '';
+  return `<div class="lvrow" style="grid-template-columns:repeat(${LI.Q.length},1fr)">${g.map(x => `<span class="lv-${lvKey(x.n)}" style="grid-column:${x.start+1} / ${x.end+1}">${x.n}</span>`).join('')}</div>`;
+}
+function levelSummary(){
+  const g = levelGroups(); if (!g.length) return '';
+  const c = {}; g.forEach(x => c[x.n] = (c[x.n] || 0) + (x.end - x.start));
+  return `<div class="row" style="gap:6px">${Object.keys(c).map(n => `<span class="lvl lvl-${lvKey(n)}">${c[n]} ${n === 'básico' ? (c[n]>1?'básicas':'básica') : n === 'intermediário' ? (c[n]>1?'intermediárias':'intermediária') : (c[n]>1?'avançadas':'avançada')}</span>`).join('')}</div>`;
+}
+const save = () => store(LI.key, st);
+function resumoLista(){
+  const porNivel = n => { const idx = LI.Q.map((q,i) => i).filter(i => LI.Q[i].nivel === n); return idx.length ? idx.filter(i => status(i) === 'ok').length + '/' + idx.length : ''; };
+  return {
+    evento: 'lista concluída', tema: T.nome, lista: 'Lista ' + LI.num,
+    acertos: correctCount(), total: LI.Q.length,
+    basico: porNivel('básico'), intermediario: porNivel('intermediário'), avancado: porNivel('avançado'),
+    erradas: LI.Q.map((q,i) => i).filter(i => status(i) !== 'ok').map(i => i + 1).join(', '),
+    dicas: Object.keys(st.hints || {}).filter(k => st.hints[k]).length,
+    tempoMin: Math.round((st.tempo || 0) / 6) / 10
+  };
+}
+function status(i){ const a = st.answers[i]; if (a === undefined) return 'none'; return a === LI.Q[i].ans ? 'ok' : 'bad'; }
+function correctCount(){ return LI.Q.reduce((n,_,i)=> n + (status(i)==='ok'?1:0), 0); }
+function answeredCount(){ return LI.Q.reduce((n,_,i)=> n + (status(i)!=='none'?1:0), 0); }
+
+function renderRoad(){
+  const Q = LI.Q;
+  $('marks').innerHTML = Q.map((_,i)=>{
+    const s = status(i);
+    const cls = ['mk', s==='ok'?'ok':s==='bad'?'bad':'', st.cur===i?'cur':''].join(' ');
+    const lab = s==='ok'?'certa':s==='bad'?'errada':'não respondida';
+    return `<button class="${cls}" data-go="${i}" aria-label="Questão ${i+1}, ${lab}">${i+1}</button>`;
+  }).join('');
+  const pos = st.cur < 0 ? 0 : st.cur >= Q.length ? Q.length - 0.5 : st.cur + 0.5;
+  const lane = $('lane'), pct = (pos/Q.length)*100;
+  if (lane.dataset.estilo === 'estrada') $('car').style.left = `calc(${pct}% + ${st.cur<0?17:0}px)`;
+  else { lane.style.setProperty('--p', pct.toFixed(2)); lane.querySelector('.ln-fill').style.clipPath = `inset(0 ${(100 - pct).toFixed(2)}% 0 0)`; }
+  const n = answeredCount();
+  $('roadLabel').textContent = st.cur>=0 && st.cur<Q.length ? `Questão ${st.cur+1} de ${Q.length}` : `Percurso: ${Q.length} questões`;
+  $('roadScore').textContent = n ? `${correctCount()} de ${n} certas` : '';
+}
+
+function renderIntro(){
+  const Q = LI.Q, n = answeredCount();
+  $('qa').innerHTML = `
+  <section class="card intro">
+    <div class="qnum">Antes de começar</div>
+    <p>São <b>${Q.length} questões</b> sobre ${LI.titulo.toLowerCase()}. ${LI.intro || ''}</p>${levelSummary()}
+    <ul>
+      <li>Responda uma questão por vez. Logo depois, aparece a <b>resolução detalhada</b>, passo a passo.</li>
+      <li>Travou? Use o botão <b>Ver dica</b> antes de responder.</li>
+      <li>A <b>caixa de ferramentas</b> acima tem as fórmulas e conversões que você vai usar.</li>
+      <li>Tenha papel e lápis à mão e tente resolver antes de clicar na alternativa.</li>
+    </ul>
+    <div class="row">
+      <button class="btn primary" id="startBtn">${n && n < Q.length ? 'Continuar de onde parei' : n === Q.length ? 'Ver meu resultado' : 'Começar a questão 1'}</button>
+      ${n ? `<span class="small">${n} de ${Q.length} questões respondidas neste aparelho.</span>` : ''}
+    </div>
+  </section>`;
+  $('startBtn').onclick = () => {
+    if (n === Q.length) goQ(Q.length);
+    else { const next = Q.findIndex((_,i)=>status(i)==='none'); goQ(next < 0 ? 0 : next); }
+  };
+}
+
+function renderQuestion(i){
+  const Q = LI.Q, q = Q[i], a = st.answers[i], done = a !== undefined, skipped = a === -1;
+  const opts = q.opts.map((o,k)=>{
+    let cls = 'opt', tag = '';
+    if (done){
+      if (k === q.ans){ cls += ' is-correct'; tag = '<span class="tag">✓ correta</span>'; }
+      else if (k === a){ cls += ' is-wrong'; tag = '<span class="tag">✗ sua resposta</span>'; }
+      else cls += ' is-dim';
+    }
+    return `<li><button class="${cls}" data-pick="${k}" ${done?'disabled':''}><span class="letter">${L[k]}</span><span>${o}</span>${tag}</button></li>`;
+  }).join('');
+  let fb = '';
+  if (done){
+    fb = a === q.ans
+      ? `<div class="feedback good" role="status"><span class="ico">✓</span>Correto! Confira a resolução para ver se o seu raciocínio bate.</div>`
+      : skipped
+        ? `<div class="feedback bad" role="status"><span class="ico">→</span>Sem problema. Acompanhe a resolução com calma e tente refazer no papel.</div>`
+        : `<div class="feedback bad" role="status"><span class="ico">✗</span>Não foi dessa vez. A resposta certa é a ${L[q.ans]}. Veja onde o raciocínio muda.</div>`;
+  }
+  const sol = done ? `
+    <section class="sol" aria-label="Resolução detalhada">
+      <h3>Resolução detalhada</h3>
+      <ol class="steps">
+        ${q.steps.map(([lab,html])=>`<li class="step"><div class="step-body"><div class="step-label">${lab}</div>${html}</div></li>`).join('')}
+      </ol>
+      <div class="answer"><span class="letter">${L[q.ans]}</span><span>Resposta: alternativa ${L[q.ans]} (${q.opts[q.ans]})</span></div>
+      ${q.alt ? `<div class="alt"><b class="lbl">Outro jeito de pensar</b>${q.alt}</div>` : ''}
+      ${q.warn ? `<div class="warn"><b class="lbl">Cuidado com a pegadinha</b>${q.warn}</div>` : ''}
+    </section>` : '';
+  const showHint = st.hints[i] && !done;
+  const last = i === Q.length - 1;
+  $('qa').innerHTML = `
+  <article class="card">
+    <div class="qhead">
+      <div class="qnum">Questão ${i+1} <span>/ ${Q.length}</span></div>
+      <span class="row" style="gap:6px">${q.nivel ? `<span class="lvl lvl-${lvKey(q.nivel)}">Nível ${q.nivel}</span>` : ''}<span class="src">${q.src}</span></span>
+    </div>
+    <div class="stmt">${q.text}</div>
+    <ul class="opts">${opts}</ul>
+    ${!done ? `<div class="row">
+        ${showHint ? '' : `<button class="btn" id="hintBtn">Ver dica</button>`}
+        <span class="spacer"></span>
+        <button class="btn ghost" id="skipBtn">Não sei, mostrar a resolução</button>
+      </div>` : ''}
+    ${showHint ? `<div class="tip"><b>Dica</b>${q.hint}</div>` : ''}
+    ${fb}
+    ${sol}
+    <div class="row">
+      ${i > 0 ? `<button class="btn" id="prevBtn">← Anterior</button>` : ''}
+      <span class="spacer"></span>
+      ${done ? `<button class="btn primary" id="nextBtn">${last ? 'Ver meu resultado' : 'Próxima questão →'}</button>`
+             : (!last ? `<button class="btn ghost" id="jumpBtn">Pular por enquanto</button>` : '')}
+    </div>
+  </article>`;
+  $('qa').querySelectorAll('[data-pick]').forEach(b => b.onclick = () => answer(i, +b.dataset.pick));
+  const h = $('hintBtn'); if (h) h.onclick = () => { st.hints[i] = true; save(); renderQuestion(i); };
+  const s = $('skipBtn'); if (s) s.onclick = () => answer(i, -1);
+  const p = $('prevBtn'); if (p) p.onclick = () => goQ(i - 1);
+  const n = $('nextBtn'); if (n) n.onclick = () => goQ(i + 1);
+  const j = $('jumpBtn'); if (j) j.onclick = () => goQ(i + 1);
+}
+
+function answer(i, k){
+  if (st.answers[i] !== undefined) return;
+  st.answers[i] = k; save();
+  if (answeredCount() === LI.Q.length && !st.enviado){ contarTempo(); st.enviado = true; save(); enviar(resumoLista()); }
+  renderRoad(); renderQuestion(i);
+  const fb = $('qa').querySelector('.feedback');
+  if (fb) fb.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+}
+
+function renderEnd(){
+  const Q = LI.Q, c = correctCount(), n = answeredCount();
+  const msg = n < Q.length
+    ? `Você ainda tem ${Q.length - n} questão(ões) sem responder. Toque nelas abaixo para terminar.`
+    : c >= Math.ceil(Q.length * 0.9) ? 'Excelente! Você domina este conteúdo. Releia as pegadinhas para chegar à somativa ainda mais seguro.'
+    : c >= Math.ceil(Q.length * 0.6) ? 'Bom trabalho. Revise as questões que errou e leia com atenção as pegadinhas: é onde mais se perde ponto.'
+    : 'Vale revisar a caixa de ferramentas e refazer as questões com calma, acompanhando cada passo da resolução, antes da somativa.';
+  $('qa').innerHTML = `
+  <section class="card">
+    <div class="qnum">Resultado</div>
+    <div class="score">${c}<span> / ${Q.length}</span></div>
+    <p style="margin:0">${msg}</p>
+    <ul class="reslist">
+      ${Q.map((q,i)=>{ const s = status(i); const t = s==='ok'?'✓ certa':s==='bad'?(st.answers[i]===-1?'→ vista':'✗ errada'):'— pendente';
+        return `<li><button class="res ${s}" data-go="${i}"><b>Questão ${i+1}</b><span class="st">${t}</span></button></li>`; }).join('')}
+    </ul>
+    <div class="row">
+      <button class="btn" id="resetBtn">Refazer a lista do zero</button>
+      <button class="btn primary" data-nav="tema">Voltar para ${T.nome}</button>
+      <span class="small" id="resetNote"></span>
+    </div>
+  </section>`;
+  const r = $('resetBtn'); let armed = false;
+  r.onclick = () => {
+    if (!armed){ armed = true; r.textContent = 'Confirmar: apagar minhas respostas'; $('resetNote').textContent = 'Toque de novo para confirmar.'; return; }
+    st = { answers:{}, hints:{}, cur:-1, tempo:0 }; save(); goQ(-1);
+  };
+}
+
+function goQ(i){
+  st.cur = i; save();
+  renderRoad();
+  if (i < 0) renderIntro();
+  else if (i >= LI.Q.length) renderEnd();
+  else renderQuestion(i);
+  toTop();
+}
+
+/* ===== Navegação com endereço próprio (#/tema/lista) e botão Voltar do celular ===== */
+function go(h){ if (location.hash === h) route(); else location.hash = h; }
+function openLogin(){
+  contarTempo(); tMarca = null; T = LI = null;
+  plate(`Física · ${SITE.escola}`, SITE.turma, `${SITE.turmas} · ${SITE.prof}`);
+  crumbs(null);
+  $('view').innerHTML = `
+    <form class="card intro" id="loginForm" novalidate>
+      <p class="sect-label">Identificação</p>
+      <p>Para usar as listas, informe o seu <b>e-mail do colégio</b> e a sua turma. Você só faz isso uma vez neste aparelho.</p>
+      <label class="fld"><span>E-mail do colégio <small class="fld-dica">(só a parte antes do @)</small></span>
+        <span class="emailbox">
+          <input id="loginEmail" type="text" inputmode="email" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="nome.sobrenome" required>
+          <span class="dom" aria-hidden="true">@${CONFIG.dominio.replace('.', '.<wbr>')}</span>
+        </span></label>
+      <label class="fld"><span>Turma</span>
+        <select id="loginTurma" required><option value="">Escolha</option>${CONFIG.turmas.map(t => `<option value="${t}">${t}</option>`).join('')}</select></label>
+      <p class="small" id="loginErro" role="alert"></p>
+      <div class="row"><button class="btn primary" type="submit">Entrar</button></div>
+      <p class="note">O professor recebe o seu e-mail, a turma, a data de acesso e os resultados das listas (acertos, tempo e dicas usadas), só para acompanhar os estudos da turma.</p>
+    </form>`;
+  $('loginForm').onsubmit = e => {
+    e.preventDefault();
+    let usuario = $('loginEmail').value.trim().toLowerCase().replace(/\s+/g, '');
+    const dom = '@' + CONFIG.dominio.toLowerCase().replace(/^@/, '');
+    if (usuario.endsWith(dom)) usuario = usuario.slice(0, -dom.length);   // se digitou o e-mail inteiro, aproveita
+    const email = usuario + dom, turma = $('loginTurma').value;
+    if (!usuario){ $('loginErro').textContent = 'Escreva a parte do seu e-mail antes do @.'; $('loginEmail').focus(); return; }
+    if (usuario.includes('@') || !emailValido(email)){ $('loginErro').textContent = `Escreva só a parte antes do @. O resto (${dom}) já está preenchido.`; $('loginEmail').focus(); return; }
+    if (!turma){ $('loginErro').textContent = 'Escolha a sua turma.'; $('loginTurma').focus(); return; }
+    setAluno({ email, turma }); registrarAcessoDoDia(); route();
+  };
+  toTop();
+}
+function route(){
+  if (precisaLogin()){ openLogin(); return; }
+  registrarAcessoDoDia(); enviarFila();
+  const p = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
+  const ti = SITE.temas.findIndex(t => t.id === p[0]);
+  if (ti < 0){ openHome(); return; }
+  if (!p[1]){ openTema(ti); return; }
+  const li = SITE.temas[ti].listas.findIndex(l => l.id === p[1]);
+  if (li < 0){ openTema(ti); return; }
+  T = SITE.temas[ti]; openLista(li);
+}
+window.addEventListener('hashchange', route);
+document.addEventListener('click', e => {
+  const act = e.target.closest('[data-act="sair"]'); if (act){ setAluno(null); try { localStorage.removeItem(DIA_KEY); } catch(err){} go('#/'); route(); return; }
+  const nav = e.target.closest('[data-nav]');
+  if (nav){ go(nav.dataset.nav === 'tema' && T ? '#/' + T.id : '#/'); return; }
+  const t = e.target.closest('[data-tema]'); if (t){ go('#/' + SITE.temas[+t.dataset.tema].id); return; }
+  const l = e.target.closest('[data-lista]'); if (l){ go('#/' + T.id + '/' + T.listas[+l.dataset.lista].id); return; }
+  const g = e.target.closest('[data-go]'); if (g && LI){ goQ(+g.dataset.go); }
+});
+
+/* ===== Instalação como aplicativo ===== */
+let installEvt = null;
+const standalone = () => (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; showInstall(); });
+window.addEventListener('appinstalled', () => { installEvt = null; const c = $('installCard'); if (c) c.hidden = true; });
+function showInstall(){
+  const c = $('installCard'); if (!c || standalone()) return;
+  if (installEvt){
+    c.hidden = false;
+    c.innerHTML = `<p class="sect-label">Instale no celular</p><p>Tenha as listas como um aplicativo: ícone na tela inicial e funcionando mesmo sem internet.</p><div class="row"><button class="btn primary" id="instBtn">Instalar o app</button></div>`;
+    $('instBtn').onclick = async () => { installEvt.prompt(); try { await installEvt.userChoice; } catch(e){} installEvt = null; c.hidden = true; };
+  } else if (isIOS){
+    c.hidden = false;
+    c.innerHTML = `<p class="sect-label">Instale no iPhone</p><p>No Safari, toque em <b>Compartilhar</b> (o quadrado com a seta para cima) e depois em <b>Adicionar à Tela de Início</b>.</p>`;
+  }
+}
+
+if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('sw.js').catch(() => {});
+route();
+</script>
+</body>
+</html>
