@@ -19,7 +19,7 @@
  * Pode rodar "configurar" de novo quando quiser: os registros e a chamada colada são mantidos.
  */
 
-const DOMINIO = 'COLOQUE_AQUI_O_DOMINIO'; // ex.: aluno.escola.com.br (sem o @)
+const DOMINIO = 'aluno.colegioisraelita.com.br'; // ex.: aluno.escola.com.br (sem o @)
 const TURMAS = ['201', '202', '203'];
 const LISTAS = [
   ['Ondas', 'Lista 1'],

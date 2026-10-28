@@ -52,7 +52,7 @@ const SITE = {
 
 /* ===== Configuração do registro (preencher ao publicar) ===== */
 const CONFIG = {
-  dominio: '',      // domínio do e-mail dos alunos do CIB, ex.: 'aluno.escola.com.br'. Vazio = não pede identificação
+  dominio: 'aluno.colegioisraelita.com.br',      // domínio do e-mail dos alunos do CIB. Vazio = não pede identificação
   registro: '',     // URL do App da Web do Google Apps Script. Vazio = não envia resultados
   turmas: ['201', '202', '203']
 };
