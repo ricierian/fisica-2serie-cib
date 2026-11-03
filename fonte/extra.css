@@ -27,7 +27,8 @@
 .lvrow{display:grid;gap:4px;margin-top:6px}
 .lvrow span{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;text-align:center;padding-top:4px;border-top:2px solid;color:var(--road-ink);opacity:.85;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .lv-b{border-color:var(--lvb-line)}.lv-i{border-color:var(--lvi-line)}.lv-a{border-color:var(--lva-line)}
-.stmt{display:flex;flex-direction:column;gap:12px}
+.stmt{display:block}
+.stmt>.fig,.stmt>.tblwrap{margin:12px 0}
 .fig{margin:4px 0 0;background:var(--eq-bg);border-radius:10px;padding:10px 8px 6px;max-width:400px;width:100%}
 .plot{display:block;width:100%;height:auto}
 .plot .pt{font-family:var(--f-mono);font-size:11px;fill:var(--muted)}
