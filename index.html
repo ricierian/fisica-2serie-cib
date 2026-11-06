@@ -1194,11 +1194,10 @@ function campo(sol){
 
 /* Q5: espelhos a 90° com dado */
 const FIG5_5 = (() => {
-  let dots = ''; [[-9,-9],[9,-9],[0,0],[-9,9],[9,9]].forEach(([a,b]) => { dots += `<circle cx="${150 + a}" cy="${100 + b}" r="3.2" fill="var(--ink)"/>`; });
-  return fig('0 0 340 190', 'Vista de cima: dois espelhos planos verticais formando um ângulo de 90 graus. Um dado, com a face de 5 pontos voltada para os espelhos, está no meio do ângulo.',
+  return fig('0 0 340 190', 'Vista de cima: dois espelhos planos verticais formando um ângulo de 90 graus. Um dado está no meio do ângulo, entre os dois espelhos.',
     `<line x1="60" y1="170" x2="60" y2="16" stroke="var(--sign)" stroke-width="5"/><line x1="60" y1="170" x2="320" y2="170" stroke="var(--sign)" stroke-width="5"/>
     <path d="M60 140 A30 30 0 0 1 90 170" fill="none" stroke="var(--ink)" stroke-width="1.4"/><text x="94" y="152" class="pt pt-strong">90°</text>
-    <rect x="132" y="82" width="36" height="36" rx="6" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.6" transform="rotate(45 150 100)"/>${dots}
+    <rect x="132" y="82" width="36" height="36" rx="6" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.6" transform="rotate(45 150 100)"/><text x="150" y="107" text-anchor="middle" class="pt pt-strong" style="font-size:20px">?</text><text x="150" y="140" text-anchor="middle" class="pt">dado</text>
     <text x="40" y="96" text-anchor="middle" class="pt" transform="rotate(-90 40 96)">espelho</text><text x="200" y="186" text-anchor="middle" class="pt">espelho</text>`);
 })();
 
