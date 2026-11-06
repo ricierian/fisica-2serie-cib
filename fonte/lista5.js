@@ -111,14 +111,14 @@ const QL5 = [
 {
   src:'Famerp (modificada)', nivel:'básico',
   text:'Em saídas de garagem, cruzamentos estreitos e portas de ônibus, usam-se espelhos esféricos convexos. Para um objeto real, a imagem formada por um espelho convexo é sempre ___, e esse espelho é usado porque ___.',
-  opts:['real, invertida e menor; reduz o campo visual','virtual, invertida e maior; amplia o campo visual','real, direita e do mesmo tamanho; amplia o campo visual','virtual, direita e maior; reduz o campo visual','virtual, direita e menor; amplia o campo visual'], ans:4,
+  opts:['real, invertida e menor; reduz o campo visual','virtual, direita e maior; amplia o campo visual','real, direita e do mesmo tamanho; amplia o campo visual','virtual, direita e maior; reduz o campo visual','virtual, direita e menor; amplia o campo visual'], ans:4,
   hint:'Lembre do visor do capacete do astronauta (Somativa 2) ou da parte de trás de uma colher: como você aparece nele?',
   steps:[
     ['Características da imagem', `<p>No espelho convexo, os raios refletidos divergem. A imagem é formada pelos prolongamentos (atrás do espelho): <b>virtual</b>, <b>direita</b> e <b>menor</b> que o objeto, qualquer que seja a posição do objeto real.</p>`],
     ['Por que usar', `<p>Como as imagens ficam menores, “cabe” muito mais coisa no espelho: o <b>campo visual é maior</b> que o de um espelho plano do mesmo tamanho.</p>`],
   ],
   alt:'Pela equação: no convexo f < 0. Para qualquer p > 0, a equação de Gauss dá p\' < 0 (virtual) e 0 < A < 1 (direita e menor).',
-  warn:'O espelho convexo mostra mais coisas, mas cada uma delas fica menor (alternativa d está errada). Por isso, no retrovisor, os carros parecem mais distantes do que realmente estão.',
+  warn:'O espelho convexo mostra mais coisas, mas cada uma delas fica menor: as alternativas b e d erram nisso. Por isso, no retrovisor, os carros parecem mais distantes do que realmente estão.',
   mod:'Original (Famerp, Somativa 2): imagem no visor do capacete do astronauta. Modificada: aplicações em garagens e ônibus, pedindo também a vantagem do espelho.'
 },
 {
@@ -151,14 +151,14 @@ const QL5 = [
 {
   src:'Inédita', nivel:'intermediário',
   text:'Um objeto de 3,0 cm de altura é colocado a 30 cm de um espelho esférico côncavo de distância focal 20 cm, perpendicular ao eixo principal (condições de Gauss). A imagem se forma:',
-  opts:['a 60 cm do espelho; 6,0 cm; real e invertida','a 12 cm do espelho; 1,2 cm; virtual e direita','a 60 cm do espelho; 6,0 cm; virtual e direita','a 60 cm do espelho; 1,5 cm; real e invertida','a 10 cm do espelho; 1,0 cm; real e invertida'], ans:0,
+  opts:['a 60 cm do espelho; 6,0 cm; real e invertida','a 12 cm do espelho; 1,2 cm; real e invertida','a 60 cm do espelho; 6,0 cm; virtual e direita','a 12 cm do espelho; 1,2 cm; virtual e direita','a 10 cm do espelho; 1,0 cm; real e invertida'], ans:0,
   hint:'Isole 1/p\' na equação de Gauss. O sinal de p\' diz se a imagem é real; o sinal de A diz se é direita ou invertida.',
   steps:[
     ['Posição da imagem', `<div class="eq">${f('1',"p'")} = ${f('1','f')} − ${f('1','p')} = ${f('1','20')} − ${f('1','30')} = ${f('3 − 2','60')} = ${f('1','60')}</div><div class="eq">p' = <span class="hl">60 cm</span> &nbsp; (p' &gt; 0: real)</div>`],
     ['Tamanho da imagem', `<div class="eq">A = −${f("p'",'p')} = −${f('60','30')} = −2</div><div class="eq">i = A · o = −2 × 3,0 = <span class="hl">−6,0 cm</span> &nbsp; (sinal −: invertida)</div>`],
   ],
   alt:'O objeto está entre F (20 cm) e C (40 cm). Pela construção com raios notáveis, nessa região a imagem é sempre real, invertida e maior, além de C. Confere com 60 cm e 6,0 cm.',
-  warn:'Somar os inversos em vez de subtrair (1/20 + 1/30) dá 12 cm (alternativa b). Na equação de Gauss, 1/f = 1/p + 1/p\': para achar 1/p\', subtraia 1/p de 1/f.',
+  warn:'Somar os inversos em vez de subtrair (1/20 + 1/30) dá 12 cm (alternativas b e d). Na equação de Gauss, 1/f = 1/p + 1/p\': para achar 1/p\', subtraia 1/p de 1/f.',
   mod:'Inédita (mesmo tipo do Exemplo 3 de Espelhos Esféricos da apostila).'
 },
 {
@@ -191,14 +191,14 @@ const QL5 = [
 {
   src:'UEFS (modificada)', nivel:'avançado',
   text:`A figura mostra um espelho esférico côncavo gaussiano, com centro de curvatura C, foco F e vértice V, e um objeto o colocado entre C e F.${concavo(false)}A imagem desse objeto é:`,
-  opts:['virtual, direita e maior, atrás do espelho','real, invertida e menor, entre F e C','real, invertida e maior, além de C','real, invertida e do mesmo tamanho, sobre C','imprópria, formada no infinito'], ans:2,
+  opts:['virtual, direita e maior, atrás do espelho','real, invertida e maior, entre F e C','real, invertida e maior, além de C','real, invertida e do mesmo tamanho, sobre C','imprópria, formada no infinito'], ans:2,
   hint:'Use dois raios notáveis saindo do topo do objeto: um paralelo ao eixo e outro passando pelo foco.',
   steps:[
     ['Raios notáveis', `<ul><li>O raio paralelo ao eixo reflete passando por F.</li><li>O raio que passa por F reflete paralelo ao eixo.</li></ul>${concavo(true)}`],
     ['Classificando', `<p>Os raios refletidos se cruzam de verdade, à esquerda de C e abaixo do eixo: a imagem é <b>real</b>, <b>invertida</b>, <b>maior</b> que o objeto e fica <b>além de C</b>.</p>`],
   ],
   alt:'Pela equação, com f = 2 unidades e o objeto em p = 3 unidades (entre F e C): 1/p\' = 1/2 − 1/3 = 1/6, então p\' = 6 (além de C, que está em 4) e A = −2 (invertida e maior).',
-  warn:'Imagem real, invertida e menor entre F e C (alternativa b) é o caso do objeto <b>além</b> de C. As duas situações são “trocadas” uma da outra pela reversibilidade da luz.',
+  warn:'A imagem é real, invertida e maior, mas fica <b>além</b> de C, e não entre F e C (alternativa b): quem está entre F e C é o objeto. Pela reversibilidade da luz, objeto e imagem “trocam” de região.',
   mod:'Original (UEFS): espelho com regiões coloridas e objetos pontuais em duas posições. Modificada: objeto extenso entre C e F, pedindo a classificação da imagem.'
 },
 {

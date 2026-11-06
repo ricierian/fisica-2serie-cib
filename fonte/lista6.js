@@ -143,14 +143,14 @@ const QL6 = [
 {
   src:'Inédita', nivel:'intermediário',
   text:'Um bloco de material transparente, de índice de refração √2 ≈ 1,41, está no ar (n = 1,0). Para que um raio de luz sofra reflexão total na superfície do bloco, ele deve se propagar do ___ para o ___ e incidir com ângulo maior que o ângulo limite, que vale ___.',
-  opts:['material; ar; 45°','ar; material; 45°','material; ar; 30°','material; ar; 60°','ar; material; 90°'], ans:0,
+  opts:['material; ar; 45°','ar; material; 45°','material; ar; 30°','ar; material; 30°','material; ar; 60°'], ans:0,
   hint:'A reflexão total só acontece quando a luz tenta sair para um meio menos refringente. Para o ângulo limite: sen L = n<sub>menor</sub>/n<sub>maior</sub>.',
   steps:[
     ['Sentido', `<p>A reflexão total exige luz indo do meio <b>mais</b> refringente (material) para o <b>menos</b> refringente (ar).</p>`],
     ['Ângulo limite', `<div class="eq">sen L = ${f('n<sub>ar</sub>','n<sub>material</sub>')} = ${f('1','√2')} = ${f('√2','2')} ≈ 0,71 ⇒ L = <span class="hl">45°</span></div>`],
   ],
   alt:'No ângulo limite, o raio refratado sai “rasante” à superfície (90° com a normal). Acima de L, não há mais refração: toda a luz é refletida.',
-  warn:'Do ar para o material (alternativa b) a luz se aproxima da normal e sempre consegue entrar: não existe reflexão total nesse sentido.',
+  warn:'Do ar para o material (alternativas b e d) a luz se aproxima da normal e sempre consegue entrar: não existe reflexão total nesse sentido.',
   mod:'Inédita (mesmo formato do exercício 10 da lista de Refração da apostila, que usava n = 2 e L = 30°).'
 },
 {

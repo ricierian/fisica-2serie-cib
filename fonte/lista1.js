@@ -97,7 +97,7 @@ const QL1 = [
 {
   src:'Inédita', nivel:'intermediário',
   text:`A figura representa, num certo instante, o formato de uma corda por onde passa uma onda com velocidade de 24 m/s.${plot({aria:'Gráfico da corda: posição vertical y em centímetros por posição x em centímetros. Senoide com cristas em y igual a 3 centímetros nas posições x igual a 3 e 15 e 27 centímetros, e vales em y igual a menos 3 centímetros.', xmin:0, xmax:30, ymin:-4, ymax:4, xt:[0,3,6,9,12,15,18,21,24,27,30], yt:[-3,0,3], xl:'x (cm)', yl:'y (cm)', L:[{p:sen(3,12,0,30), c:'var(--sign)'}]})}A amplitude, o comprimento de onda e a frequência dessa onda são, respectivamente:`,
-  opts:['6 cm, 12 cm e 200 Hz','3 cm, 12 cm e 2 Hz','3 cm, 6 cm e 400 Hz','3 cm, 12 cm e 200 Hz','6 cm, 24 cm e 100 Hz'], ans:3,
+  opts:['6 cm, 12 cm e 200 Hz','3 cm, 12 cm e 2 Hz','3 cm, 6 cm e 400 Hz','3 cm, 12 cm e 200 Hz','6 cm, 12 cm e 2 Hz'], ans:3,
   hint:'A amplitude se mede a partir da linha de equilíbrio (y = 0). Para a frequência, passe λ para metros antes de usar v = λ · f.',
   steps:[
     ['Lendo o gráfico', `<ul><li>Amplitude: do equilíbrio (y = 0) até a crista (y = 3 cm) → <b>A = 3 cm</b></li><li>Cristas seguidas em x = 3 cm e x = 15 cm → <b>λ = 12 cm = 0,12 m</b></li></ul>`],

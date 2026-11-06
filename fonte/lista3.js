@@ -66,21 +66,21 @@ const QL3 = [
 {
   src:'Inédita', nivel:'básico',
   text:`A figura representa o espectro eletromagnético em ordem crescente de frequência. Algumas faixas foram substituídas pelos números 1, 2 e 3.${FIG3_1}As faixas 1, 2 e 3 correspondem, respectivamente, a:`,
-  opts:['raios X, luz visível e micro-ondas','micro-ondas, raios X e luz visível','ondas de TV, luz visível e raios X','raios X, micro-ondas e luz visível','micro-ondas, luz visível e raios X'], ans:4,
-  hint:'Entre o rádio e o infravermelho fica a radiação do forno e do Wi-Fi. Entre o infravermelho e o ultravioleta fica o que os nossos olhos enxergam.',
+  opts:['raios X, luz visível e micro-ondas','micro-ondas, raios X e luz visível','luz visível, micro-ondas e raios X','raios X, micro-ondas e luz visível','micro-ondas, luz visível e raios X'], ans:4,
+  hint:'Escreva a sequência completa do espectro, do rádio aos raios gama, e compare com as faixas que aparecem na figura.',
   steps:[
     ['A sequência do espectro', `<div class="eq">rádio → <b>micro-ondas</b> → infravermelho → <b>visível</b> → ultravioleta → <b>raios X</b> → gama</div>`],
     ['Preenchendo', `<ul><li>1: micro-ondas</li><li>2: luz visível</li><li>3: raios X</li></ul>`],
   ],
   alt:'Os próprios nomes ajudam: <b>infra</b>vermelho fica “abaixo” do vermelho e <b>ultra</b>violeta fica “além” do violeta. Entre os dois, só pode estar a luz visível.',
-  warn:'Ondas de TV (alternativa c) são ondas de rádio. Elas ficam antes das micro-ondas, não no lugar delas.',
+  warn:'Quem lembra só que o visível fica “no meio” pode trocar micro-ondas e raios X de lugar (alternativa a). As micro-ondas têm frequência menor que o infravermelho; os raios X, maior que o ultravioleta.',
   mod:'Inédita.'
 },
 {
   src:'Enem (modificada)', nivel:'básico',
   text:'Câmeras térmicas são usadas por bombeiros para encontrar pessoas em ambientes cheios de fumaça. Elas formam imagens a partir da radiação que todo corpo aquecido emite e que, para objetos à temperatura do corpo humano, está principalmente fora da faixa visível. A radiação captada por essas câmeras está na região:',
   opts:['da luz visível','do ultravioleta','dos raios X','do infravermelho','das ondas longas de rádio'], ans:3,
-  hint:'Que radiação você sente na pele perto de uma brasa ou de um aquecedor, mesmo sem olhar para ele?',
+  hint:'Pense na radiação que um corpo emite só por estar aquecido, mesmo quando não brilha.',
   steps:[
     ['Radiação térmica', `<p>Todo corpo emite radiação por estar aquecido. Na temperatura do corpo humano (cerca de 37 °C), essa emissão é principalmente no <b>infravermelho</b>.</p>`],
     ['Aplicação', `<p>A câmera térmica “enxerga” o infravermelho: as regiões mais quentes aparecem com cores diferentes. A fumaça atrapalha muito a luz visível, mas atrapalha bem menos esse infravermelho.</p>`],

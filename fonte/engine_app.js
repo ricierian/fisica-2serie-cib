@@ -90,7 +90,13 @@ function registrarAcessoDoDia(){
 }
 /* Tempo ativo: conta só com a lista aberta, a tela visível e o aluno interagindo (pausa após 3 min parado) */
 let tMarca = null, tInter = Date.now();
-['click','keydown','scroll','touchstart'].forEach(ev => window.addEventListener(ev, () => { if (LI && tMarca === null && document.visibilityState === 'visible') tMarca = Date.now(); tInter = Date.now(); }, { passive: true }));
+['click','keydown','scroll','touchstart'].forEach(ev => window.addEventListener(ev, () => {
+  const agora = Date.now();
+  // Voltou depois de mais de 3 min parado: fecha a contagem anterior (só até 3 min após a última interação) antes de recomeçar
+  if (LI && tMarca !== null && agora - tInter > 180000) contarTempo();
+  if (LI && tMarca === null && document.visibilityState === 'visible') tMarca = agora;
+  tInter = agora;
+}, { passive: true }));
 function contarTempo(){
   if (!LI || !st || tMarca === null) return;
   const fim = Math.min(Date.now(), tInter + 180000);

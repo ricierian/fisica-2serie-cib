@@ -196,7 +196,7 @@ const QL4 = [
 {
   src:'UFSCar (modificada)', nivel:'avançado',
   text:`Uma vela de 30 cm está a 1,2 m do orifício de uma câmara escura cujo fundo pode ser movido, e sua imagem no fundo mede 6 cm.${camara('vela','1,2 m','p\'','6 cm')}A vela é aproximada até ficar a 75 cm do orifício. Para que a imagem continue medindo 6 cm, o fundo da câmara deve ser deslocado:`,
-  opts:['9 cm, aproximando-se do orifício','9 cm, afastando-se do orifício','15 cm, aproximando-se do orifício','24 cm, afastando-se do orifício','6 cm, aproximando-se do orifício'], ans:0,
+  opts:['9 cm, aproximando-se do orifício','9 cm, afastando-se do orifício','15 cm, afastando-se do orifício','15 cm, aproximando-se do orifício','24 cm, afastando-se do orifício'], ans:0,
   hint:'Calcule a profundidade da câmara (p\') nas duas situações. O deslocamento é a diferença.',
   steps:[
     ['Situação inicial', `<div class="eq">${f('i','o')} = ${f("p'",'p')} ⇒ ${f('6','30')} = ${f("p'",'120 cm')} ⇒ p' = 24 cm</div>`],
@@ -204,7 +204,7 @@ const QL4 = [
     ['Deslocamento', `<div class="eq">24 − 15 = <span class="hl">9 cm</span></div><p>Como p' diminuiu, o fundo deve se <b>aproximar</b> do orifício. Faz sentido: com a vela mais perto, a imagem tenderia a crescer; aproximando o fundo, ela volta ao tamanho original.</p>`],
   ],
   alt:`A razão ${f('i','o')} = ${f('6','30')} = ${f('1','5')} não muda. Então p' é sempre p/5: 120/5 = 24 cm e 75/5 = 15 cm.`,
-  warn:'15 cm é a nova profundidade da câmara, e não o deslocamento (alternativa c).',
+  warn:'15 cm é a nova profundidade da câmara, e não o deslocamento (alternativas c e d).',
   mod:'Original (UFSCar): vela de 20 cm a 1 m, imagem de 4 cm, aproximada para 50 cm. Modificada: 30 cm, 1,2 m, 6 cm e 75 cm.'
 },
 {

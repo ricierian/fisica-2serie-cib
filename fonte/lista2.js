@@ -109,7 +109,7 @@ const QL2 = [
   src:'Inédita', nivel:'básico',
   text:`Num experimento, a luz de uma lâmpada passa por dois filtros polarizadores. Com os dois filtros alinhados, a luz atravessa. Quando o filtro 2 é girado 90°, a luz é praticamente bloqueada, como mostra a figura.${FIG2_2}Esse experimento mostra que a luz é uma onda:`,
   opts:['transversal','longitudinal','mecânica','estacionária','que precisa de um meio material'], ans:0,
-  hint:'Só faz sentido “filtrar uma direção de vibração” se a onda vibrar perpendicularmente à direção em que avança.',
+  hint:'O filtro deixa passar só uma direção de vibração. Isso faria alguma diferença para uma onda que vibra na mesma direção em que avança?',
   steps:[
     ['O que o filtro faz', `<p>O filtro 1 deixa passar só a vibração numa direção (vertical, na figura): a luz sai <b>polarizada</b>. O filtro 2, girado 90°, só aceita a vibração horizontal, e a luz que chega não tem essa vibração: ela é bloqueada.</p>`],
     ['Conclusão', `<p>A luz vibra em direções perpendiculares à direção em que se propaga. Logo, ela é uma onda <b>transversal</b>. Uma onda longitudinal (como o som) vibra na própria direção de propagação e não pode ser polarizada.</p>`],
@@ -161,7 +161,7 @@ const QL2 = [
 {
   src:'Inédita', nivel:'intermediário',
   text:`Associe cada situação ao fenômeno ondulatório que melhor a explica.${tabela(['','Situação'],[['1','Ouvir o próprio eco ao gritar diante de um paredão'],['2','Um canudo parece “quebrado” dentro de um copo com água'],['3','Sintonizar uma rádio AM num vale cercado de morros'],['4','Óculos especiais reduzirem o brilho refletido pelo asfalto']], true)}A sequência correta, de 1 a 4, é:`,
-  opts:['refração, reflexão, difração, polarização','reflexão, difração, refração, polarização','reflexão, refração, difração, polarização','reflexão, refração, polarização, difração','difração, refração, reflexão, polarização'], ans:2,
+  opts:['refração, reflexão, difração, polarização','reflexão, refração, polarização, difração','reflexão, refração, difração, polarização','refração, reflexão, polarização, difração','difração, polarização, reflexão, refração'], ans:2,
   hint:'Eco é som que bateu e voltou. O canudo “quebra” exatamente na superfície da água, onde a luz muda de meio.',
   steps:[
     ['1 e 2', `<ul><li><b>Eco</b>: o som bate no paredão e volta → reflexão.</li><li><b>Canudo “quebrado”</b>: a luz que vem da parte submersa muda de direção ao passar da água para o ar → refração.</li></ul>`],
