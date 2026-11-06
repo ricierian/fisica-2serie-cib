@@ -198,12 +198,14 @@ function doPost(e) {
 
     const txt = v => { let s = String(v == null ? '' : v).slice(0, 120); return /^[=+\-@]/.test(s) ? "'" + s : s; };
     const num = v => (typeof v === 'number' && isFinite(v)) ? v : '';
+    // Sempre texto: sem isso a planilha transforma "3/4" em data (3 de abril) e "5, 9" em número
+    const sempreTexto = v => { const s = txt(v); return s === '' || s[0] === "'" ? s : "'" + s; };
 
     const reg = SpreadsheetApp.getActive().getSheetByName('Registros');
     reg.appendRow([
       quando, email, turma, evento,
       txt(d.tema), txt(d.lista), num(d.acertos), num(d.total),
-      txt(d.basico), txt(d.intermediario), txt(d.avancado), txt(d.erradas),
+      sempreTexto(d.basico), sempreTexto(d.intermediario), sempreTexto(d.avancado), sempreTexto(d.erradas),
       num(d.dicas), num(d.tempoMin), txt(d.dispositivo)
     ]);
     return saida({ ok: true });
@@ -212,6 +214,27 @@ function doPost(e) {
   } finally {
     lock.releaseLock();
   }
+}
+
+// Conserta, na aba Registros, as células de Básico/Intermediário/Avançado (colunas I, J e K)
+// que a planilha transformou em data (ex.: "3/4" virou 03/04). Só mexe em células que estão como data;
+// todo o resto fica como está. Pode rodar mais de uma vez sem problema.
+function corrigirNiveis() {
+  const ss = SpreadsheetApp.getActive(), reg = ss.getSheetByName('Registros');
+  const n = reg.getLastRow() - 1; if (n < 1) return;
+  const faixa = reg.getRange(2, 9, n, 3), v = faixa.getValues();
+  const mesPrimeiro = /^en_US/.test(ss.getSpreadsheetLocale());
+  let trocas = 0;
+  const novos = v.map(linha => linha.map(c => {
+    if (Object.prototype.toString.call(c) !== '[object Date]' || isNaN(c)) return c;
+    const dia = Number(Utilities.formatDate(c, ss.getSpreadsheetTimeZone(), 'd')), mes = Number(Utilities.formatDate(c, ss.getSpreadsheetTimeZone(), 'M'));
+    trocas++;
+    return "'" + (mesPrimeiro ? mes + '/' + dia : dia + '/' + mes);
+  }));
+  if (trocas) faixa.setValues(novos);
+  const msg = trocas ? trocas + ' célula(s) corrigida(s) nas colunas I, J e K.' : 'Nada a corrigir: nenhuma célula estava como data.';
+  Logger.log(msg);
+  try { SpreadsheetApp.getUi().alert(msg); } catch (e) {}
 }
 
 function doGet() {
