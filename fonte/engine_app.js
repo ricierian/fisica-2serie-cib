@@ -163,7 +163,7 @@ function crumbs(items){
   c.hidden = false;
   c.innerHTML = items.map((it, i) => {
     const last = i === items.length - 1;
-    return (i ? '<span class="sep">›</span>' : '') + (last ? `<span class="here">${it.label}</span>` : `<button data-nav="${it.nav}">${it.label}</button>`);
+    return (i ? '<span class="sep">›</span>' : '') + (last ? `<span class="here">${it.label}</span>` : it.consulta !== undefined ? `<button data-consulta="${it.consulta}">${it.label}</button>` : `<button data-nav="${it.nav}">${it.label}</button>`);
   }).join('');
 }
 
@@ -178,6 +178,14 @@ function openHome(){
       <p class="sect-label">Como usar</p>
       <p>Aqui ficam as listas e práticas de Física da turma. Escolha um tema e depois a lista. Cada lista mostra uma questão por vez, com dica e resolução detalhada logo depois de responder.</p>
     </section>
+    <p class="sect-label">Consulta rápida</p>
+    <div class="cards">
+      <button class="tile th-form" data-consulta="">
+        <span class="ico">ƒ</span>
+        <span><span class="tt">Consulta rápida</span><span class="ds">Formulário, prefixos, grandezas e unidades, constantes, pistas do enunciado e pegadinhas: tudo o que vale ter à mão enquanto resolve.</span>
+          <span class="meta"><span class="chip">${CONSULTA.length} páginas</span></span></span>
+        <span class="go">→</span></button>
+    </div>
     <p class="sect-label">Temas</p>
     <div class="cards">
       ${SITE.temas.map((t, i) => {
@@ -419,6 +427,119 @@ function goQ(i){
   toTop();
 }
 
+/* ===== Consulta rápida ===== */
+function abrirConsulta(titulo, sub, migalhas){
+  contarTempo(); tMarca = null; T = LI = null;
+  plate(`Física · ${SITE.turma} · Consulta rápida`, titulo, sub);
+  document.documentElement.classList.add('th-form');
+  crumbs(migalhas);
+}
+const tabelaHTML = (cab, linhas, cls) => `<div class="tblwrap tbl-txt ${cls || ''}"><table><tr>${cab.map(c => `<th>${c}</th>`).join('')}</tr>${linhas.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('')}</table></div>`;
+const outrasConsultas = atual => `<p class="sect-label">Outras páginas da Consulta rápida</p><div class="row" style="gap:6px">${CONSULTA.filter(c => c.id !== atual).map(c => `<button class="chip chip-link" data-consulta="${c.id}">${c.nome}</button>`).join('')}</div>`;
+function openConsultaHub(){
+  abrirConsulta('Consulta rápida', 'Material de apoio para ter à mão enquanto estuda.', [{ label:'Início', nav:'home' }, { label:'Consulta rápida' }]);
+  $('view').innerHTML = `<div class="cards">${CONSULTA.map(c => `<button class="tile th-form" data-consulta="${c.id}"><span class="ico">${c.ico}</span><span><span class="tt">${c.nome}</span><span class="ds">${c.resumo}</span></span><span class="go">→</span></button>`).join('')}</div>`;
+  toTop();
+}
+const migConsulta = nome => [{ label:'Início', nav:'home' }, { label:'Consulta rápida', consulta:'' }, { label: nome }];
+/* Formulário: cada fórmula fica numa linha só (sem quebrar no meio); as fórmulas de um mesmo bloco podem ir para linhas diferentes */
+function fxLinha(h){
+  return h.split(/<br\s*\/?>/).map(lin => lin.split('&nbsp;;&nbsp;').map(pc => {
+    const k = pc.indexOf('<small');
+    const fm = (k >= 0 ? pc.slice(0, k) : pc).trim(), nota = k >= 0 ? pc.slice(k) : '';
+    if (!fm) return nota;
+    if (!/[=≤]/.test(fm)) return fm + nota;
+    const r = fm.match(/^([^=<]{1,22}?:)\s+(.*)$/);   // rótulo ("série:", "sobre fio:") fica fora da fórmula
+    return (r ? `${r[1]} <span class="fx">${r[2]}</span>` : `<span class="fx">${fm}</span>`) + nota;
+  }).join('<span class="fx-sep">;</span>')).join('<br>');
+}
+const resumoHTML = nome => {
+  const L = RESUMO[nome]; if (!L) return '';
+  return `<div class="form-resumo"><p class="sect-label">Resumo: símbolos e unidades no SI</p><div class="rs-lista">${L.map(([sb, ds, un]) => `<div class="rs"><b>${sb}</b><span>${ds}<span class="un">${un}</span></span></div>`).join('')}</div></div>`;
+};
+function openFormulario(){
+  abrirConsulta('Formulário', 'As fórmulas por assunto, das essenciais às complementares.', migConsulta('Formulário'));
+  const nEss = FORMULARIO.reduce((n, s) => n + s.ess.length, 0), nExt = FORMULARIO.reduce((n, s) => n + s.ext.length, 0);
+  $('view').innerHTML = `
+    <section class="card intro formleg"><p><span class="leg leg-main">Essenciais</span> ${nEss} fórmulas e ideias: as que você usa nas listas deste app. Comece por elas.</p>
+      <p><span class="leg leg-extra">Para ir além</span> Mais ${nExt} itens do mesmo assunto que também aparecem em provas. Abra em cada assunto quando as essenciais já estiverem firmes.</p></section>
+    <nav class="card formnav" aria-label="Assuntos do formulário"><p class="sect-label">Ir para</p><div class="row" style="gap:6px">${FORMULARIO.map((s, i) => `<a class="chip chip-link" href="#/consulta/formulario" data-sec="${i}">${s.nome}</a>`).join('')}</div></nav>
+    ${FORMULARIO.map((s, i) => `<section class="card formsec" id="sec${i}"><h2 class="formh">${s.nome}</h2>
+        <p class="form-tag"><span class="leg leg-main">Essenciais</span></p>
+        <div class="tools-grid form-grid">${s.ess.map(([t, h, a]) => `<div class="tool tool-main"><h4>${t}</h4><div class="fxbox">${fxLinha(h)}</div></div>`).join('')}</div>
+        ${s.ext.length ? `<details class="form-extra"><summary><span class="leg leg-extra">Para ir além</span><span class="small">${s.ext.length} ${s.ext.length > 1 ? 'fórmulas complementares' : 'fórmula complementar'}</span><span class="chev">›</span></summary>
+          <div class="tools-grid form-grid">${s.ext.map(([t, h]) => `<div class="tool tool-extra"><h4>${t}</h4><div class="fxbox">${fxLinha(h)}</div></div>`).join('')}</div></details>` : ''}
+        ${resumoHTML(s.nome)}
+      </section>`).join('')}
+    ${outrasConsultas('formulario')}`;
+  toTop();
+}
+function openPrefixos(){
+  abrirConsulta('Prefixos', 'Potências de 10 que aparecem nas unidades.', migConsulta('Prefixos'));
+  $('view').innerHTML = `
+    <section class="card"><h2 class="formh">Prefixos do SI</h2>
+      <p class="small" style="margin:0">Cada prefixo multiplica a unidade por uma potência de 10: 3 km = 3 × 10³ m; 20 mA = 20 × 10⁻³ A.</p>
+      ${tabelaHTML(['Prefixo','Símbolo','Vale','Exemplo'], PREFIXOS.map(([n, s, v, e]) => [`<b>${n}</b>`, s, `× ${v}`, e]), 'tbl-pref')}</section>
+    <section class="card"><h2 class="formh">Como converter sem errar</h2>
+      <div class="tools-grid form-grid">
+        <div class="tool tool-main"><h4>Troque o prefixo pela potência</h4><div>450 nm = 450 × 10⁻⁹ m = 4,5 × 10⁻⁷ m</div></div>
+        <div class="tool tool-main"><h4>Área e volume: o prefixo também é elevado</h4><div>1 cm² = (10⁻² m)² = 10⁻⁴ m²<br>1 cm³ = (10⁻² m)³ = 10⁻⁶ m³</div></div>
+        <div class="tool tool-main"><h4>Notação científica</h4><div>um número entre 1 e 10 × potência de 10<br>4 500 = 4,5 × 10³ &nbsp;;&nbsp; 0,020 = 2,0 × 10⁻²</div></div>
+        <div class="tool tool-main"><h4>Multiplicar e dividir potências</h4><div>10ᵃ · 10ᵇ = 10ᵃ⁺ᵇ &nbsp;;&nbsp; ${f('10ᵃ','10ᵇ')} = 10ᵃ⁻ᵇ</div></div>
+      </div></section>
+    ${outrasConsultas('prefixos')}`;
+  toTop();
+}
+function openGrandezas(){
+  abrirConsulta('Grandezas e unidades', 'O Sistema Internacional (SI): fundamentais e derivadas.', migConsulta('Grandezas e unidades'));
+  $('view').innerHTML = `
+    <section class="card"><h2 class="formh">Grandezas fundamentais</h2>
+      <p class="small" style="margin:0">São as 7 grandezas de base do SI. Todas as outras unidades são combinações delas.</p>
+      ${tabelaHTML(['Grandeza','Unidade','Símbolo'], GRANDEZAS_FUND.map(([g, u, s]) => [`<b>${g}</b>`, u, s]))}</section>
+    <section class="card"><h2 class="formh">Grandezas derivadas</h2>
+      <p class="small" style="margin:0">As mais cobradas, com a relação com as unidades de base.</p>
+      ${tabelaHTML(['Grandeza','Unidade (símbolo)','Relação'], GRANDEZAS_DERIV.map(([g, u, s, r]) => [`<b>${g}</b>`, `${u} <span class="simb">(${s})</span>`, r || '—']), 'tbl-deriv')}</section>
+    <section class="card"><h2 class="formh">Escalares e vetoriais</h2>
+      <div class="tools-grid form-grid">
+        <div class="tool tool-main"><h4>Escalares</h4><div>ficam definidas por valor e unidade<br><small>massa, tempo, temperatura, energia, potência, carga</small></div></div>
+        <div class="tool tool-main"><h4>Vetoriais</h4><div>precisam de valor, direção e sentido<br><small>deslocamento, velocidade, aceleração, força, impulso, campo</small></div></div>
+      </div></section>
+    ${outrasConsultas('grandezas')}`;
+  toTop();
+}
+function openConstantes(){
+  abrirConsulta('Constantes e conversões', 'Valores para usar nos cálculos.', migConsulta('Constantes e conversões'));
+  $('view').innerHTML = `
+    <section class="card"><h2 class="formh">Constantes físicas</h2>
+      <p class="small" style="margin:0">Valores arredondados, para cálculo. Na prova, use sempre o valor que o enunciado der.</p>
+      ${tabelaHTML(['Constante','Símbolo','Valor'], CONSTANTES.map(([n, s, v]) => [n, s, v]), 'tbl-const')}</section>
+    <section class="card"><h2 class="formh">Conversões úteis</h2>
+      <div class="tools-grid form-grid">${CONVERSOES.map(([t, h]) => `<div class="tool tool-main"><h4>${t}</h4><div>${h}</div></div>`).join('')}</div></section>
+    ${outrasConsultas('constantes')}`;
+  toTop();
+}
+
+function openPistas(){
+  abrirConsulta('Pistas do enunciado', 'O que o texto diz e o conceito que ele está cobrando.', migConsulta('Pistas do enunciado'));
+  $('view').innerHTML = `
+    <section class="card intro"><p>As questões costumam esconder o conceito numa situação do cotidiano. Quando uma destas palavras ou situações aparecer, comece pensando no conceito ao lado.</p>
+      <div class="row" style="gap:6px">${PISTAS.map((s, i) => `<a class="chip chip-link" href="#/consulta/pistas" data-sec="${i}">${s.nome}</a>`).join('')}</div></section>
+    ${PISTAS.map((s, i) => `<section class="card formsec" id="sec${i}"><h2 class="formh">${s.nome}</h2>
+      ${tabelaHTML(['Se o enunciado fala em…','Pense em…'], s.itens, 'tbl-pistas')}</section>`).join('')}
+    ${outrasConsultas('pistas')}`;
+  toTop();
+}
+function openPegadinhas(){
+  abrirConsulta('Pegadinhas clássicas', 'Os erros que mais derrubam e como evitar cada um.', migConsulta('Pegadinhas clássicas'));
+  $('view').innerHTML = `
+    <section class="card intro"><p>As alternativas erradas costumam ser exatamente o resultado destes erros. Antes de marcar, confira se não caiu em nenhum deles.</p>
+      <div class="row" style="gap:6px">${PEGADINHAS.map((s, i) => `<a class="chip chip-link" href="#/consulta/pegadinhas" data-sec="${i}">${s.nome}</a>`).join('')}</div></section>
+    ${PEGADINHAS.map((s, i) => `<section class="card formsec" id="sec${i}"><h2 class="formh">${s.nome}</h2>
+      <div class="tools-grid form-grid">${s.itens.map(([t, h]) => `<div class="tool tool-main"><h4>${t}</h4><div>${h}</div></div>`).join('')}</div></section>`).join('')}
+    ${outrasConsultas('pegadinhas')}`;
+  toTop();
+}
+
 /* ===== Navegação com endereço próprio (#/tema/lista) e botão Voltar do celular ===== */
 function go(h){ if (location.hash === h) route(); else location.hash = h; }
 function openLogin(){
@@ -457,6 +578,12 @@ function route(){
   if (precisaLogin()){ openLogin(); return; }
   registrarAcessoDoDia(); enviarFila();
   const p = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
+  document.documentElement.classList.remove('th-form');
+  if (p[0] === 'formulario'){ location.replace('#/consulta/formulario'); return; }
+  if (p[0] === 'consulta'){
+    const pg = { formulario: openFormulario, prefixos: openPrefixos, grandezas: openGrandezas, constantes: openConstantes, pistas: openPistas, pegadinhas: openPegadinhas }[p[1]];
+    (pg || openConsultaHub)(); return;
+  }
   const ti = SITE.temas.findIndex(t => t.id === p[0]);
   if (ti < 0){ openHome(); return; }
   if (!p[1]){ openTema(ti); return; }
@@ -466,6 +593,8 @@ function route(){
 }
 window.addEventListener('hashchange', route);
 document.addEventListener('click', e => {
+  const cs = e.target.closest('[data-consulta]'); if (cs){ go('#/consulta' + (cs.dataset.consulta ? '/' + cs.dataset.consulta : '')); return; }
+  const sc = e.target.closest('[data-sec]'); if (sc){ e.preventDefault(); const el = $('sec' + sc.dataset.sec); if (el) el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); return; }
   const act = e.target.closest('[data-act="sair"]'); if (act){ setAluno(null); try { localStorage.removeItem(DIA_KEY); } catch(err){} go('#/'); route(); return; }
   const nav = e.target.closest('[data-nav]');
   if (nav){ go(nav.dataset.nav === 'tema' && T ? '#/' + T.id : '#/'); return; }

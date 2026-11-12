@@ -240,6 +240,62 @@ body{font-size:16px}
 /* Telas grandes (projetor): um pouco mais largo e maior */
 @media (min-width:1100px){.wrap{max-width:880px}body{font-size:19px}.stmt{font-size:20px}.fig{max-width:520px}}
 
+/* ===== Consulta rápida (portada do app do terceirão; cores na base azul do CIB) ===== */
+.th-form, :root.th-form{--sign:#1E4C8F}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]).th-form, :root:not([data-theme="light"]) .th-form{--sign:#3366B3}}
+:root[data-theme="dark"].th-form, :root[data-theme="dark"] .th-form{--sign:#3366B3}
+.formnav{gap:10px}
+.chip-link{text-decoration:none;color:var(--sign);border-color:var(--sign);font-size:12.5px;padding:4px 10px}
+.formh{font-family:var(--f-display);font-size:28px;line-height:1;margin:0}
+.formsec{gap:12px;scroll-margin-top:12px}
+.form-grid{padding:0}
+.form-grid .tool div small{display:block;font-size:13px;line-height:1.4;color:var(--muted);margin-top:4px}
+.tile.th-form .ico{background:var(--sign);outline-color:var(--sign);font-style:italic;font-family:Georgia,serif}
+:root{--main-bg:#E5EDF9;--main-line:#1E4C8F;--extra-line:#9AA7B6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--main-bg:#14254A;--main-line:#7FA6EC;--extra-line:#4A5868}}
+:root[data-theme="dark"]{--main-bg:#14254A;--main-line:#7FA6EC;--extra-line:#4A5868}
+.leg{display:inline-block;white-space:nowrap;font-family:var(--f-mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-right:6px;vertical-align:1px}
+.leg-main{background:var(--main-line);color:#FFFFFF}
+.leg-extra{background:transparent;color:var(--muted);box-shadow:inset 0 0 0 1px var(--extra-line)}
+.formleg{gap:8px}
+.formleg p{font-size:15px}
+.form-tag{margin:0}
+.tool.tool-main{background:var(--main-bg);border-left:4px solid var(--main-line)}
+.tool.tool-main h4{color:var(--main-line)}
+.form-extra{border-top:1.5px dashed var(--line);padding-top:10px}
+.form-extra summary{list-style:none;display:flex;align-items:center;gap:8px;cursor:pointer;padding:4px 0}
+.form-extra summary::-webkit-details-marker{display:none}
+.form-extra summary .chev{margin-left:auto;font-family:var(--f-mono);color:var(--muted);transition:transform .2s}
+.form-extra[open] summary .chev{transform:rotate(90deg)}
+.form-extra .form-grid{margin-top:10px}
+.tool.tool-extra{background:transparent;border:1px dashed var(--extra-line)}
+.tool.tool-extra div{font-size:15px}
+/* Consulta rápida */
+button.chip-link{background:transparent;cursor:pointer;font-family:var(--f-mono)}
+.tbl-pref td:nth-child(2),.tbl-pref td:nth-child(3){font-family:var(--f-mono);white-space:nowrap}
+.tbl-pref td:last-child,.tbl-deriv td:last-child{text-align:left;color:var(--muted);font-size:13.5px}
+.tbl-const td:first-child{text-align:left}
+.tbl-const td:last-child{text-align:left}
+.card .formh + p.small{margin-top:-4px}
+.tbl-deriv .simb{font-family:var(--f-mono);white-space:nowrap}
+.tbl-deriv td:nth-child(2){text-align:left}
+.tbl-pref td,.tbl-pref th{padding:6px 5px}
+.tbl-pistas td, .tbl-pistas th{text-align:left}
+.fxbox{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.fx{white-space:nowrap;display:inline-block}
+.fx-sep{margin:0 .55em 0 .1em;color:var(--muted)}
+.form-resumo{border-top:1.5px solid var(--line);padding-top:12px}
+.form-resumo .sect-label{margin:0 0 8px}
+.rs-lista{font-size:14px;line-height:1.4}
+.rs{display:grid;grid-template-columns:minmax(4.6em,auto) minmax(0,1fr);gap:10px;padding:4px 0;border-bottom:1px dashed var(--line);break-inside:avoid}
+.rs:last-child{border-bottom:0}
+.rs b{text-align:right;white-space:nowrap}
+.rs > span{color:var(--muted);overflow-wrap:anywhere}
+.rs .un{display:inline-block;margin-left:6px;padding:0 6px;border-radius:6px;background:var(--eq-bg);border:1px solid var(--line);color:var(--ink);font-family:var(--f-mono);font-size:12px;max-width:100%}
+.rs sub{font-size:.75em}
+@media (min-width:640px){.rs-lista{columns:2;column-gap:28px}}
+@media (max-width:360px){.formsec .fxbox{font-size:15px}.formsec .tool.tool-extra .fxbox{font-size:14.5px}}
+
 .install{border-color:var(--sign)}
 .install p{margin:0}
 @media (display-mode: standalone){.wrap{padding-top:max(20px,env(safe-area-inset-top,0px))}}
@@ -1572,6 +1628,254 @@ const QL6 = [
 },
 ];
 
+/* ===== Consulta rápida (2ª série CIB): formulário, prefixos, grandezas, constantes, pistas e pegadinhas =====
+   Formulário: "Essenciais" = fórmulas usadas nas listas deste app. "Para ir além" = complementares do mesmo assunto. */
+const FORMULARIO = [
+  { nome: 'Ondulatória',
+    ess: [
+      ['Período e frequência', `f = ${f('n.º de oscilações','Δt')} &nbsp;;&nbsp; T = ${f('1','f')}`, true],
+      ['Equação fundamental', `v = λ · f &nbsp;;&nbsp; v = ${f('λ','T')}`, true],
+      ['Eco (ida e volta)', `d = ${f('v · Δt','2')}`, true],
+      ['Mudança de meio (refração)', `f<sub>1</sub> = f<sub>2</sub> &nbsp;;&nbsp; ${f('v<sub>1</sub>','v<sub>2</sub>')} = ${f('λ<sub>1</sub>','λ<sub>2</sub>')}<br><small>a frequência é da fonte e não muda</small>`, true],
+      ['Interferência (fontes em fase)', `construtiva: Δd = n · λ<br>destrutiva: Δd = (n + ½) · λ<br><small>n = 0, 1, 2, …; Δd: diferença de caminho</small>`, true],
+      ['Onda estacionária', `nós vizinhos: d = ${f('λ','2')}<br>ventres vizinhos: d = ${f('λ','2')}`, true]],
+    ext: [
+      ['Velocidade numa corda', `v = √${f('F','μ')} <small>(μ: massa por comprimento)</small>`],
+      ['Corda presa nas pontas', `f<sub>n</sub> = ${f('n · v','2L')} <small>(harmônico n)</small>`],
+      ['Tubos sonoros', `aberto: f<sub>n</sub> = ${f('n · v','2L')}<br>fechado: f<sub>n</sub> = ${f('n · v','4L')} <small>(n ímpar)</small>`],
+      ['Efeito Doppler', `f′ = f · ${f('v ± v<sub>o</sub>','v ∓ v<sub>f</sub>')}<br><small>sinais de cima: observador e fonte se aproximando</small>`]] },
+
+  { nome: 'Espectro eletromagnético',
+    ess: [
+      ['Equação fundamental da luz', `c = λ · f <small>(no vácuo e, aproximadamente, no ar)</small>`, true],
+      ['Ordem do espectro', `rádio → micro-ondas → infravermelho → visível → ultravioleta → raios X → gama<br><small>para a direita: f e energia aumentam; λ diminui</small>`, true],
+      ['Luz visível', `vermelho ≈ 700 nm → violeta ≈ 400 nm<br><small>o violeta tem a maior frequência do visível</small>`, true]],
+    ext: [
+      ['Energia de um fóton', `E = h · f <small>(h = 6,6 × 10⁻³⁴ J·s)</small>`],
+      ['Radiação ionizante', `<small>arranca elétrons dos átomos: ultravioleta mais energético, raios X e raios gama</small>`]] },
+
+  { nome: 'Princípios da óptica',
+    ess: [
+      ['Sombras (raios paralelos)', `${f('H','h')} = ${f('S','s')} <small>(altura e sombra no mesmo instante)</small>`, true],
+      ['Câmara escura', `${f('i','o')} = ${f('p′','p')}`, true],
+      ['Ano-luz', `d = c · t <small>(t = 1 ano)</small><br>1 ano-luz ≈ 9,5 × 10¹² km`, true],
+      ['Cor de um objeto', `<small>reflete a cor que vemos e absorve as outras; sem luz da sua cor, parece preto</small>`, true]],
+    ext: [
+      ['Fonte pontual e anteparo', `${f('D<sub>sombra</sub>','D<sub>objeto</sub>')} = ${f('d<sub>fonte–anteparo</sub>','d<sub>fonte–objeto</sub>')}<br><small>a área cresce com o quadrado dessa razão</small>`]] },
+
+  { nome: 'Espelhos planos',
+    ess: [
+      ['Imagem no espelho plano', `d<sub>imagem</sub> = d<sub>objeto</sub><br><small>virtual, direita, do mesmo tamanho e com esquerda e direita trocadas</small>`, true],
+      ['Associação de espelhos', `N = ${f('360°','α')} − 1`, true],
+      ['Translação do espelho', `espelho anda x → imagem anda 2x <small>(objeto parado)</small>`, true],
+      ['Rotação do espelho', `espelho gira α → raio refletido gira 2α`, true]],
+    ext: [
+      ['Velocidade da imagem', `v<sub>imagem</sub> = v<sub>objeto</sub> <small>(em relação ao espelho, em sentidos opostos)</small>`],
+      ['Campo visual', `<small>trace retas da imagem do observador passando pelas bordas do espelho</small>`]] },
+
+  { nome: 'Espelhos esféricos',
+    ess: [
+      ['Distância focal', `f = ${f('R','2')}<br><small>côncavo: f &gt; 0; convexo: f &lt; 0</small>`, true],
+      ['Equação de Gauss', `${f('1','f')} = ${f('1','p')} + ${f('1','p′')}<br><small>p′ &gt; 0: imagem real; p′ &lt; 0: imagem virtual</small>`, true],
+      ['Aumento da imagem', `A = ${f('i','o')} = −${f('p′','p')}<br><small>A &gt; 0: direita; A &lt; 0: invertida</small>`, true]],
+    ext: [
+      ['Gauss com dois termos', `f = ${f('p · p′','p + p′')}`],
+      ['Aumento sem p′', `A = ${f('f','f − p')}`],
+      ['Raios notáveis', `<small>paralelo ao eixo → passa pelo foco; pelo foco → sai paralelo; pelo centro C → volta sobre si</small>`]] },
+
+  { nome: 'Refração',
+    ess: [
+      ['Índice de refração', `n = ${f('c','v')} <small>(n ≥ 1)</small>`, true],
+      ['Lei de Snell', `n₁ · sen θ₁ = n₂ · sen θ₂<br>${f('sen θ₁','sen θ₂')} = ${f('n₂','n₁')} = ${f('v₁','v₂')} = ${f('λ₁','λ₂')}<br><small>ângulos medidos a partir da normal</small>`, true],
+      ['Ângulo limite', `sen L = ${f('n<sub>menor</sub>','n<sub>maior</sub>')}<br><small>reflexão total: do meio mais refringente para o menos, com θ &gt; L</small>`, true],
+      ['Dispersão', `n<sub>vermelho</sub> &lt; … &lt; n<sub>violeta</sub><br><small>o violeta é o mais lento e o mais desviado</small>`, true]],
+    ext: [
+      ['Dioptro plano (profundidade aparente)', `${f('p′','p')} = ${f('n<sub>observador</sub>','n<sub>objeto</sub>')}`],
+      ['Lâmina de faces paralelas', `d = e · ${f('sen(i − r)','cos r')}`],
+      ['Desvio num prisma', `δ = i + i′ − A`]] }
+];
+
+/* ----- Resumo de símbolos e unidades no fim de cada assunto: símbolo | significado | unidade no SI ----- */
+const RESUMO_TXT = {
+  'Ondulatória': `v | velocidade de propagação da onda | m/s
+λ | comprimento de onda | m
+f | frequência | Hz
+T | período | s
+Δt | intervalo de tempo | s
+d | distância (no eco, até o obstáculo) | m
+Δd | diferença de caminho entre as duas ondas | m
+n | número inteiro (0, 1, 2…) ou número do harmônico | sem unidade
+F | força de tração na corda | N
+μ | densidade linear da corda | kg/m
+L | comprimento da corda ou do tubo | m
+f<sub>n</sub> | frequência do harmônico n | Hz
+f′ | frequência percebida (Doppler) | Hz
+v<sub>o</sub>, v<sub>f</sub> | velocidades do observador e da fonte | m/s`,
+  'Espectro eletromagnético': `c | velocidade da luz no vácuo (3,0 × 10⁸) | m/s
+λ | comprimento de onda | m (também nm)
+f | frequência | Hz
+E | energia de um fóton | J
+h | constante de Planck (6,6 × 10⁻³⁴) | J·s`,
+  'Princípios da óptica': `H, h | alturas do objeto maior e do menor | m
+S, s | sombras correspondentes | m
+i, o | tamanhos da imagem e do objeto | m
+p | distância do objeto ao orifício | m
+p′ | profundidade da câmara escura | m
+d | distância | m (também ano-luz)
+c | velocidade da luz (3,0 × 10⁵ km/s) | m/s
+t | tempo | s
+D | diâmetro (do objeto ou da sombra) | m`,
+  'Espelhos planos': `d | distância até o espelho | m
+N | número de imagens | sem unidade
+α | ângulo entre os espelhos (ou de rotação do espelho) | ° (grau)
+x | deslocamento do espelho | m
+v | velocidade | m/s`,
+  'Espelhos esféricos': `f | distância focal | m
+R | raio de curvatura | m
+p | distância do objeto ao espelho | m
+p′ | distância da imagem ao espelho | m
+i, o | tamanhos da imagem e do objeto | m
+A | aumento linear | sem unidade`,
+  'Refração': `n, n₁, n₂ | índices de refração | sem unidade
+c | velocidade da luz no vácuo (3,0 × 10⁸) | m/s
+v, v₁, v₂ | velocidade da luz em cada meio | m/s
+λ₁, λ₂ | comprimento de onda em cada meio | m
+θ₁, θ₂ | ângulos com a normal | ° (grau)
+L | ângulo limite | ° (grau)
+p, p′ | profundidade real e aparente | m
+d | desvio lateral da lâmina | m
+e | espessura da lâmina | m
+i, r | ângulos de incidência e de refração | ° (grau)
+i′ | ângulo de emergência (prisma) | ° (grau)
+δ | desvio (prisma) | ° (grau)
+A | ângulo de abertura do prisma | ° (grau)`
+};
+const RESUMO = Object.fromEntries(Object.entries(RESUMO_TXT).map(([k, v]) => [k, v.split('\n').map(l => l.split(' | '))]));
+
+/* ----- Prefixos ----- */
+const PREFIXOS = [
+  ['tera','T','10¹²','luz visível: f ≈ 500 THz'],
+  ['giga','G','10⁹','Wi-Fi de 2,4 GHz'],
+  ['mega','M','10⁶','rádio FM de 100 MHz'],
+  ['quilo','k','10³','rádio AM de 1 000 kHz'],
+  ['hecto','h','10²','1 hPa = 100 Pa (meteorologia)'],
+  ['deca','da','10¹','pouco usado'],
+  ['deci','d','10⁻¹','1 dm³ = 1 L'],
+  ['centi','c','10⁻²','micro-ondas: λ ≈ 12 cm'],
+  ['mili','m','10⁻³','ultrassom do morcego: λ de alguns mm'],
+  ['micro','µ','10⁻⁶','infravermelho: λ de alguns µm'],
+  ['nano','n','10⁻⁹','luz visível: 400 nm a 700 nm'],
+  ['pico','p','10⁻¹²','raios gama: λ abaixo de 10 pm']
+];
+
+/* ----- Grandezas e unidades (SI) ----- */
+const GRANDEZAS_FUND = [
+  ['Comprimento','metro','m'],['Massa','quilograma','kg'],['Tempo','segundo','s'],['Corrente elétrica','ampère','A'],
+  ['Temperatura','kelvin','K'],['Quantidade de matéria','mol','mol'],['Intensidade luminosa','candela','cd']
+];
+const GRANDEZAS_DERIV = [
+  ['Área','metro quadrado','m²',''],['Volume','metro cúbico','m³','1 m³ = 1 000 L'],['Ângulo','radiano','rad','180° = π rad (na óptica, em geral em graus)'],
+  ['Velocidade','metro por segundo','m/s','km/h ÷ 3,6 = m/s'],['Frequência','hertz','Hz','1 Hz = 1 s⁻¹ (oscilações por segundo)'],
+  ['Período','segundo','s','T = 1/f'],['Comprimento de onda','metro','m','também nm, µm, cm'],
+  ['Força','newton','N','1 N = 1 kg·m/s²'],['Energia','joule','J','1 J = 1 N·m'],['Potência','watt','W','1 W = 1 J/s'],
+  ['Índice de refração','(sem unidade)','—','razão entre velocidades: n = c/v'],['Aumento linear','(sem unidade)','—','razão entre tamanhos: A = i/o']
+];
+
+/* ----- Constantes e conversões ----- */
+const CONSTANTES = [
+  ['Velocidade da luz no vácuo','c','3,0 × 10⁸ m/s = 3,0 × 10⁵ km/s'],
+  ['Velocidade do som no ar (≈ 20 °C)','v<sub>som</sub>','≈ 340 m/s'],
+  ['Velocidade do som na água','v<sub>som</sub>','≈ 1 450 m/s <small>(varia com a temperatura e a salinidade; use o valor do enunciado)</small>'],
+  ['Índice de refração do ar','n<sub>ar</sub>','≈ 1,0'],
+  ['Índice de refração da água','n<sub>água</sub>','≈ 1,33'],
+  ['Índice de refração do vidro comum','n<sub>vidro</sub>','≈ 1,5'],
+  ['Índice de refração do diamante','n<sub>diamante</sub>','≈ 2,42'],
+  ['Constante de Planck','h','6,6 × 10⁻³⁴ J·s'],
+  ['Ano-luz','—','≈ 9,5 × 10¹² km = 9,5 × 10¹⁵ m']
+];
+const CONVERSOES = [
+  ['Velocidade','1 m/s = 3,6 km/h <small>(km/h ÷ 3,6 = m/s)</small>'],
+  ['Tempo','1 min = 60 s &nbsp;;&nbsp; 1 h = 3 600 s<br>1 ano ≈ 3,2 × 10⁷ s'],
+  ['Frequência','“por minuto” ÷ 60 = por segundo (Hz)<br>1 kHz = 10³ Hz · 1 MHz = 10⁶ Hz · 1 GHz = 10⁹ Hz'],
+  ['Comprimento','1 cm = 10⁻² m · 1 mm = 10⁻³ m<br>1 µm = 10⁻⁶ m · 1 nm = 10⁻⁹ m'],
+  ['Senos e cossenos', 'sen 30° = cos 60° = 0,50<br>sen 37° = cos 53° ≈ 0,60<br>sen 45° = cos 45° ≈ 0,71<br>sen 53° = cos 37° ≈ 0,80<br>sen 60° = cos 30° ≈ 0,87'],
+  ['Ângulo','180° = π rad']
+];
+
+/* Páginas da Consulta rápida */
+const CONSULTA = [
+  { id: 'formulario', ico: 'ƒ', nome: 'Formulário', resumo: 'As fórmulas por assunto: as usadas nas listas em destaque e, em cada assunto, as complementares para ir além.' },
+  { id: 'prefixos', ico: 'µ', nome: 'Prefixos e potências de 10', resumo: 'De tera a pico, com exemplos de ondas e de luz e as armadilhas das conversões.' },
+  { id: 'grandezas', ico: 'SI', nome: 'Grandezas e unidades', resumo: 'As 7 grandezas fundamentais do SI e as derivadas que aparecem em ondas e óptica.' },
+  { id: 'constantes', ico: 'c', nome: 'Constantes e conversões', resumo: 'Velocidades da luz e do som, índices de refração, senos notáveis e conversões.' },
+  { id: 'pistas', ico: '→', nome: 'Pistas do enunciado', resumo: 'Palavras e situações do texto que indicam o conceito cobrado: ondas, espectro e óptica.' },
+  { id: 'pegadinhas', ico: '!', nome: 'Pegadinhas clássicas', resumo: 'Os erros que mais derrubam em ondas, espectro e óptica, e como evitar cada um.' }
+];
+
+/* Pistas do enunciado: [o que aparece no texto, o que pensar] */
+const PISTAS = [
+  { nome: 'Ondas', itens: [
+    ['boia, rolha, folha que sobe e desce, ola no estádio', '<b>A onda transporta energia, não matéria</b>. O meio só oscila no lugar.'],
+    ['eco, sonar, morcego, ultrassonografia, sensor de estacionamento', '<b>Reflexão</b>. d = v · Δt / 2 (ida e volta).'],
+    ['“ouve atrás do muro”, “contorna”, porta, fenda, rádio AM atrás do morro', '<b>Difração</b>. Forte quando λ é parecido com o obstáculo.'],
+    ['muda de meio, ar → água, região funda → rasa', '<b>Refração</b>. A frequência não muda; v e λ mudam juntos.'],
+    ['bolha de sabão colorida, mancha de óleo, cancelamento de ruído, dois alto-falantes', '<b>Interferência</b>. Ondas se reforçam ou se anulam.'],
+    ['óculos polarizados, óculos 3D, dois filtros cruzados', '<b>Polarização</b>. Só ondas transversais (o som no ar não).'],
+    ['chocolate no micro-ondas, nós e ventres, corda presa nas pontas', '<b>Onda estacionária</b>. Distância entre nós = λ/2.'],
+    ['ambulância, radar, “se aproxima”, “se afasta”', '<b>Efeito Doppler</b>. Aproximação → f maior; afastamento → f menor.'],
+    ['gráfico com “t (s)” no eixo horizontal', '<b>Gráfico no tempo</b>. De crista a crista se lê o <b>período</b>, não λ.']] },
+  { nome: 'Espectro eletromagnético', itens: [
+    ['Wi-Fi, celular, forno de micro-ondas, radar', '<b>Micro-ondas</b> (ou rádio). λ de centímetros.'],
+    ['controle remoto, câmera térmica, sensor de presença, “calor” de uma brasa', '<b>Infravermelho</b>. Emitido por corpos aquecidos.'],
+    ['bronzeado, queimadura solar, protetor solar, esterilização, camada de ozônio', '<b>Ultravioleta</b>. Mais energia por fóton que o visível.'],
+    ['radiografia, ossos claros, aeroporto', '<b>Raios X</b>. Ossos absorvem mais que os tecidos moles.'],
+    ['radioterapia, cobalto-60, “ionizante”, chumbo', '<b>Raios gama</b> (e X). Arrancam elétrons: ionizantes.'],
+    ['“mais rápido”, “mais lento” no vácuo', '<b>Todas</b> as ondas eletromagnéticas andam a c no vácuo.'],
+    ['GHz, MHz, nm', '<b>Potências de 10</b>. Converta antes de usar c = λ · f.']] },
+  { nome: 'Óptica', itens: [
+    ['sombra, eclipse, “mesmo instante”, poste e prédio', '<b>Propagação retilínea</b> e <b>semelhança de triângulos</b>.'],
+    ['câmara escura, caixa com furo, imagem invertida', '<b>Câmara escura</b>. i/o = p′/p.'],
+    ['“iluminado só com luz vermelha”, cor da roupa sob outra luz', '<b>Cor do objeto</b>. Ele só reflete a luz da sua cor que chega até ele.'],
+    ['anos-luz, “a luz que vemos hoje saiu há…”', '<b>Ano-luz é distância</b>. Ver longe é ver o passado.'],
+    ['AMBULÂNCIA espelhada, nome na camiseta, provador com dois espelhos', '<b>Espelho plano</b>. Esquerda e direita trocadas; N = 360°/α − 1.'],
+    ['retrovisor, saída de garagem, “campo visual maior”, “parece mais longe”', '<b>Espelho convexo</b>. Imagem virtual, direita e menor.'],
+    ['espelho de maquiagem ou de dentista, farol, forno solar, “projeta na parede”', '<b>Espelho côncavo</b>. Amplia de perto; projeta imagem real.'],
+    ['canudo “quebrado”, piscina mais rasa, peixe “mais alto”', '<b>Refração</b>. A imagem fica mais perto da superfície.'],
+    ['fibra óptica, brilho do diamante, prisma que funciona como espelho', '<b>Reflexão total</b>. Do meio mais refringente para o menos, com θ &gt; L.'],
+    ['arco-íris, prisma, luz branca separada em cores', '<b>Dispersão</b>. O índice depende da cor; o violeta desvia mais.']] }
+];
+
+/* Pegadinhas clássicas: [erro, como evitar] */
+const PEGADINHAS = [
+  { nome: 'Ondas', itens: [
+    ['Eco sem dividir por 2', 'O som vai e volta: d = v · Δt / 2.'],
+    ['Achar que a frequência muda na refração', 'A frequência é da fonte. Na mudança de meio, v e λ mudam na mesma proporção.'],
+    ['Amplitude de pico a vale', 'A amplitude vai do equilíbrio até a crista. De crista a vale são 2A.'],
+    ['Contar cristas em vez de espaços', 'Entre 5 cristas há 4 comprimentos de onda.'],
+    ['Confundir gráfico no tempo com gráfico no espaço', 'Eixo t: de crista a crista é o período T. Eixo x: é o comprimento de onda λ.'],
+    ['Distância entre nós', 'Entre dois nós (ou dois ventres) vizinhos cabe λ/2, não λ.'],
+    ['“Por minuto” como hertz', 'Hz é por segundo: divida por 60.'],
+    ['Polarizar o som', 'Só ondas transversais se polarizam. O som no ar é longitudinal.']] },
+  { nome: 'Espectro eletromagnético', itens: [
+    ['“Mais energia, mais rápido”', 'No vácuo, todas andam a 3,0 × 10⁸ m/s. A energia do fóton cresce com a frequência, não a velocidade.'],
+    ['Inverter c = λ · f', 'λ = c / f: a velocidade fica em cima.'],
+    ['Esquecer o prefixo', 'nm = 10⁻⁹ m · GHz = 10⁹ Hz. Sem converter, a resposta erra por potências de 10.'],
+    ['Toda radiação é perigosa', 'Só a ionizante (UV mais energético, X e gama) arranca elétrons. Luz, Wi-Fi e infravermelho não ionizam.'],
+    ['Micro-ondas como onda mecânica', 'São eletromagnéticas, como a luz: atravessam o vácuo.']] },
+  { nome: 'Óptica', itens: [
+    ['Distância até a imagem no espelho plano', 'A imagem está atrás do espelho: da pessoa até a imagem é o dobro da distância até o espelho.'],
+    ['Espelho plano inverte de cima para baixo', 'Não inverte: a imagem é direita. Ele troca esquerda e direita.'],
+    ['Esquecer o −1 na associação', 'N = 360°/α − 1: o objeto não conta como imagem.'],
+    ['Sinal do espelho convexo', 'No convexo, f é negativo (f = −R/2).'],
+    ['Somar os inversos errado', '1/p′ = 1/f − 1/p: subtraia, não some.'],
+    ['Medir p′ a partir do objeto', 'p e p′ são sempre medidos a partir do espelho.'],
+    ['Razão de áreas igual à de diâmetros', 'Diâmetro 4 vezes maior → área 16 vezes maior.'],
+    ['Ângulo com a superfície', 'Na refração e na reflexão, os ângulos são medidos a partir da <b>normal</b>.'],
+    ['Maior índice, maior velocidade', 'É o contrário: v = c / n.'],
+    ['Reflexão total entrando no vidro', 'Só acontece saindo do meio mais refringente para o menos.'],
+    ['Ano-luz como tempo', 'Ano-luz é distância: o que a luz percorre em 1 ano.']] }
+];
+
 /* ===== Estrutura do site: temas e listas. Para adicionar material, inclua um item em "listas" ou um novo tema. ===== */
 const SITE = {
   escola: 'Colégio Israelita Brasileiro',
@@ -1737,7 +2041,7 @@ function crumbs(items){
   c.hidden = false;
   c.innerHTML = items.map((it, i) => {
     const last = i === items.length - 1;
-    return (i ? '<span class="sep">›</span>' : '') + (last ? `<span class="here">${it.label}</span>` : `<button data-nav="${it.nav}">${it.label}</button>`);
+    return (i ? '<span class="sep">›</span>' : '') + (last ? `<span class="here">${it.label}</span>` : it.consulta !== undefined ? `<button data-consulta="${it.consulta}">${it.label}</button>` : `<button data-nav="${it.nav}">${it.label}</button>`);
   }).join('');
 }
 
@@ -1752,6 +2056,14 @@ function openHome(){
       <p class="sect-label">Como usar</p>
       <p>Aqui ficam as listas e práticas de Física da turma. Escolha um tema e depois a lista. Cada lista mostra uma questão por vez, com dica e resolução detalhada logo depois de responder.</p>
     </section>
+    <p class="sect-label">Consulta rápida</p>
+    <div class="cards">
+      <button class="tile th-form" data-consulta="">
+        <span class="ico">ƒ</span>
+        <span><span class="tt">Consulta rápida</span><span class="ds">Formulário, prefixos, grandezas e unidades, constantes, pistas do enunciado e pegadinhas: tudo o que vale ter à mão enquanto resolve.</span>
+          <span class="meta"><span class="chip">${CONSULTA.length} páginas</span></span></span>
+        <span class="go">→</span></button>
+    </div>
     <p class="sect-label">Temas</p>
     <div class="cards">
       ${SITE.temas.map((t, i) => {
@@ -1993,6 +2305,119 @@ function goQ(i){
   toTop();
 }
 
+/* ===== Consulta rápida ===== */
+function abrirConsulta(titulo, sub, migalhas){
+  contarTempo(); tMarca = null; T = LI = null;
+  plate(`Física · ${SITE.turma} · Consulta rápida`, titulo, sub);
+  document.documentElement.classList.add('th-form');
+  crumbs(migalhas);
+}
+const tabelaHTML = (cab, linhas, cls) => `<div class="tblwrap tbl-txt ${cls || ''}"><table><tr>${cab.map(c => `<th>${c}</th>`).join('')}</tr>${linhas.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('')}</table></div>`;
+const outrasConsultas = atual => `<p class="sect-label">Outras páginas da Consulta rápida</p><div class="row" style="gap:6px">${CONSULTA.filter(c => c.id !== atual).map(c => `<button class="chip chip-link" data-consulta="${c.id}">${c.nome}</button>`).join('')}</div>`;
+function openConsultaHub(){
+  abrirConsulta('Consulta rápida', 'Material de apoio para ter à mão enquanto estuda.', [{ label:'Início', nav:'home' }, { label:'Consulta rápida' }]);
+  $('view').innerHTML = `<div class="cards">${CONSULTA.map(c => `<button class="tile th-form" data-consulta="${c.id}"><span class="ico">${c.ico}</span><span><span class="tt">${c.nome}</span><span class="ds">${c.resumo}</span></span><span class="go">→</span></button>`).join('')}</div>`;
+  toTop();
+}
+const migConsulta = nome => [{ label:'Início', nav:'home' }, { label:'Consulta rápida', consulta:'' }, { label: nome }];
+/* Formulário: cada fórmula fica numa linha só (sem quebrar no meio); as fórmulas de um mesmo bloco podem ir para linhas diferentes */
+function fxLinha(h){
+  return h.split(/<br\s*\/?>/).map(lin => lin.split('&nbsp;;&nbsp;').map(pc => {
+    const k = pc.indexOf('<small');
+    const fm = (k >= 0 ? pc.slice(0, k) : pc).trim(), nota = k >= 0 ? pc.slice(k) : '';
+    if (!fm) return nota;
+    if (!/[=≤]/.test(fm)) return fm + nota;
+    const r = fm.match(/^([^=<]{1,22}?:)\s+(.*)$/);   // rótulo ("série:", "sobre fio:") fica fora da fórmula
+    return (r ? `${r[1]} <span class="fx">${r[2]}</span>` : `<span class="fx">${fm}</span>`) + nota;
+  }).join('<span class="fx-sep">;</span>')).join('<br>');
+}
+const resumoHTML = nome => {
+  const L = RESUMO[nome]; if (!L) return '';
+  return `<div class="form-resumo"><p class="sect-label">Resumo: símbolos e unidades no SI</p><div class="rs-lista">${L.map(([sb, ds, un]) => `<div class="rs"><b>${sb}</b><span>${ds}<span class="un">${un}</span></span></div>`).join('')}</div></div>`;
+};
+function openFormulario(){
+  abrirConsulta('Formulário', 'As fórmulas por assunto, das essenciais às complementares.', migConsulta('Formulário'));
+  const nEss = FORMULARIO.reduce((n, s) => n + s.ess.length, 0), nExt = FORMULARIO.reduce((n, s) => n + s.ext.length, 0);
+  $('view').innerHTML = `
+    <section class="card intro formleg"><p><span class="leg leg-main">Essenciais</span> ${nEss} fórmulas e ideias: as que você usa nas listas deste app. Comece por elas.</p>
+      <p><span class="leg leg-extra">Para ir além</span> Mais ${nExt} itens do mesmo assunto que também aparecem em provas. Abra em cada assunto quando as essenciais já estiverem firmes.</p></section>
+    <nav class="card formnav" aria-label="Assuntos do formulário"><p class="sect-label">Ir para</p><div class="row" style="gap:6px">${FORMULARIO.map((s, i) => `<a class="chip chip-link" href="#/consulta/formulario" data-sec="${i}">${s.nome}</a>`).join('')}</div></nav>
+    ${FORMULARIO.map((s, i) => `<section class="card formsec" id="sec${i}"><h2 class="formh">${s.nome}</h2>
+        <p class="form-tag"><span class="leg leg-main">Essenciais</span></p>
+        <div class="tools-grid form-grid">${s.ess.map(([t, h, a]) => `<div class="tool tool-main"><h4>${t}</h4><div class="fxbox">${fxLinha(h)}</div></div>`).join('')}</div>
+        ${s.ext.length ? `<details class="form-extra"><summary><span class="leg leg-extra">Para ir além</span><span class="small">${s.ext.length} ${s.ext.length > 1 ? 'fórmulas complementares' : 'fórmula complementar'}</span><span class="chev">›</span></summary>
+          <div class="tools-grid form-grid">${s.ext.map(([t, h]) => `<div class="tool tool-extra"><h4>${t}</h4><div class="fxbox">${fxLinha(h)}</div></div>`).join('')}</div></details>` : ''}
+        ${resumoHTML(s.nome)}
+      </section>`).join('')}
+    ${outrasConsultas('formulario')}`;
+  toTop();
+}
+function openPrefixos(){
+  abrirConsulta('Prefixos', 'Potências de 10 que aparecem nas unidades.', migConsulta('Prefixos'));
+  $('view').innerHTML = `
+    <section class="card"><h2 class="formh">Prefixos do SI</h2>
+      <p class="small" style="margin:0">Cada prefixo multiplica a unidade por uma potência de 10: 3 km = 3 × 10³ m; 20 mA = 20 × 10⁻³ A.</p>
+      ${tabelaHTML(['Prefixo','Símbolo','Vale','Exemplo'], PREFIXOS.map(([n, s, v, e]) => [`<b>${n}</b>`, s, `× ${v}`, e]), 'tbl-pref')}</section>
+    <section class="card"><h2 class="formh">Como converter sem errar</h2>
+      <div class="tools-grid form-grid">
+        <div class="tool tool-main"><h4>Troque o prefixo pela potência</h4><div>450 nm = 450 × 10⁻⁹ m = 4,5 × 10⁻⁷ m</div></div>
+        <div class="tool tool-main"><h4>Área e volume: o prefixo também é elevado</h4><div>1 cm² = (10⁻² m)² = 10⁻⁴ m²<br>1 cm³ = (10⁻² m)³ = 10⁻⁶ m³</div></div>
+        <div class="tool tool-main"><h4>Notação científica</h4><div>um número entre 1 e 10 × potência de 10<br>4 500 = 4,5 × 10³ &nbsp;;&nbsp; 0,020 = 2,0 × 10⁻²</div></div>
+        <div class="tool tool-main"><h4>Multiplicar e dividir potências</h4><div>10ᵃ · 10ᵇ = 10ᵃ⁺ᵇ &nbsp;;&nbsp; ${f('10ᵃ','10ᵇ')} = 10ᵃ⁻ᵇ</div></div>
+      </div></section>
+    ${outrasConsultas('prefixos')}`;
+  toTop();
+}
+function openGrandezas(){
+  abrirConsulta('Grandezas e unidades', 'O Sistema Internacional (SI): fundamentais e derivadas.', migConsulta('Grandezas e unidades'));
+  $('view').innerHTML = `
+    <section class="card"><h2 class="formh">Grandezas fundamentais</h2>
+      <p class="small" style="margin:0">São as 7 grandezas de base do SI. Todas as outras unidades são combinações delas.</p>
+      ${tabelaHTML(['Grandeza','Unidade','Símbolo'], GRANDEZAS_FUND.map(([g, u, s]) => [`<b>${g}</b>`, u, s]))}</section>
+    <section class="card"><h2 class="formh">Grandezas derivadas</h2>
+      <p class="small" style="margin:0">As mais cobradas, com a relação com as unidades de base.</p>
+      ${tabelaHTML(['Grandeza','Unidade (símbolo)','Relação'], GRANDEZAS_DERIV.map(([g, u, s, r]) => [`<b>${g}</b>`, `${u} <span class="simb">(${s})</span>`, r || '—']), 'tbl-deriv')}</section>
+    <section class="card"><h2 class="formh">Escalares e vetoriais</h2>
+      <div class="tools-grid form-grid">
+        <div class="tool tool-main"><h4>Escalares</h4><div>ficam definidas por valor e unidade<br><small>massa, tempo, temperatura, energia, potência, carga</small></div></div>
+        <div class="tool tool-main"><h4>Vetoriais</h4><div>precisam de valor, direção e sentido<br><small>deslocamento, velocidade, aceleração, força, impulso, campo</small></div></div>
+      </div></section>
+    ${outrasConsultas('grandezas')}`;
+  toTop();
+}
+function openConstantes(){
+  abrirConsulta('Constantes e conversões', 'Valores para usar nos cálculos.', migConsulta('Constantes e conversões'));
+  $('view').innerHTML = `
+    <section class="card"><h2 class="formh">Constantes físicas</h2>
+      <p class="small" style="margin:0">Valores arredondados, para cálculo. Na prova, use sempre o valor que o enunciado der.</p>
+      ${tabelaHTML(['Constante','Símbolo','Valor'], CONSTANTES.map(([n, s, v]) => [n, s, v]), 'tbl-const')}</section>
+    <section class="card"><h2 class="formh">Conversões úteis</h2>
+      <div class="tools-grid form-grid">${CONVERSOES.map(([t, h]) => `<div class="tool tool-main"><h4>${t}</h4><div>${h}</div></div>`).join('')}</div></section>
+    ${outrasConsultas('constantes')}`;
+  toTop();
+}
+
+function openPistas(){
+  abrirConsulta('Pistas do enunciado', 'O que o texto diz e o conceito que ele está cobrando.', migConsulta('Pistas do enunciado'));
+  $('view').innerHTML = `
+    <section class="card intro"><p>As questões costumam esconder o conceito numa situação do cotidiano. Quando uma destas palavras ou situações aparecer, comece pensando no conceito ao lado.</p>
+      <div class="row" style="gap:6px">${PISTAS.map((s, i) => `<a class="chip chip-link" href="#/consulta/pistas" data-sec="${i}">${s.nome}</a>`).join('')}</div></section>
+    ${PISTAS.map((s, i) => `<section class="card formsec" id="sec${i}"><h2 class="formh">${s.nome}</h2>
+      ${tabelaHTML(['Se o enunciado fala em…','Pense em…'], s.itens, 'tbl-pistas')}</section>`).join('')}
+    ${outrasConsultas('pistas')}`;
+  toTop();
+}
+function openPegadinhas(){
+  abrirConsulta('Pegadinhas clássicas', 'Os erros que mais derrubam e como evitar cada um.', migConsulta('Pegadinhas clássicas'));
+  $('view').innerHTML = `
+    <section class="card intro"><p>As alternativas erradas costumam ser exatamente o resultado destes erros. Antes de marcar, confira se não caiu em nenhum deles.</p>
+      <div class="row" style="gap:6px">${PEGADINHAS.map((s, i) => `<a class="chip chip-link" href="#/consulta/pegadinhas" data-sec="${i}">${s.nome}</a>`).join('')}</div></section>
+    ${PEGADINHAS.map((s, i) => `<section class="card formsec" id="sec${i}"><h2 class="formh">${s.nome}</h2>
+      <div class="tools-grid form-grid">${s.itens.map(([t, h]) => `<div class="tool tool-main"><h4>${t}</h4><div>${h}</div></div>`).join('')}</div></section>`).join('')}
+    ${outrasConsultas('pegadinhas')}`;
+  toTop();
+}
+
 /* ===== Navegação com endereço próprio (#/tema/lista) e botão Voltar do celular ===== */
 function go(h){ if (location.hash === h) route(); else location.hash = h; }
 function openLogin(){
@@ -2031,6 +2456,12 @@ function route(){
   if (precisaLogin()){ openLogin(); return; }
   registrarAcessoDoDia(); enviarFila();
   const p = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
+  document.documentElement.classList.remove('th-form');
+  if (p[0] === 'formulario'){ location.replace('#/consulta/formulario'); return; }
+  if (p[0] === 'consulta'){
+    const pg = { formulario: openFormulario, prefixos: openPrefixos, grandezas: openGrandezas, constantes: openConstantes, pistas: openPistas, pegadinhas: openPegadinhas }[p[1]];
+    (pg || openConsultaHub)(); return;
+  }
   const ti = SITE.temas.findIndex(t => t.id === p[0]);
   if (ti < 0){ openHome(); return; }
   if (!p[1]){ openTema(ti); return; }
@@ -2040,6 +2471,8 @@ function route(){
 }
 window.addEventListener('hashchange', route);
 document.addEventListener('click', e => {
+  const cs = e.target.closest('[data-consulta]'); if (cs){ go('#/consulta' + (cs.dataset.consulta ? '/' + cs.dataset.consulta : '')); return; }
+  const sc = e.target.closest('[data-sec]'); if (sc){ e.preventDefault(); const el = $('sec' + sc.dataset.sec); if (el) el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); return; }
   const act = e.target.closest('[data-act="sair"]'); if (act){ setAluno(null); try { localStorage.removeItem(DIA_KEY); } catch(err){} go('#/'); route(); return; }
   const nav = e.target.closest('[data-nav]');
   if (nav){ go(nav.dataset.nav === 'tema' && T ? '#/' + T.id : '#/'); return; }

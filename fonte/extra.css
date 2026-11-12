@@ -89,3 +89,59 @@
 .plate-deco{width:150px;bottom:12px;right:14px}
 /* Telas grandes (projetor): um pouco mais largo e maior */
 @media (min-width:1100px){.wrap{max-width:880px}body{font-size:19px}.stmt{font-size:20px}.fig{max-width:520px}}
+
+/* ===== Consulta rápida (portada do app do terceirão; cores na base azul do CIB) ===== */
+.th-form, :root.th-form{--sign:#1E4C8F}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]).th-form, :root:not([data-theme="light"]) .th-form{--sign:#3366B3}}
+:root[data-theme="dark"].th-form, :root[data-theme="dark"] .th-form{--sign:#3366B3}
+.formnav{gap:10px}
+.chip-link{text-decoration:none;color:var(--sign);border-color:var(--sign);font-size:12.5px;padding:4px 10px}
+.formh{font-family:var(--f-display);font-size:28px;line-height:1;margin:0}
+.formsec{gap:12px;scroll-margin-top:12px}
+.form-grid{padding:0}
+.form-grid .tool div small{display:block;font-size:13px;line-height:1.4;color:var(--muted);margin-top:4px}
+.tile.th-form .ico{background:var(--sign);outline-color:var(--sign);font-style:italic;font-family:Georgia,serif}
+:root{--main-bg:#E5EDF9;--main-line:#1E4C8F;--extra-line:#9AA7B6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--main-bg:#14254A;--main-line:#7FA6EC;--extra-line:#4A5868}}
+:root[data-theme="dark"]{--main-bg:#14254A;--main-line:#7FA6EC;--extra-line:#4A5868}
+.leg{display:inline-block;white-space:nowrap;font-family:var(--f-mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-right:6px;vertical-align:1px}
+.leg-main{background:var(--main-line);color:#FFFFFF}
+.leg-extra{background:transparent;color:var(--muted);box-shadow:inset 0 0 0 1px var(--extra-line)}
+.formleg{gap:8px}
+.formleg p{font-size:15px}
+.form-tag{margin:0}
+.tool.tool-main{background:var(--main-bg);border-left:4px solid var(--main-line)}
+.tool.tool-main h4{color:var(--main-line)}
+.form-extra{border-top:1.5px dashed var(--line);padding-top:10px}
+.form-extra summary{list-style:none;display:flex;align-items:center;gap:8px;cursor:pointer;padding:4px 0}
+.form-extra summary::-webkit-details-marker{display:none}
+.form-extra summary .chev{margin-left:auto;font-family:var(--f-mono);color:var(--muted);transition:transform .2s}
+.form-extra[open] summary .chev{transform:rotate(90deg)}
+.form-extra .form-grid{margin-top:10px}
+.tool.tool-extra{background:transparent;border:1px dashed var(--extra-line)}
+.tool.tool-extra div{font-size:15px}
+/* Consulta rápida */
+button.chip-link{background:transparent;cursor:pointer;font-family:var(--f-mono)}
+.tbl-pref td:nth-child(2),.tbl-pref td:nth-child(3){font-family:var(--f-mono);white-space:nowrap}
+.tbl-pref td:last-child,.tbl-deriv td:last-child{text-align:left;color:var(--muted);font-size:13.5px}
+.tbl-const td:first-child{text-align:left}
+.tbl-const td:last-child{text-align:left}
+.card .formh + p.small{margin-top:-4px}
+.tbl-deriv .simb{font-family:var(--f-mono);white-space:nowrap}
+.tbl-deriv td:nth-child(2){text-align:left}
+.tbl-pref td,.tbl-pref th{padding:6px 5px}
+.tbl-pistas td, .tbl-pistas th{text-align:left}
+.fxbox{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.fx{white-space:nowrap;display:inline-block}
+.fx-sep{margin:0 .55em 0 .1em;color:var(--muted)}
+.form-resumo{border-top:1.5px solid var(--line);padding-top:12px}
+.form-resumo .sect-label{margin:0 0 8px}
+.rs-lista{font-size:14px;line-height:1.4}
+.rs{display:grid;grid-template-columns:minmax(4.6em,auto) minmax(0,1fr);gap:10px;padding:4px 0;border-bottom:1px dashed var(--line);break-inside:avoid}
+.rs:last-child{border-bottom:0}
+.rs b{text-align:right;white-space:nowrap}
+.rs > span{color:var(--muted);overflow-wrap:anywhere}
+.rs .un{display:inline-block;margin-left:6px;padding:0 6px;border-radius:6px;background:var(--eq-bg);border:1px solid var(--line);color:var(--ink);font-family:var(--f-mono);font-size:12px;max-width:100%}
+.rs sub{font-size:.75em}
+@media (min-width:640px){.rs-lista{columns:2;column-gap:28px}}
+@media (max-width:360px){.formsec .fxbox{font-size:15px}.formsec .tool.tool-extra .fxbox{font-size:14.5px}}
