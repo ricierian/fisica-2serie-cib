@@ -19,6 +19,15 @@
  * Pode rodar "configurar" de novo quando quiser: os registros e a chamada colada são mantidos.
  */
 
+// Trava a coluna dos e-mails (abas de turma e Resumo) e as colunas de data e e-mail (Registros)
+function travarColunas() {
+  SpreadsheetApp.getActive().getSheets().forEach(sh => {
+    const n = sh.getName();
+    if (n.indexOf('Turma') === 0 || n === 'Resumo') sh.setFrozenColumns(1);
+    if (n === 'Registros') sh.setFrozenColumns(2);
+  });
+}
+
 const DOMINIO = 'aluno.colegioisraelita.com.br'; // ex.: aluno.escola.com.br (sem o @)
 const TURMAS = ['201', '202', '203'];
 const LISTAS = [
@@ -63,6 +72,7 @@ function configurar() {
   TURMAS.forEach((t, i) => criarAbaTurma(ss, t, i + 1));
   criarChamada(ss, TURMAS.length + 1);
   criarResumo(ss);
+  travarColunas();
 
   // Remove abas vazias que sobraram (planilha nova ou versão antiga do script)
   ['Página1', 'Sheet1', 'Turma'].forEach(n => {
